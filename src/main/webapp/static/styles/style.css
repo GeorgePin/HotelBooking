@@ -1,0 +1,172 @@
+@charset "UTF-8";
+
+@import url('https://fonts.googleapis.com/css2?family=B612:ital,wght@0,700;1,700&display=swap');
+
+body {
+	background: linear-gradient(121.99deg, #FED5CD 4.95%, #E0CDFE 70.55%);
+}
+
+input[type="submit"], input[type="button"] {
+	background: linear-gradient(101deg, rgba(250, 29, 108, 0.1755) -40.7%, rgba(0, 87, 255, 0.3081)
+		139.66%);
+	border-radius: 107px;
+	position: absolute;
+	width: 222px;
+	height: 76px;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+	left: 689px;
+	top: 550px;
+}
+
+#hotel-logo {
+	position: absolute;
+	width: 84px;
+	height: 82px;
+	left: 215px;
+	top: 37px;
+}
+
+#welcome {
+	position: absolute;
+	left: 664px;
+	top: 274px;
+	font-family: 'B612', sans-serif;
+	font-size: 36px;
+	line-height: 44px;
+	color: #4F3427;
+	left: 664px;
+}
+
+.text-field {
+	border: 10px #ffffff;
+	border-radius: 15px;
+}
+
+.text-field:focus::placeholder {
+	color: transparent;
+}
+
+.text-field::placeholder {
+	color: rgba(0, 0, 0, 0.17);
+	font-size: 1.2em;
+	font-family: 'B612', sans-serif;
+	color: rgba(0, 0, 0, 0.17);
+}
+
+#login-field {
+	position: absolute;
+	left: 648px;
+	top: 348px;
+	height: 50px;
+	width: 300px;
+}
+
+#password-field {
+	position: absolute;
+	left: 648px;
+	top: 417px;
+	height: 50px;
+	width: 300px;
+}
+
+.log-in-button {
+	position: absolute;
+	left: 689px;
+	top: 550px;
+}
+
+#log-in-text {
+	font-family: B612;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 36px;
+	line-height: 44px;
+	color: #4F3427;
+	font-weight: bold;
+}
+
+#requset-button {
+	font-family: B612;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 36px;
+	line-height: 44px;
+	color: #4F3427;
+	font-weight: bold;
+}
+
+.navigation-bar {
+	position: absolute;
+	width: 497px;
+	height: 44px;
+	left: 574px;
+	top: 62px;
+}
+
+a {
+	font-family: Gideon Roman;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 24px;
+	line-height: 29px;
+	color: rgba(115, 92, 81, 1);
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+.hotel-photo {
+	position: absolute;
+	left: 830px;
+	top: 100px;
+}
+
+#background-circle {
+	background: radial-gradient(109.53% 113.91% at -9.56% 0%, rgba(115, 120, 224, 0.22) 0%,
+		rgba(74, 233, 255, 0.22) 100%);
+	border-radius: 50%;
+	width: 560.16px;
+	height: 549.29px;
+}
+
+#heading {
+	position: absolute;
+	width: 428px;
+	height: 58px;
+	left: 214px;
+	top: 253px;
+	font-family: B612;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 48px;
+	line-height: 58px;
+	color: #4F3427;
+}
+
+p {
+	position: absolute;
+	width: 446px;
+	height: 267px;
+	left: 214px;
+	top: 342px;
+	font-family: Gideon Roman;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 24px;
+	line-height: 30px;
+	letter-spacing: 0.06em;
+	color: #735C51;
+}
+
+#requset-button {
+	position: absolute;
+	left: 290px;
+	top: 630px;
+}

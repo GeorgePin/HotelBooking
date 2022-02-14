@@ -1,0 +1,4 @@
+URL=jdbc:mysql://localhost:3306/hotel
+name=root 
+password=root
+poolsize=10
