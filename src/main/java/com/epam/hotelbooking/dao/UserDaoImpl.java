@@ -19,12 +19,6 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
     }
 
     @Override
-    public Optional<User> get(long id) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
     public List<User> getAll() {
         // TODO Auto-generated method stub
         return null;
@@ -46,6 +40,12 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
     public void delete(User t) {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public Optional<User> get(long id) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

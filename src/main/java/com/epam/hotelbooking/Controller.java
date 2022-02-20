@@ -14,6 +14,18 @@ import com.epam.hotelbooking.command.CommandResult;
 
 //TODO exceptions
 //TODO Overall refactoring
+//TODO crud
+//TODO jsp include for repeating parts
+//TODO if admin then only requests, clients and rooms and log out
+//TODO multiple pages if a lot of content
+//TODO id is not seening to anybody (соответсвенно если нужно передать id то нужно сделать это так
+//чтобы его не было видно в браузерной строке
+//TODO sure you want to delete data? (warning)
+//TODO new user (item) = put (post?) zapros ->post redirect get  (F5 protection)
+//TODO row mapper -> constructor
+//TODO update methods do in abstractDao
+//TODO Сделать фильтр авторизации. Обычный пользователь не может заходить на страницы для админа
+//TODO 9 march sobes -_- :'0
 public class Controller extends HttpServlet {
 
     private static final long serialVersionUID = 4688296068345966226L;
@@ -46,7 +58,7 @@ public class Controller extends HttpServlet {
             CommandResult result = action.execute(req, resp);
             dispatch(req, resp, result);
         } catch (Exception e) {
-            System.out.println("Oh no my dear");
+            System.out.println(e.getMessage());
         }
     }
 

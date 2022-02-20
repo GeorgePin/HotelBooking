@@ -22,15 +22,13 @@ public class LoginCommand implements Command {
         Optional<User> user = userService.login(login, password);
         if (user.isPresent()) {
             req.getSession()
-                    .setAttribute("user", user.get()
-                            .getId());
+                    .setAttribute("user", user.get());
             req.getSession()
-                    .setAttribute("isLoggedIn", "true");
-            return new CommandResult("index.jsp", false);
+                    .setAttribute("isLoggedIn", true);
+            return new CommandResult("/index.jsp", false);
         } else {
-            req.getSession()
-                    .setAttribute("errorMessage", "Invalid login data");
-            return new CommandResult("index.jsp", false);
+            req.setAttribute("errorMessage", "Invalid login data");
+            return new CommandResult("/index.jsp", false);
         }
     }
 }

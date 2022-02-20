@@ -21,7 +21,7 @@ import java.util.concurrent.Executor;
 
 public class ProxyConnection implements Connection {
     private Connection connection;
-
+//TODO insert connectionpool in constructor
     public ProxyConnection(Connection connection) {
         this.connection = connection;
     }

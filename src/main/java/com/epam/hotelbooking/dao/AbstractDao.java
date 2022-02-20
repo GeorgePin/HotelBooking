@@ -49,4 +49,10 @@ public abstract class AbstractDao<T extends Identifable> implements Dao<T> {
             throw new Exception("AbstractDaoException");
         }
     }
+
+    protected boolean executeQueryWithoutReturnValue(String query, Object... params) throws SQLException {
+        try (PreparedStatement statement = createStatement(query, params)) {
+            return statement.execute();
+        }
+    }
 }

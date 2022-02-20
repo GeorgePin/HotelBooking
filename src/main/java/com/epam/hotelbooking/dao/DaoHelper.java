@@ -18,6 +18,10 @@ public class DaoHelper implements AutoCloseable {
         return new UserDaoImpl(connection);
     }
 
+    public RequestRoomDao createRequestRoomDao() {
+        return new RequestRoomDaoImpl(connection);
+    }
+
     @Override
     public void close() throws Exception {
         connection.close();

@@ -11,9 +11,8 @@
 		<a href="controller?command=main"> <img src="static/images/hotel_logo.png" id="hotel-logo"
 			alt="hotel logo"></a>
 		<div class="navigation-bar">
-			<a href="">log in </a>|<a href=""> registration </a>|<a
-				href="${pageContext.request.contextPath}/controller?command=requsetRoom"> request room </a> |<a
-				href=""> requests</a>
+			<a href="">log in </a>|<a href=""> registration </a>|<a href="controller?command=requestRoomPage">
+				request room </a> |<a href="controller?command=requestsPage"> requests</a>|<a href="controller?command=logout"> log out</a>
 		</div>
 	</header>
 	<c:choose>
@@ -26,8 +25,8 @@
 			<div id="background-circle" class="hotel-photo">
 				<img src="static/images/hotel.png" alt="hotel photo">
 			</div>
-			<a href="controller?command=requsetRoom"><input type="button" id="requset-button"
-					value="requset!"></a>
+			<a href="controller?command=requestRoom"><input type="button" id="requset-button"
+					value="request!"></a>
 		</c:when>
 		<c:otherwise>
 			<h1 id="welcome">Welcome back!</h1>
