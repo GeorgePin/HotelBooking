@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+body {
+	background: linear-gradient(121.99deg, #FED5CD 4.95%, #E0CDFE 70.55%);
+}
+
+#rooms-table {
+	position: absolute;
+	top: 200px;
+	left: 400px;
+}
+
+#page-navigation-table {
+	position: absolute;
+	top: 150px;
+	left: 400px;
+}
+
+#create-new-room {
+	position: absolute;
+	top: 500px;
+	left: 600px;
+}

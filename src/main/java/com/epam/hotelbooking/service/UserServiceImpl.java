@@ -17,6 +17,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> login(String login, String password) throws Exception {
+        System.out.println(2);
         try (DaoHelper helper = daoHelperFactory.create()) {
             helper.startTransaction();
             UserDao dao = helper.createUserDao();

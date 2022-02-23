@@ -6,14 +6,7 @@
 <link rel="stylesheet" href="static/styles/style.css" type="text/css" />
 </head>
 <body>
-	<header>
-		<a href="controller?command=main"> <img src="static/images/hotel_logo.png" id="hotel-logo"
-			alt="hotel logo"></a>
-		<div class="navigation-bar">
-			<a href="">log in </a>|<a href=""> registration </a>|<a href=""> request room </a> |<a href="">
-				requests</a>
-		</div>
-	</header>
+	<jsp:include page="userHeader.jsp"></jsp:include>
 	<form method="POST" action="controller?command=requestRoom">
 		<div id="input-data">
 			<select name="roomCapacity">
@@ -25,8 +18,7 @@
 			<label for="start">Start date:</label>
 			<input type="date" id="start" name="startDate" value="2018-07-22" min="2018-01-01"
 				max="2018-12-31">
-				<input type="date" id="start" name="endDate" value="2018-07-22" min="2018-01-01"
-                max="2018-12-31">
+			<input type="date" id="start" name="endDate" value="2018-07-22" min="2018-01-01" max="2018-12-31">
 			<select name="roomClass">
 				<option value="standart" selected>standart</option>
 				<option value="deluxe">deluxe</option>

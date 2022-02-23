@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+body {
+	background: linear-gradient(121.99deg, #FED5CD 4.95%, #E0CDFE 70.55%);
+}
+
+#create-room-btn {
+	position: absolute;
+	left: 200px;
+	top: 200px;
+}
+
+#input-data {
+	position: absolute;
+	left: 400px;
+	top: 300px;
+}

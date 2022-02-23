@@ -9,8 +9,8 @@ public class UserRowMapper implements RowMapper<User> {
 
     @Override
     public User map(ResultSet resultSet) throws SQLException {
-        Long id = resultSet.getLong("ID");
-        String login = resultSet.getString("LOGIN");
+        Long id = resultSet.getLong("id");
+        String login = resultSet.getString("login");
         return new User(id, login);
     }
 }

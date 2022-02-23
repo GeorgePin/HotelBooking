@@ -1,5 +1,6 @@
 package com.epam.hotelbooking.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,17 +8,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.epam.hotelbooking.connection.ProxyConnection;
 import com.epam.hotelbooking.entity.Identifable;
 import com.epam.hotelbooking.exception.DaoException;
 import com.epam.hotelbooking.mapper.RowMapper;
 
 public abstract class AbstractDao<T extends Identifable> implements Dao<T> {
 
-    private final ProxyConnection proxyConnection;
+    private Connection connection;
 
-    protected AbstractDao(ProxyConnection proxyConnection) {
-        this.proxyConnection = proxyConnection;
+    protected AbstractDao(Connection connection) {
+        this.connection = connection;
     }
 
     protected List<T> executeQuery(String query, RowMapper<T> mapper, Object... params)
@@ -34,11 +34,12 @@ public abstract class AbstractDao<T extends Identifable> implements Dao<T> {
     }
 
     private PreparedStatement createStatement(String query, Object... params) throws SQLException {
-        PreparedStatement statement = proxyConnection.prepareStatement(query);
-        for (int i = 1; i <= params.length; i++) {
-            statement.setObject(i, params[i - 1]);
-        }
-        return statement;
+        PreparedStatement statement = connection.prepareStatement(query) ;
+            for (int i = 1; i <= params.length; i++) {
+                statement.setObject(i, params[i - 1]);
+            }
+            return statement;
+        
     }
 
     protected Optional<T> executeForSingleResult(String query, RowMapper<T> mapper, Object... params) throws Exception {

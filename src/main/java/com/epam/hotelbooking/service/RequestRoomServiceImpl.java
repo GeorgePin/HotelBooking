@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import com.epam.hotelbooking.dao.DaoHelper;
 import com.epam.hotelbooking.dao.DaoHelperFactory;
 import com.epam.hotelbooking.dao.RequestRoomDao;
-import com.epam.hotelbooking.entity.RoomClass;
 
 public class RequestRoomServiceImpl implements RequestRoomService {
     private DaoHelperFactory daoHelperFactory;

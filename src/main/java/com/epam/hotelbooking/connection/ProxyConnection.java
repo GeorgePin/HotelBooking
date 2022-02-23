@@ -21,9 +21,15 @@ import java.util.concurrent.Executor;
 
 public class ProxyConnection implements Connection {
     private Connection connection;
-//TODO insert connectionpool in constructor
-    public ProxyConnection(Connection connection) {
+    private ConnectionPool connectionPool;
+
+    public ProxyConnection(Connection connection, ConnectionPool connectionPool) {
         this.connection = connection;
+        this.connectionPool = connectionPool;
+    }
+
+    public ConnectionPool getConnectionPool() {
+        return connectionPool;
     }
 
     @Override
@@ -85,8 +91,6 @@ public class ProxyConnection implements Connection {
 
     @Override
     public void close() throws SQLException {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
