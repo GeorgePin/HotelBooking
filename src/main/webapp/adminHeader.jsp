@@ -6,7 +6,7 @@
 <meta charset="ISO-8859-1">
 </head>
 	<header>
-		<a href="controller?command=main"> <img src="static/images/hotel_logo.png" id="hotel-logo"
+		<a href="controller?command=showPage&page=index"> <img src="static/images/hotel_logo.png" id="hotel-logo"
 			alt="hotel logo"></a>
 		<div class="navigation-bar">
 			<a href="controller?command=roomsPage&page=1">rooms </a>|<a href="controller?command=clientsPage">

@@ -1,6 +1,5 @@
 package com.epam.hotelbooking.mapper;
 
-import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -17,7 +16,7 @@ public class RoomRowMapper implements RowMapper<Room> {
                 .toUpperCase());
         int number = resultSet.getInt("number");
         boolean isBlocked = resultSet.getBoolean("is_blocked");
-        BigDecimal roomPrice = resultSet.getBigDecimal("price");
-        return new Room(id, capacity, roomClass, number, isBlocked, roomPrice);
+        Long roomPriceId = resultSet.getLong("room_price_id");
+        return new Room(id, capacity, roomClass, number, isBlocked, roomPriceId);
     }
 }

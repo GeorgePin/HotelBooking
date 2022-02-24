@@ -8,7 +8,7 @@ import com.epam.hotelbooking.entity.RequestsAmount;
 import com.epam.hotelbooking.mapper.RequestsAmountRowMapper;
 
 public class AmountOfRequestsDaoImpl extends AbstractDao<RequestsAmount> implements AmountOfRequestsDao {
-    private static final String TOTAL_REQUESTS_AMOUNT = "select count(*) from reservation";
+    private static final String TOTAL_REQUESTS_AMOUNT = "select count(*) from reservation where is_approved!='1'";
 
     public AmountOfRequestsDaoImpl(ProxyConnection proxyConnection) {
         super(proxyConnection);

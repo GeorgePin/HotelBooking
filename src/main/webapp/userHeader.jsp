@@ -10,9 +10,9 @@
 		<a href="controller?command=main"> <img src="static/images/hotel_logo.png" id="hotel-logo"
 			alt="hotel logo"></a>
 		<div class="navigation-bar">
-			<a href="controller?command=requestRoomPage">request room </a>|<a
-				href="controller?command=requestsPage"> requests </a>|<a href="controller?command=logout">
-				log out</a>
+			<a href="controller?command=showPageCommand&page=requestRoom">request room </a>|<a
+				href="controller?command=showPageCommand&page=requests"> requests </a>|<a
+				href="controller?command=logout"> log out</a>
 		</div>
 	</header>
 </body>

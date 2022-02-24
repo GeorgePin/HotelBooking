@@ -10,7 +10,7 @@ import com.epam.hotelbooking.exception.DaoException;
 import com.epam.hotelbooking.mapper.RoomPriceRowMapper;
 
 public class RoomPriceDaoImpl extends AbstractDao<RoomPrice> implements RoomPriceDao {
-    private static final String GET_ALL_PRICES = "select room_price.id, room_price.price from room_price";
+    private static final String GET_ALL_PRICES = "select * from room_price";
 
     public RoomPriceDaoImpl(ProxyConnection proxyConnection) {
         super(proxyConnection);

@@ -24,8 +24,9 @@ public class RequestsPageCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-        int page = Integer.parseInt(req.getParameter("page"));
-        List<Request> requests = requestsPageService.getRequests((page - 1) * RECORDS_PER_PAGE);
+        int pageInt = Integer.parseInt(req.getParameter("page"));
+        List<Request> requests = requestsPageService.getRequests((pageInt - 1) * RECORDS_PER_PAGE);
+        System.out.println(requests);
         Optional<RequestsAmount> numberOfRequests = amountOfRequestsService.getNumberOfRequests();
         int numberOfPages = (int) Math.ceil(numberOfRequests.get()
                 .getAmountOfRequests() * 1.0 / RECORDS_PER_PAGE);

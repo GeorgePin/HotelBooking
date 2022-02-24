@@ -9,7 +9,6 @@ public class RequestHandlingCommand implements Command {
     private RequestHandlingServiceImpl requestHandlingService;
 
     public RequestHandlingCommand(RequestHandlingServiceImpl requestHandlingService) {
-        super();
         this.requestHandlingService = requestHandlingService;
     }
 
@@ -18,6 +17,6 @@ public class RequestHandlingCommand implements Command {
         Long requestId = Long.parseLong(req.getParameter("requestId"));
         Long roomId = Long.parseLong(req.getParameter("roomId"));
         boolean isRequestHandled = requestHandlingService.handleRoomRequest(requestId, roomId);
-        return new CommandResult("/requests.jsp", false);
+        return new CommandResult(req.getContextPath() + "/controller?command=requestsPage&page=1", true);
     }
 }

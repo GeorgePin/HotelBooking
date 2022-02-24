@@ -8,8 +8,10 @@ import com.epam.hotelbooking.service.CreateUserServiceImpl;
 import com.epam.hotelbooking.service.DeleteRoomServiceImpl;
 import com.epam.hotelbooking.service.RequestHandlingServiceImpl;
 import com.epam.hotelbooking.service.RequestRoomServiceImpl;
+import com.epam.hotelbooking.service.RequestServiceImpl;
 import com.epam.hotelbooking.service.RequestsPageServiceImpl;
 import com.epam.hotelbooking.service.RoomPriceServiceImpl;
+import com.epam.hotelbooking.service.RoomServiceImpl;
 import com.epam.hotelbooking.service.RoomsPageServiceImpl;
 import com.epam.hotelbooking.service.UserServiceImpl;
 
@@ -21,19 +23,16 @@ public class CommandFactory {
             return new LoginCommand(new UserServiceImpl(new DaoHelperFactory()));
         case "logout":
             return new LogoutCommand();
-        case "requestRoomPage":
-            return new RequestRoomPageCommand();
         case "requestsPage":
             return new RequestsPageCommand(new RequestsPageServiceImpl(new DaoHelperFactory()),
                     new AmountOfRequestsServiceImpl(new DaoHelperFactory()));
         case "requestRoom":
             return new RequestRoomCommand(new RequestRoomServiceImpl(new DaoHelperFactory()));
-        case "main":
-            return new MainCommand();
-        case "RequestHandlingPage":
-            return new RequestHandlingPageCommand();
-        case "RequestHandling":
+        case "requestHandling":
             return new RequestHandlingCommand(new RequestHandlingServiceImpl(new DaoHelperFactory()));
+        case "requestHandlingPage":
+            return new RequestHandlingPageCommand(new RequestServiceImpl(new DaoHelperFactory()),
+                    new RoomServiceImpl(new DaoHelperFactory()), new RoomPriceServiceImpl(new DaoHelperFactory()));
         case "roomsPage":
             return new RoomsPageCommand(new RoomsPageServiceImpl(new DaoHelperFactory()),
                     new AmountOfRoomsServiceImpl(new DaoHelperFactory()));
@@ -43,8 +42,8 @@ public class CommandFactory {
             return new CreateRoomPageCommand(new RoomPriceServiceImpl(new DaoHelperFactory()));
         case "createRoom":
             return new CreateRoomCommand(new CreateRoomServiceImpl(new DaoHelperFactory()));
-        case "registrationPage":
-            return new RegistrationPageCommand();
+        case "showPage":
+            return new ShowPageCommand();
         case "registration":
             return new RegistrationCommand(new CreateUserServiceImpl(new DaoHelperFactory()));
         default:

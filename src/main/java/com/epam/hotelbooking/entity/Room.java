@@ -1,23 +1,20 @@
 package com.epam.hotelbooking.entity;
 
-import java.math.BigDecimal;
-
 public class Room implements Identifable {
     private Long id;
     private int capacity;
     private RoomClass type;
     private int number;
     private boolean isBlocked;
-    private BigDecimal roomPrice;
     private Long roomPriceId;
 
-    public Room(Long id, int capacity, RoomClass type, int number, boolean isBlocked, BigDecimal roomPrice) {
+    public Room(Long id, int capacity, RoomClass type, int number, boolean isBlocked, Long roomPriceId) {
         this.id = id;
         this.capacity = capacity;
         this.type = type;
         this.number = number;
         this.isBlocked = isBlocked;
-        this.roomPrice = roomPrice;
+        this.roomPriceId = roomPriceId;
     }
 
     public Room(int capacity, RoomClass type, int number, boolean isBlocked, Long roomPriceId) {
@@ -53,8 +50,9 @@ public class Room implements Identifable {
         return roomPriceId;
     }
 
-    public BigDecimal getRoomPrice() {
-        return roomPrice;
+    @Override
+    public String toString() {
+        return "Room [roomPriceId=" + roomPriceId + "]";
     }
 
 }

@@ -1,6 +1,7 @@
 package com.epam.hotelbooking.mapper;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -12,6 +13,7 @@ public class RoomPriceRowMapper implements RowMapper<RoomPrice> {
     public RoomPrice map(ResultSet resultSet) throws SQLException {
         Long id = resultSet.getLong("id");
         BigDecimal price = resultSet.getBigDecimal("price");
-        return new RoomPrice(id, price);
+        Date validFrom = resultSet.getDate("valid_from");
+        return new RoomPrice(id, price, validFrom);
     }
 }
