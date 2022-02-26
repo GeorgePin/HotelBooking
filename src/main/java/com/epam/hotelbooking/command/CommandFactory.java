@@ -3,6 +3,7 @@ package com.epam.hotelbooking.command;
 import com.epam.hotelbooking.dao.DaoHelperFactory;
 import com.epam.hotelbooking.service.AmountOfRequestsServiceImpl;
 import com.epam.hotelbooking.service.AmountOfRoomsServiceImpl;
+import com.epam.hotelbooking.service.ClientServiceImpl;
 import com.epam.hotelbooking.service.CreateRoomServiceImpl;
 import com.epam.hotelbooking.service.CreateUserServiceImpl;
 import com.epam.hotelbooking.service.DeleteRoomServiceImpl;
@@ -44,8 +45,13 @@ public class CommandFactory {
             return new CreateRoomCommand(new CreateRoomServiceImpl(new DaoHelperFactory()));
         case "showPage":
             return new ShowPageCommand();
+        case "clientsPage":
+            return new ClientsPageCommand(new ClientServiceImpl(new DaoHelperFactory()));
         case "registration":
             return new RegistrationCommand(new CreateUserServiceImpl(new DaoHelperFactory()));
+        case "banUser":
+            return new BanUserCommand(new UserServiceImpl(new DaoHelperFactory()));
+
         default:
             throw new IllegalArgumentException("Unknown command = " + command);
         }

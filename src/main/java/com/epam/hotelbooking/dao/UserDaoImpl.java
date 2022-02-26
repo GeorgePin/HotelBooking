@@ -10,6 +10,7 @@ import com.epam.hotelbooking.mapper.UserRowMapper;
 public class UserDaoImpl extends AbstractDao<User> implements UserDao {
     private static final String FIND_BY_LOGIN_AND_PASSWORD = "select * from user where login = ? and password = ?";
     private static final String CREATE_NEW_USER = "insert into user(name, surname, login, password) values(?, ?, ?, ?)";
+    private static final String BAN_USER = "update user set is_blocked='1' where id=?";
 
     public UserDaoImpl(ProxyConnection proxyConnection) {
         super(proxyConnection);
@@ -21,6 +22,10 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
 
     public boolean createUser(String userName, String userSurname, String login, String password) throws Exception {
         return executeQueryWithoutReturnValue(CREATE_NEW_USER, userName, userSurname, login, password);
+    }
+
+    public boolean banUser(Long userId) throws Exception {
+        return executeQueryWithoutReturnValue(BAN_USER, userId);
     }
 
     @Override

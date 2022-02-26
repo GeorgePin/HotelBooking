@@ -62,6 +62,10 @@ public class DaoHelper implements AutoCloseable {
         return new RoomDaoImpl(connection);
     }
 
+    public ClientDao createClientDao() {
+        return new ClientDaoImpl(connection);
+    }
+
     @Override
     public void close() throws Exception {
         connection.getConnectionPool()

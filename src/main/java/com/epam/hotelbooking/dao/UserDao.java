@@ -10,4 +10,6 @@ public interface UserDao {
 
     public boolean createUser(String userName, String userSurname, String login, String password) throws Exception;
 
+    boolean banUser(Long userId) throws Exception;
+
 }

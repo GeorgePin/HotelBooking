@@ -1,38 +1,30 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <html>
 <head>
+<meta charset="UTF-8">
 <link rel="stylesheet" href="static/styles/style.css" type="text/css" />
-<title>Requests page</title>
+<title>Clients page</title>
 </head>
 <body>
-    <sql:setDataSource var="database" driver="com.mysql.cj.jdbc.Driver"
-        url="jdbc:mysql://localhost:3306/hotel" user="root" password="root" />
-
-    <sql:query dataSource="${database}" var="result">
-        select * from reservation;
-      </sql:query>
-
-    <table>
-        <tr>
-            <th>Request ID</th>
-            <th>User ID</th>
-            <th>Room Capacity</th>
-            <th>Room Class</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-        </tr>
-        <c:forEach var="row" items="${result.rows}">
-            <tr>
-                <td><a href="controller?command=singleRequestHandling&roomId=${row.id}"><c:out
-                            value="${row.id}" /></a></td>
-                <td><c:out value="${row.user_id}" /></td>
-                <td><c:out value="${row.room_capacity}" /></td>
-                <td><c:out value="${row.room_class}" /></td>
-                <td><c:out value="${row.start_date}" /></td>
-                <td><c:out value="${row.end_date}" /></td>
-            </tr>
-        </c:forEach>
-    </table>
+	<table>
+		<tr>
+			<th>#</th>
+			<th>name</th>
+			<th>surname</th>
+			<th>login</th>
+			<th>is blocked</th>
+			<td></td>
+		</tr>
+		<c:forEach var="client" items="${listOfClients}">
+			<tr>
+				<td></td>
+				<td><c:out value="${client.name}" /></td>
+				<td><c:out value="${client.surname}" /></td>
+				<td><c:out value="${client.login}" /></td>
+				<td><c:out value="${client.isBlocked}" /></td>
+				<td><a href="controller?command=banUser&userId=${client.id}">Ban</a></td>
+			</tr>
+		</c:forEach>
+	</table>
 </body>
 </html>

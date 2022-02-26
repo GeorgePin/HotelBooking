@@ -17,13 +17,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> login(String login, String password) throws Exception {
-        System.out.println(2);
         try (DaoHelper helper = daoHelperFactory.create()) {
             helper.startTransaction();
             UserDao dao = helper.createUserDao();
             Optional<User> user = dao.findUserByLoginAndPassword(login, password);
             helper.endTransaction();
             return user;
+        }
+    }
+
+    @Override
+    public boolean banUser(Long userId) throws Exception {
+        try (DaoHelper helper = daoHelperFactory.create()) {
+            helper.startTransaction();
+            UserDao dao = helper.createUserDao();
+            boolean isBanned = dao.banUser(userId);
+            helper.endTransaction();
+            return isBanned;
         }
     }
 }
