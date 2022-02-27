@@ -1,17 +1,16 @@
 package com.epam.hotelbooking.dao;
 
-import java.util.List;
 import java.util.Optional;
+
+import com.epam.hotelbooking.exception.DaoException;
 
 public interface Dao<T> {
 
-    Optional<T> get(long id);
+    boolean create(T item) throws DaoException;
 
-    List<T> getAll();
+    Optional<T> read(Long itemId) throws DaoException;
 
-    void save(T t);
+    boolean update(Long itemId, Object... params) throws DaoException;
 
-    void update(T t, String[] params);
-
-    void delete(T t);
+    boolean delete(Long itemId) throws DaoException;
 }

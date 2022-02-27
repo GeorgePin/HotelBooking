@@ -1,15 +1,18 @@
 package com.epam.hotelbooking.entity;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Request implements Identifable {
-    private Long id;
+public class Request implements Identifable, Serializable {
+
+    private static final long serialVersionUID = 7123168168412409612L;
+    private final Long id;
     private Long roomId;
-    private Long userId;
-    private Date startDate;
-    private Date endDate;
-    private int roomCapacity;
-    private RoomClass roomClass;
+    private final Long userId;
+    private final Date startDate;
+    private final Date endDate;
+    private final int roomCapacity;
+    private final RoomClass roomClass;
     private boolean isApproved;
 
     public Request(Long id, Long roomId, Long userId, Date startDate, Date endDate, int roomCapacity,
@@ -44,8 +47,8 @@ public class Request implements Identifable {
         return roomCapacity;
     }
 
-    public String getRoomClass() {
-        return roomClass.toString();
+    public RoomClass getRoomClass() {
+        return roomClass;
     }
 
     public boolean getisApproved() {

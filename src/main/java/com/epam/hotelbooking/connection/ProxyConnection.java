@@ -91,6 +91,8 @@ public class ProxyConnection implements Connection {
 
     @Override
     public void close() throws SQLException {
+        this.getConnectionPool()
+                .releaseConnection(this);
     }
 
     @Override

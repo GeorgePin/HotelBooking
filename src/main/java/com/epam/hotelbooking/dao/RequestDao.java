@@ -1,9 +1,12 @@
 package com.epam.hotelbooking.dao;
 
-import java.util.Optional;
+import java.util.List;
 
 import com.epam.hotelbooking.entity.Request;
+import com.epam.hotelbooking.exception.DaoException;
 
 public interface RequestDao {
-    Optional<Request> getRequest(Long requestId) throws Exception;
+    List<Request> getRequestsForAdmin(int startElement) throws DaoException;
+
+    List<Request> getRequestsForClient(int startElement) throws DaoException;
 }

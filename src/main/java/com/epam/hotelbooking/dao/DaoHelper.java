@@ -18,40 +18,9 @@ public class DaoHelper implements AutoCloseable {
         return new UserDaoImpl(connection);
     }
 
-    public RequestRoomDao createRequestRoomDao() {
-        return new RequestRoomDaoImpl(connection);
-    }
-
-    public HandleRequestDao createHandleRequestDao() {
-        return new HandleRequestDaoImpl(connection);
-    }
-
-    public RequestsPageDao createRequestsPageDao() {
-        return new RequestsPageDaoImpl(connection);
-    }
-
-    public AmountOfRequestsDao createAmountOfRequestsDao() {
-        return new AmountOfRequestsDaoImpl(connection);
-    }
-
-    public RoomsPageDao createRoomsPageDao() {
-        return new RoomsPageDaoImpl(connection);
-    }
-
-    public AmountOfRoomsDao createAmountOfRoomsDao() {
-        return new AmountOfRoomsDaoImpl(connection);
-    }
-
-    public DeleteRoomDao createDeleteRoomDao() {
-        return new DeleteRoomDaoImpl(connection);
-    }
-
+    // TODO remove to factory all createDao
     public RoomPriceDao createRoomPriceDao() {
         return new RoomPriceDaoImpl(connection);
-    }
-
-    public CreateRoomDao createCreateRoomDao() {
-        return new CreateRoomDaoImpl(connection);
     }
 
     public RequestDao createRequestDao() {
@@ -62,14 +31,8 @@ public class DaoHelper implements AutoCloseable {
         return new RoomDaoImpl(connection);
     }
 
-    public ClientDao createClientDao() {
-        return new ClientDaoImpl(connection);
-    }
-
     @Override
     public void close() throws Exception {
-        connection.getConnectionPool()
-                .releaseConnection(connection);
         connection.close();
     }
 
