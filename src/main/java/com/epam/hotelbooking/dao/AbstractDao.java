@@ -11,12 +11,11 @@ import java.util.Optional;
 
 import com.epam.hotelbooking.entity.EntityType;
 import com.epam.hotelbooking.entity.Identifable;
-import com.epam.hotelbooking.exception.DaoException;
 import com.epam.hotelbooking.mapper.RowMapper;
 
 public abstract class AbstractDao<T extends Identifable & Serializable> implements Dao<T> {
     private static final int RECORDS_PER_PAGE = 5;
-
+    protected static final String NO_IMPLEMENTATION = "No implementation";
     private final Connection connection;
     private final RowMapper<T> rowMapper;
 
@@ -25,7 +24,7 @@ public abstract class AbstractDao<T extends Identifable & Serializable> implemen
         this.rowMapper = rowMapper;
     }
 
-    protected List<T> executeQuery(String query, Object... params) throws SQLException {
+    protected final List<T> executeQuery(String query, Object... params) throws SQLException {
         try (PreparedStatement statement = createStatement(query, params);
                 ResultSet resultSet = statement.executeQuery()) {
             List<T> entities = new ArrayList<>();
@@ -37,7 +36,7 @@ public abstract class AbstractDao<T extends Identifable & Serializable> implemen
         }
     }
 
-    private PreparedStatement createStatement(String query, Object... params) throws SQLException {
+    private final PreparedStatement createStatement(String query, Object... params) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(query);
         for (int i = 1; i <= params.length; i++) {
             statement.setObject(i, params[i - 1]);
@@ -46,7 +45,7 @@ public abstract class AbstractDao<T extends Identifable & Serializable> implemen
 
     }
 
-    protected Optional<T> executeForSingleResult(String query, Object... params) throws SQLException {
+    protected final Optional<T> executeForSingleResult(String query, Object... params) throws SQLException {
         List<T> entity = executeQuery(query, rowMapper, params);
         if (entity.size() == 1) {
             return Optional.of(entity.get(0));
@@ -57,20 +56,20 @@ public abstract class AbstractDao<T extends Identifable & Serializable> implemen
         }
     }
 
-    protected boolean executeQueryWithoutReturnValue(String query, Object... params) throws SQLException {
+    protected final boolean executeQueryWithoutReturnValue(String query, Object... params) throws SQLException {
         try (PreparedStatement statement = createStatement(query, params)) {
             return statement.execute();
         }
     }
 
-    protected List<T> getItemsForPage(int startElement, EntityType entityType, String filter, String filterValue)
+    protected final List<T> getItemsForPage(int startElement, EntityType entityType, String filter, String filterValue)
             throws SQLException {
         final String query = "select * from " + entityType.getEntityType() + " where " + filter + "=?" + filterValue
                 + " limit ?, ?";
         return executeQuery(query, filterValue, startElement, RECORDS_PER_PAGE);
     }
 
-    protected int getAmountOfItems(EntityType entityType, String filter, String filterValue) throws SQLException {
+    protected final int getAmountOfItems(EntityType entityType, String filter, String filterValue) throws SQLException {
         final String query = "select count(*) from " + entityType.getEntityType() + " where " + filter + "="
                 + filterValue;
         try (PreparedStatement statement = createStatement(query, filter, filterValue);

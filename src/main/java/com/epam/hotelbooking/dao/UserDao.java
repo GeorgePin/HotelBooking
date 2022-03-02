@@ -1,15 +1,15 @@
 package com.epam.hotelbooking.dao;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.epam.hotelbooking.entity.User;
 import com.epam.hotelbooking.exception.DaoException;
 
 public interface UserDao {
-    Optional<User> findUserByLoginAndPassword(String login, String password) throws DaoException, Exception;
+    Optional<User> findUserByLoginAndPassword(String login, String password) throws DaoException;
 
-    public boolean createUser(String userName, String userSurname, String login, String password) throws Exception;
+    List<User> getAllClients() throws DaoException;
 
-    boolean banUser(Long userId) throws Exception;
-
+    boolean banUser(Long userId) throws DaoException;
 }

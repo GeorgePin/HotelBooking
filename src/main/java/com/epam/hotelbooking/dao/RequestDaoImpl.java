@@ -52,11 +52,10 @@ public class RequestDaoImpl extends AbstractDao<Request> implements RequestDao {
     }
 
     @Override
-    public boolean update(Long itemId, Object... params) throws DaoException {
-        Long roomId = (Long) params[0];
+    public boolean update(Long itemId, String query, Object... params) throws DaoException {
         boolean hasUpdated;
         try {
-            hasUpdated = executeQueryWithoutReturnValue(INSERT_ROOM_INTO_REQUEST, roomId, itemId);
+            hasUpdated = executeQueryWithoutReturnValue(query, params, itemId);
         } catch (SQLException exception) {
             throw new DaoException("Exception during updating item", exception);
         }
@@ -65,7 +64,7 @@ public class RequestDaoImpl extends AbstractDao<Request> implements RequestDao {
 
     @Override
     public boolean delete(Long itemId) {
-        throw new UnsupportedOperationException("No implementation");
+        throw new UnsupportedOperationException(NO_IMPLEMENTATION);
     }
 
     @Override
@@ -88,5 +87,10 @@ public class RequestDaoImpl extends AbstractDao<Request> implements RequestDao {
             throw new DaoException("Exception during reading items", exception);
         }
         return requests;
+    }
+
+    @Override
+    public boolean insertRoomIntoRequest(Long requestId, Long roomId) throws DaoException {
+        return update(requestId, INSERT_ROOM_INTO_REQUEST, roomId);
     }
 }

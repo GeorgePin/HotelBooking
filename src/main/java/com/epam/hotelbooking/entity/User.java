@@ -9,6 +9,7 @@ public class User implements Identifable, Serializable {
     private String name;
     private String surname;
     private String login;
+    private String password;
     private boolean isBlocked;
 
     public User(long id, String login) {
@@ -16,11 +17,12 @@ public class User implements Identifable, Serializable {
         this.login = login;
     }
 
-    public User(long id, String name, String surname, String login, boolean isBlocked) {
+    public User(long id, String name, String surname, String login, String password, boolean isBlocked) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.login = login;
+        this.password = password;
         this.isBlocked = isBlocked;
     }
 
@@ -39,6 +41,10 @@ public class User implements Identifable, Serializable {
 
     public String getLogin() {
         return login;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public boolean getIsBlocked() {

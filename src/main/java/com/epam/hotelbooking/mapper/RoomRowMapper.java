@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import com.epam.hotelbooking.entity.Room;
 import com.epam.hotelbooking.entity.RoomClass;
+import com.epam.hotelbooking.entity.RoomPrice;
 
 public class RoomRowMapper implements RowMapper<Room> {
 
@@ -16,7 +17,7 @@ public class RoomRowMapper implements RowMapper<Room> {
                 .toUpperCase());
         int number = resultSet.getInt("number");
         boolean isBlocked = resultSet.getBoolean("is_blocked");
-        Long roomPriceId = resultSet.getLong("room_price_id");
-        return new Room(id, capacity, roomClass, number, isBlocked, roomPriceId);
+        RoomPrice roomPrice = new RoomPrice("room_price_id","room_price_price","room_price_valid_from");
+        return new Room(id, capacity, roomClass, number, isBlocked, roomPrice);
     }
 }

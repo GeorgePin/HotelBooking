@@ -10,7 +10,7 @@ public interface Dao<T> {
 
     Optional<T> read(Long itemId) throws DaoException;
 
-    boolean update(Long itemId, Object... params) throws DaoException;
+    boolean update(Long itemId, String query, Object... params) throws DaoException;
 
     boolean delete(Long itemId) throws DaoException;
 }

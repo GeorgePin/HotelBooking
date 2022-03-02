@@ -9,4 +9,6 @@ public interface RequestDao {
     List<Request> getRequestsForAdmin(int startElement) throws DaoException;
 
     List<Request> getRequestsForClient(int startElement) throws DaoException;
+
+    boolean insertRoomIntoRequest(Long requestId, Long roomId) throws DaoException;
 }
