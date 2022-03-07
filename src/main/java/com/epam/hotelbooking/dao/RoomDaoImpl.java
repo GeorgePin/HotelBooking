@@ -1,28 +1,31 @@
 package com.epam.hotelbooking.dao;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
 import com.epam.hotelbooking.connection.ProxyConnection;
+import com.epam.hotelbooking.entity.EntityType;
 import com.epam.hotelbooking.entity.Room;
 import com.epam.hotelbooking.entity.RoomPrice;
 import com.epam.hotelbooking.exception.DaoException;
-import com.epam.hotelbooking.mapper.RoomRowMapper;
 import com.epam.hotelbooking.mapper.RowMapper;
 
 public class RoomDaoImpl extends AbstractDao<Room> implements RoomDao {
-    private static final String GET_ALL_FREE_ROOMS = "select * from room where is_blocked='0'";
+    private static final String IS_ROOM_BLOCKED_FILTER = "is_blocked";
     private static final String BLOCK_ROOM = "update room set is_blocked = '1' where id = ?";
     private static final String DELETE_ROOM = "delete from room where id=?";
-    private static final String CREATE_NEW_ROOM = "insert into room(capacity, type, number, is_blocked, room_price_id) values(?, ?, ?, ?, ?)";
+    private static final String CREATE_NEW_ROOM = "insert into room(capacity, type, number,"
+            + " is_blocked, room_price_id) values(?, ?, ?, ?, ?)";
+    private static final String GET_ROOMS_WITH_PRICES = "select room.id, room.capacity, room.type,"
+            + " room.number, room.is_blocked, room.room_price_id, room_price.price, room_price.valid_from"
+            + " from room inner join room_price on room_price.id=room.room_price_id ORDER BY `id` limit ?, ?";
 
     public RoomDaoImpl(ProxyConnection proxyConnection, RowMapper<Room> rowMapper) {
         super(proxyConnection, rowMapper);
     }
 
     @Override
-    public boolean create(Room item) throws DaoException {
+    public void create(Room item) throws DaoException {
         int capacity = item.getCapacity();
         String roomClass = item.getType()
                 .toString()
@@ -30,12 +33,7 @@ public class RoomDaoImpl extends AbstractDao<Room> implements RoomDao {
         int numberOfRoom = item.getNumber();
         boolean isBlocked = item.getIsBlocked();
         RoomPrice roomPriceId = item.getRoomPrice();
-        try {
-            return executeQueryWithoutReturnValue(CREATE_NEW_ROOM, capacity, roomClass, numberOfRoom, isBlocked,
-                    roomPriceId);
-        } catch (SQLException exception) {
-            throw new DaoException("Exception during creating item", exception);
-        }
+        executeQueryWithoutReturnValue(CREATE_NEW_ROOM, capacity, roomClass, numberOfRoom, isBlocked, roomPriceId);
     }
 
     @Override
@@ -44,36 +42,34 @@ public class RoomDaoImpl extends AbstractDao<Room> implements RoomDao {
     }
 
     @Override
-    public boolean update(Long itemId, String query, Object... params) throws DaoException {
-        try {
-            return executeQueryWithoutReturnValue(query, itemId, params);
-        } catch (SQLException exception) {
-            throw new DaoException("Exception during updating item", exception);
-        }
+    public void update(Long itemId, String query, Object... params) throws DaoException {
+        executeQueryWithoutReturnValue(query, itemId, params);
     }
 
     @Override
-    public boolean delete(Long itemId) throws DaoException {
-        try {
-            return executeQueryWithoutReturnValue(DELETE_ROOM, itemId);
-        } catch (SQLException exception) {
-            throw new DaoException("Exception during deleting item", exception);
-        }
+    public void delete(Long itemId) throws DaoException {
+        executeQueryWithoutReturnValue(DELETE_ROOM, itemId);
     }
 
     @Override
-    public List<Room> getFreeRooms() throws DaoException {
-        List<Room> freeRooms;
-        try {
-            freeRooms = executeQuery(GET_ALL_FREE_ROOMS, new RoomRowMapper());
-        } catch (SQLException exception) {
-            throw new DaoException("Exception during getting free rooms", exception);
-        }
-        return freeRooms;
+    public void blockRoom(Long roomId) throws DaoException {
+        update(roomId, BLOCK_ROOM);
     }
 
     @Override
-    public boolean blockRoom(Long roomId) throws DaoException {
-        return update(roomId, BLOCK_ROOM);
+    public List<Room> getFreeRoomsForSinglePage(int pageNumber) throws DaoException {
+        int startElement = (pageNumber - 1) * RECORDS_PER_PAGE;
+        return super.getItemsForSinglePage(startElement, EntityType.ROOM, IS_ROOM_BLOCKED_FILTER, ZERO);
+    }
+
+    @Override
+    public Integer getAmountOfPages() throws DaoException {
+        return super.getAmountOfPages(EntityType.ROOM);
+    }
+
+    @Override
+    public final List<Room> getRoomsWithPrices(int pageNumber) throws DaoException {
+        int startElement = (pageNumber - 1) * RECORDS_PER_PAGE;
+        return executeQuery(GET_ROOMS_WITH_PRICES, startElement, RECORDS_PER_PAGE);
     }
 }

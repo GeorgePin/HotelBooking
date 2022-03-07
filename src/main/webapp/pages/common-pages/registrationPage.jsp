@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="static/styles/registration.css" type="text/css" />
 </head>
 <body>
-	<jsp:include page="adminHeader.jsp"></jsp:include>
+        <jsp:include page="/pages/utility-pages/adminHeader.jsp"></jsp:include>
 	<form method="POST" action="controller?command=registration">
 		<div id="input-data">
 			<input type="text" id="user-name" name="userName">

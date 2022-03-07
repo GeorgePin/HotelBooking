@@ -3,19 +3,22 @@ package com.epam.hotelbooking.command;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.epam.hotelbooking.service.DeleteRoomServiceImpl;
+import com.epam.hotelbooking.exception.DaoException;
+import com.epam.hotelbooking.exception.ServiceException;
+import com.epam.hotelbooking.service.RoomServiceImpl;
 
 public class DeleteRoomCommand implements Command {
-    private DeleteRoomServiceImpl deleteRoomService;
+    private final RoomServiceImpl roomService;
 
-    public DeleteRoomCommand(DeleteRoomServiceImpl deleteRoomService) {
-        this.deleteRoomService = deleteRoomService;
+    public DeleteRoomCommand(RoomServiceImpl roomService) {
+        this.roomService = roomService;
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+    public CommandResult execute(HttpServletRequest req, HttpServletResponse resp)
+            throws ServiceException, DaoException {
         Long roomId = Long.parseLong(req.getParameter("roomId"));
-        boolean isRoomDeleted = deleteRoomService.deleteRoom(roomId);
-        return new CommandResult("controller?command=roomsPage&page=1", true);
+        roomService.deleteRoom(roomId);
+        return CommandResult.redirect("controller?command=roomsPage&page=1");
     }
 }

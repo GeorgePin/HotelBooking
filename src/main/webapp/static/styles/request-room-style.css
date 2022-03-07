@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+body {
+	position: relative;
+	background: linear-gradient(105.47deg, rgba(50, 131, 253, 0.13) -9.01%, #E0CDFE 101.5%);
+}
+
+#choose-a-room {
+	position: absolute;
+	margin-left: 20%;
+	margin-top: 12%;
+}

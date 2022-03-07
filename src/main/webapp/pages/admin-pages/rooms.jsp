@@ -6,7 +6,7 @@
 <title>Rooms page</title>
 </head>
 <body>
-	<jsp:include page="adminHeader.jsp"></jsp:include>
+    <jsp:include page="/pages/utility-pages/adminHeader.jsp"></jsp:include>
 	<table id="rooms-table" border="1" cellpadding="5" cellspacing="5">
 		<tr>
 			<th>Room number</th>

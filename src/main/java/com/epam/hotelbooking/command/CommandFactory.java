@@ -1,19 +1,8 @@
 package com.epam.hotelbooking.command;
 
-import com.epam.hotelbooking.dao.DaoHelperFactory;
-import com.epam.hotelbooking.service.AmountOfRequestsServiceImpl;
-import com.epam.hotelbooking.service.AmountOfRoomsServiceImpl;
-import com.epam.hotelbooking.service.ClientServiceImpl;
-import com.epam.hotelbooking.service.CreateRoomServiceImpl;
-import com.epam.hotelbooking.service.CreateUserServiceImpl;
-import com.epam.hotelbooking.service.DeleteRoomServiceImpl;
-import com.epam.hotelbooking.service.RequestHandlingServiceImpl;
-import com.epam.hotelbooking.service.RequestRoomServiceImpl;
 import com.epam.hotelbooking.service.RequestServiceImpl;
-import com.epam.hotelbooking.service.RequestsPageServiceImpl;
 import com.epam.hotelbooking.service.RoomPriceServiceImpl;
 import com.epam.hotelbooking.service.RoomServiceImpl;
-import com.epam.hotelbooking.service.RoomsPageServiceImpl;
 import com.epam.hotelbooking.service.UserServiceImpl;
 
 public class CommandFactory {
@@ -21,37 +10,38 @@ public class CommandFactory {
     public Command createCommand(String command) {
         switch (command) {
         case "login":
-            return new LoginCommand(new UserServiceImpl(new DaoHelperFactory()));
+            return new LoginCommand(new UserServiceImpl());
         case "logout":
             return new LogoutCommand();
         case "requestsPage":
-            return new RequestsPageCommand(new RequestsPageServiceImpl(new DaoHelperFactory()),
-                    new AmountOfRequestsServiceImpl(new DaoHelperFactory()));
+            return new RequestsPageCommand(new RequestServiceImpl());
         case "requestRoom":
-            return new RequestRoomCommand(new RequestRoomServiceImpl(new DaoHelperFactory()));
+            return new RequestRoomCommand(new RequestServiceImpl());
         case "requestHandling":
-            return new RequestHandlingCommand(new RequestHandlingServiceImpl(new DaoHelperFactory()));
+            return new RequestHandlingCommand(new RequestServiceImpl());
         case "requestHandlingPage":
-            return new RequestHandlingPageCommand(new RequestServiceImpl(new DaoHelperFactory()),
-                    new RoomServiceImpl(new DaoHelperFactory()), new RoomPriceServiceImpl(new DaoHelperFactory()));
+            return new RequestHandlingPageCommand(new RequestServiceImpl(), new RoomServiceImpl(),
+                    new RoomPriceServiceImpl());
         case "roomsPage":
-            return new RoomsPageCommand(new RoomsPageServiceImpl(new DaoHelperFactory()),
-                    new AmountOfRoomsServiceImpl(new DaoHelperFactory()));
+            return new RoomsPageCommand(new RoomServiceImpl());
         case "deleteRoom":
-            return new DeleteRoomCommand(new DeleteRoomServiceImpl(new DaoHelperFactory()));
+            return new DeleteRoomCommand(new RoomServiceImpl());
         case "createRoomPage":
-            return new CreateRoomPageCommand(new RoomPriceServiceImpl(new DaoHelperFactory()));
+            return new CreateRoomPageCommand(new RoomPriceServiceImpl());
         case "createRoom":
-            return new CreateRoomCommand(new CreateRoomServiceImpl(new DaoHelperFactory()));
+            return new CreateRoomCommand(new RoomServiceImpl());
         case "showPage":
             return new ShowPageCommand();
+        case "registrationPage":
+            return new ShowPageCommand();
         case "clientsPage":
-            return new ClientsPageCommand(new ClientServiceImpl(new DaoHelperFactory()));
+            return new ClientsPageCommand(new UserServiceImpl());
         case "registration":
-            return new RegistrationCommand(new CreateUserServiceImpl(new DaoHelperFactory()));
+            return new RegistrationCommand(new UserServiceImpl());
         case "banUser":
-            return new BanUserCommand(new UserServiceImpl(new DaoHelperFactory()));
-
+            return new BanUserCommand(new UserServiceImpl());
+        case "setLanguage":
+            return new SetLanguageCommand();
         default:
             throw new IllegalArgumentException("Unknown command = " + command);
         }

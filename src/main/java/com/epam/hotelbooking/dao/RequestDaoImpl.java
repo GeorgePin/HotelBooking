@@ -1,7 +1,6 @@
 package com.epam.hotelbooking.dao;
 
 import java.sql.Date;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,7 +16,6 @@ public class RequestDaoImpl extends AbstractDao<Request> implements RequestDao {
     private static final String FILTER_FOR_ADMIN = "is_approved";
     private static final String FILTER_FOR_CLIENT = "user_id";
     private static final String QUESTION_MARK = "?";
-    private static final String NOT_APPROVED_FILTER_VALUE = "0";
     private static final String INSERT_ROOM_INTO_REQUEST = "update reservation set room_id = ?, is_approved = '1' where id = ?";
 
     public RequestDaoImpl(ProxyConnection proxyConnection, RowMapper<Request> rowMapper) {
@@ -25,72 +23,51 @@ public class RequestDaoImpl extends AbstractDao<Request> implements RequestDao {
     }
 
     @Override
-    public boolean create(Request item) throws DaoException {
+    public void create(Request item) throws DaoException {
         int roomCapacity = item.getRoomCapacity();
         String roomClass = item.getRoomClass()
                 .toString();
         Date startDate = item.getStartDate();
         Date endDate = item.getEndDate();
         Long userId = item.getUserId();
-        try {
-            return executeQueryWithoutReturnValue(CREATE_NEW_ROOM_REQUEST, roomCapacity, roomClass, startDate, endDate,
-                    userId);
-        } catch (SQLException exception) {
-            throw new DaoException("Exception during creating item", exception);
-        }
+        executeQueryWithoutReturnValue(CREATE_NEW_ROOM_REQUEST, roomCapacity, roomClass, startDate, endDate, userId);
     }
 
     @Override
     public Optional<Request> read(Long itemId) throws DaoException {
-        Optional<Request> request;
-        try {
-            request = executeForSingleResult(FIND_REQUEST_BY_ID, itemId);
-        } catch (SQLException exception) {
-            throw new DaoException("Exception during reading item", exception);
-        }
+        Optional<Request> request = executeForSingleResult(FIND_REQUEST_BY_ID, itemId);
         return request;
     }
 
     @Override
-    public boolean update(Long itemId, String query, Object... params) throws DaoException {
-        boolean hasUpdated;
-        try {
-            hasUpdated = executeQueryWithoutReturnValue(query, params, itemId);
-        } catch (SQLException exception) {
-            throw new DaoException("Exception during updating item", exception);
-        }
-        return hasUpdated;
+    public void update(Long itemId, String query, Object... params) throws DaoException {
+        executeQueryWithoutReturnValue(query, params, itemId);
     }
 
     @Override
-    public boolean delete(Long itemId) {
+    public void delete(Long itemId) {
         throw new UnsupportedOperationException(NO_IMPLEMENTATION);
     }
 
     @Override
-    public List<Request> getRequestsForAdmin(int startElement) throws DaoException {
-        List<Request> requests;
-        try {
-            requests = getItemsForPage(startElement, EntityType.REQUEST, FILTER_FOR_ADMIN, NOT_APPROVED_FILTER_VALUE);
-        } catch (SQLException exception) {
-            throw new DaoException("Exception during reading items", exception);
-        }
-        return requests;
+    public List<Request> getUnapprovedRequestsForAdmin(int pageNumber) throws DaoException {
+        int startElement = (pageNumber - 1) * RECORDS_PER_PAGE;
+        return super.getItemsForSinglePage(startElement, EntityType.REQUEST, FILTER_FOR_ADMIN, ZERO);
     }
 
     @Override
-    public List<Request> getRequestsForClient(int startElement) throws DaoException {
-        List<Request> requests;
-        try {
-            requests = getItemsForPage(startElement, EntityType.REQUEST, FILTER_FOR_CLIENT, QUESTION_MARK);
-        } catch (SQLException exception) {
-            throw new DaoException("Exception during reading items", exception);
-        }
-        return requests;
+    public List<Request> getRequestsForClient(int pageNumber) throws DaoException {
+        int startElement = (pageNumber - 1) * RECORDS_PER_PAGE;
+        return super.getItemsForSinglePage(startElement, EntityType.REQUEST, FILTER_FOR_CLIENT, QUESTION_MARK);
     }
 
     @Override
-    public boolean insertRoomIntoRequest(Long requestId, Long roomId) throws DaoException {
-        return update(requestId, INSERT_ROOM_INTO_REQUEST, roomId);
+    public Integer getAmountOfPages() throws DaoException {
+        return super.getAmountOfPages(EntityType.REQUEST);
+    }
+
+    @Override
+    public void insertRoomIntoRequest(Long requestId, Long roomId) throws DaoException {
+        update(requestId, INSERT_ROOM_INTO_REQUEST, roomId);
     }
 }

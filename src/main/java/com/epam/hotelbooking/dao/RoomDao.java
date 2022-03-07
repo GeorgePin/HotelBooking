@@ -6,7 +6,12 @@ import com.epam.hotelbooking.entity.Room;
 import com.epam.hotelbooking.exception.DaoException;
 
 public interface RoomDao {
-    List<Room> getFreeRooms() throws DaoException;
 
-    boolean blockRoom(Long roomId) throws DaoException;
+    void blockRoom(Long roomId) throws DaoException;
+
+    List<Room> getFreeRoomsForSinglePage(int startElement) throws DaoException;
+
+    List<Room> getRoomsWithPrices(int startElement) throws DaoException;
+
+    Integer getAmountOfPages() throws DaoException;
 }

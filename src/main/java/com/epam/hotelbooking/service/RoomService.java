@@ -1,9 +1,15 @@
 package com.epam.hotelbooking.service;
 
-import java.util.List;
-
+import com.epam.hotelbooking.entity.ItemsTransferObject;
 import com.epam.hotelbooking.entity.Room;
+import com.epam.hotelbooking.exception.ServiceException;
 
 public interface RoomService {
-    List<Room> getAllFreeRooms() throws Exception;
+
+    void createRoom(Room room) throws ServiceException;
+
+    void deleteRoom(Long roomId) throws ServiceException;
+
+    ItemsTransferObject getRoomsForSinglePage(int startElement, boolean isForHandling)
+            throws ServiceException;
 }

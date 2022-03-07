@@ -6,8 +6,8 @@ import javax.servlet.http.HttpServletResponse;
 public class ShowPageCommand implements Command {
 
     @Override
-    public CommandResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+    public CommandResult execute(HttpServletRequest req, HttpServletResponse resp) {
         String pageName = req.getParameter("page");
-        return new CommandResult("/" + pageName + ".jsp", false);
+        return CommandResult.forward("/" + pageName + ".jsp");
     }
 }

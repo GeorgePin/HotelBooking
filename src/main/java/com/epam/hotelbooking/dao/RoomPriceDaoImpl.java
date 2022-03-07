@@ -1,6 +1,5 @@
 package com.epam.hotelbooking.dao;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,7 +17,7 @@ public class RoomPriceDaoImpl extends AbstractDao<RoomPrice> implements RoomPric
     }
 
     @Override
-    public boolean create(RoomPrice item) throws DaoException {
+    public void create(RoomPrice item) throws DaoException {
         throw new UnsupportedOperationException(NO_IMPLEMENTATION);
     }
 
@@ -28,23 +27,18 @@ public class RoomPriceDaoImpl extends AbstractDao<RoomPrice> implements RoomPric
     }
 
     @Override
-    public boolean update(Long itemId, String query, Object... params) throws DaoException {
+    public void update(Long itemId, String query, Object... params) throws DaoException {
         throw new UnsupportedOperationException(NO_IMPLEMENTATION);
     }
 
     @Override
-    public boolean delete(Long itemId) throws DaoException {
+    public void delete(Long itemId) throws DaoException {
         throw new UnsupportedOperationException(NO_IMPLEMENTATION);
     }
 
     @Override
     public List<RoomPrice> getRoomsPrices() throws DaoException {
-        List<RoomPrice> roomPrices;
-        try {
-            roomPrices = executeQuery(GET_ALL_PRICES, new RoomPriceRowMapper());
-        } catch (SQLException exception) {
-            throw new DaoException("Exception during getting room prices", exception);
-        }
+        List<RoomPrice> roomPrices = executeQuery(GET_ALL_PRICES, new RoomPriceRowMapper());
         return roomPrices;
     }
 }

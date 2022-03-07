@@ -17,33 +17,30 @@ public class Controller extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try {
-            process(req, resp);
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        process(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try {
-            process(req, resp);
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        process(req, resp);
     }
 
-    private void process(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        process(req, resp);
+    }
+
+    private void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String commandName = req.getParameter("command");
         CommandFactory commandFactory = new CommandFactory();
         Command action = commandFactory.createCommand(commandName);
         try {
             CommandResult result = action.execute(req, resp);
             dispatch(req, resp, result);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch (Exception exception) {
+//            exception.printStackTrace();
+            req.setAttribute("errorMessage", exception.getMessage());
+            dispatch(req, resp, CommandResult.forward("/pages/common-pages/errorPage.jsp"));
         }
     }
 

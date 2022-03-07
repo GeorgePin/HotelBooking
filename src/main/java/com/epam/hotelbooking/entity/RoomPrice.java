@@ -1,10 +1,9 @@
 package com.epam.hotelbooking.entity;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
 
-public class RoomPrice implements Identifable, Serializable {
+public class RoomPrice extends Entity {
     private static final long serialVersionUID = -1127474130423104866L;
     private Long id;
     private BigDecimal price;
@@ -25,9 +24,8 @@ public class RoomPrice implements Identifable, Serializable {
         return price;
     }
 
-    @Override
-    public String toString() {
-        return "RoomPrice [id=" + id + ", price=" + price + ", validFrom=" + validFrom + "]";
+    public Date getValidFrom() {
+        return validFrom;
     }
 
 }

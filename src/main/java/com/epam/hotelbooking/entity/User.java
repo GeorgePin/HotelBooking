@@ -1,28 +1,33 @@
 package com.epam.hotelbooking.entity;
 
-import java.io.Serializable;
-
-public class User implements Identifable, Serializable {
+public class User extends Entity {
 
     private static final long serialVersionUID = 1372779825189737930L;
-    private final long id;
+    private long id;
     private String name;
     private String surname;
     private String login;
     private String password;
     private boolean isBlocked;
+    private boolean isAdmin;
 
-    public User(long id, String login) {
+    public User(long id, boolean isAdmin) {
         this.id = id;
-        this.login = login;
+        this.isAdmin = isAdmin;
     }
 
-    public User(long id, String name, String surname, String login, String password, boolean isBlocked) {
-        this.id = id;
+    public User(String name, String surname, String login, String password) {
         this.name = name;
         this.surname = surname;
         this.login = login;
         this.password = password;
+    }
+
+    public User(Long id, String name, String surname, String login, boolean isBlocked) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.login = login;
         this.isBlocked = isBlocked;
     }
 
@@ -49,5 +54,9 @@ public class User implements Identifable, Serializable {
 
     public boolean getIsBlocked() {
         return isBlocked;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
     }
 }

@@ -1,11 +1,10 @@
 package com.epam.hotelbooking.mapper;
 
-import java.io.Serializable;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
-import com.epam.hotelbooking.entity.Identifable;
+import com.epam.hotelbooking.entity.Entity;
+import com.epam.hotelbooking.exception.DaoException;
 
-public interface RowMapper<T extends Identifable & Serializable> {
-    T map(ResultSet resultSet) throws SQLException;
+public interface RowMapper<T extends Entity> {
+    T map(ResultSet resultSet) throws DaoException;
 }

@@ -3,26 +3,24 @@ package com.epam.hotelbooking.service;
 import java.util.List;
 
 import com.epam.hotelbooking.dao.DaoHelper;
-import com.epam.hotelbooking.dao.DaoHelperFactory;
-import com.epam.hotelbooking.dao.RoomPriceDao;
+import com.epam.hotelbooking.dao.RoomPriceDaoImpl;
 import com.epam.hotelbooking.entity.RoomPrice;
+import com.epam.hotelbooking.exception.DaoException;
+import com.epam.hotelbooking.exception.ServiceException;
+import com.epam.hotelbooking.mapper.RoomPriceRowMapper;
 
 public class RoomPriceServiceImpl implements RoomPriceService {
-    private DaoHelperFactory daoHelperFactory;
-
-    public RoomPriceServiceImpl(DaoHelperFactory daoHelperFactory) {
-        this.daoHelperFactory = daoHelperFactory;
-    }
 
     @Override
-    public List<RoomPrice> getRoomPrices() throws Exception {
-        try (DaoHelper helper = daoHelperFactory.create()) {
-            helper.startTransaction();
-            RoomPriceDao dao = helper.createRoomPriceDao();
-            List<RoomPrice> roomPrices = dao.getRoomPrices();
-            helper.endTransaction();
+    public List<RoomPrice> getRoomPrices() throws ServiceException {
+        try (DaoHelper daoHelper = new DaoHelper()) {
+            daoHelper.startTransaction();
+            RoomPriceDaoImpl roomPirceDao = daoHelper.createRoomPriceDao(new RoomPriceRowMapper());
+            List<RoomPrice> roomPrices = roomPirceDao.getRoomsPrices();
+            daoHelper.endTransaction();
             return roomPrices;
+        } catch (DaoException exception) {
+            throw new ServiceException("Error during getting room prices", exception);
         }
     }
-
 }

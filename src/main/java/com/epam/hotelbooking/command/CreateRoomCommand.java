@@ -5,25 +5,27 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.epam.hotelbooking.entity.Room;
 import com.epam.hotelbooking.entity.RoomClass;
-import com.epam.hotelbooking.service.CreateRoomServiceImpl;
+import com.epam.hotelbooking.exception.DaoException;
+import com.epam.hotelbooking.exception.ServiceException;
+import com.epam.hotelbooking.service.RoomServiceImpl;
 
 public class CreateRoomCommand implements Command {
-    private CreateRoomServiceImpl createRoomService;
+    private final RoomServiceImpl roomService;
 
-    public CreateRoomCommand(CreateRoomServiceImpl createRoomService) {
-        this.createRoomService = createRoomService;
+    public CreateRoomCommand(RoomServiceImpl roomService) {
+        this.roomService = roomService;
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+    public CommandResult execute(HttpServletRequest req, HttpServletResponse resp)
+            throws DaoException, ServiceException {
         int capacity = Integer.parseInt(req.getParameter("roomCapacity"));
-        boolean isBlocked = Boolean.parseBoolean(req.getParameter("isBlocked"));
         int numberOfRoom = Integer.parseInt(req.getParameter("numberOfRoom"));
         RoomClass roomClass = RoomClass.valueOf(req.getParameter("roomClass")
                 .toUpperCase());
         Long roomPriceId = Long.parseLong(req.getParameter("idOfPrice"));
-        Room room = new Room(capacity, roomClass, numberOfRoom, isBlocked, roomPriceId);
-        boolean isRoomCreated = createRoomService.createRoom(room);
-        return new CommandResult("controller?command=roomsPage&page=1", true);
+        Room room = new Room(capacity, roomClass, numberOfRoom,roomPriceId);
+        roomService.createRoom(room);
+        return CommandResult.redirect("controller?command=roomsPage&page=1");
     }
 }

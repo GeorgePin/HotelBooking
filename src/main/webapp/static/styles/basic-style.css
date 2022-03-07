@@ -1,0 +1,81 @@
+@charset "UTF-8";
+
+@import url('https://fonts.googleapis.com/css2?family=B612:ital,wght@0,700;1,700&display=swap');
+
+input[type="submit"], input[type="button"] {
+	background: linear-gradient(101deg, rgba(250, 29, 108, 0.1755) -40.7%, rgba(0, 87, 255, 0.3081)
+		139.66%);
+	border-radius: 107px;
+	width: 243px;
+	height: 76px;
+	border: none;
+	font: inherit;
+	cursor: pointer;
+}
+
+input[value] {
+	font-family: 'B612', sans-serif;
+	font-style: normal;
+	font-size: 36px;
+	font-weight: bold;
+	line-height: 44px;
+	color: #4F3427;
+}
+
+h1 {
+	font-family: 'B612', sans-serif;
+	font-size: 36px;
+	line-height: 44px;
+	color: #4F3427;
+}
+
+::placeholder {
+	color: rgba(0, 0, 0, 0.17);
+}
+
+input {
+	border: 10px #fff;
+	border-radius: 15px;
+	height: 50px;
+	width: 300px;
+	font-family: 'B612', sans-serif;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 24px;
+	line-height: 29px;
+}
+
+a {
+	font-family: Gideon Roman;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 24px;
+	line-height: 29px;
+	color: rgba(115, 92, 81, 1);
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+p {
+	width: 400px;
+	font-family: Gideon Roman;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 24px;
+	line-height: 30px;
+	letter-spacing: 0.06em;
+	color: #735C51;
+}
+
+.error-msg {
+	font-family: Gideon Roman;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 24px;
+	line-height: 30px;
+	color: #ff0632;
+	letter-spacing: 0.02em;
+}

@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="static/styles/create-room-style.css" type="text/css" />
 </head>
 <body>
-	<jsp:include page="adminHeader.jsp"></jsp:include>
+	<jsp:include page="/pages/utility-pages/adminHeader.jsp"></jsp:include>
 	<form method="POST" action="controller?command=createRoom">
 		<div id="input-data">
 			<select name="roomCapacity">

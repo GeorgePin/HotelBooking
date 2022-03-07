@@ -10,6 +10,8 @@ import java.util.Properties;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import com.epam.hotelbooking.exception.DaoException;
+
 public class ConnectionPool {
 
     private static ConnectionPool instance;
@@ -18,12 +20,12 @@ public class ConnectionPool {
     private List<ProxyConnection> connectionInUse;
     private static final Lock CONNECTIONS_LOCK = new ReentrantLock();
 
-    private ConnectionPool() throws SQLException, IOException, ClassNotFoundException {
+    private ConnectionPool() {
         availableConnections = new ArrayList<>();
         connectionInUse = new ArrayList<>();
     }
 
-    public static ConnectionPool getInstance() throws Exception {
+    public static ConnectionPool getInstance() throws DaoException {
         ConnectionPool localInstance = instance;
         if (localInstance == null) {
             CONNECTIONS_LOCK.lock();
@@ -41,20 +43,25 @@ public class ConnectionPool {
         return localInstance;
     }
 
-    private void init() throws Exception {
+    private void init() throws DaoException {
         Properties props = new Properties();
-        props.load((this.getClass()
-                .getClassLoader()
-                .getResourceAsStream(DB_SETTINGS_PROPERTY_FILE)));
-        String dbDriverClass = props.getProperty("db.driver.class");
-        String dbConnUrl = props.getProperty("db.conn.url");
-        String dbUserName = props.getProperty("db.username");
-        String dbPassword = props.getProperty("db.password");
-        int dbPoolSize = Integer.parseInt(props.getProperty("db.poolsize"));
-        Class.forName(dbDriverClass);
-        Connection connection = DriverManager.getConnection(dbConnUrl, dbUserName, dbPassword);
-        for (int i = 0; i < dbPoolSize; i++) {
-            availableConnections.add(new ProxyConnection(connection, ConnectionPool.getInstance()));
+        try {
+            props.load((this.getClass()
+                    .getClassLoader()
+                    .getResourceAsStream(DB_SETTINGS_PROPERTY_FILE)));
+
+            String dbDriverClass = props.getProperty("db.driver.class");
+            String dbConnUrl = props.getProperty("db.conn.url");
+            String dbUserName = props.getProperty("db.username");
+            String dbPassword = props.getProperty("db.password");
+            int dbPoolSize = Integer.parseInt(props.getProperty("db.poolsize"));
+            Class.forName(dbDriverClass);
+            Connection connection = DriverManager.getConnection(dbConnUrl, dbUserName, dbPassword);
+            for (int i = 0; i < dbPoolSize; i++) {
+                availableConnections.add(new ProxyConnection(connection, ConnectionPool.getInstance()));
+            }
+        } catch (IOException | ClassNotFoundException | SQLException exception) {
+            throw new DaoException("Error during connection pool initialization", exception);
         }
     }
 
@@ -64,7 +71,7 @@ public class ConnectionPool {
         return connection;
     }
 
-    public boolean releaseConnection(ProxyConnection connection) throws SQLException {
+    public boolean releaseConnection(ProxyConnection connection) {
         availableConnections.add(connection);
         return connectionInUse.remove(connection);
     }

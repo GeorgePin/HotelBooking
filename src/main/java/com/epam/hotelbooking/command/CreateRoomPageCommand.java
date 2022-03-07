@@ -6,19 +6,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.epam.hotelbooking.entity.RoomPrice;
+import com.epam.hotelbooking.exception.DaoException;
+import com.epam.hotelbooking.exception.ServiceException;
 import com.epam.hotelbooking.service.RoomPriceServiceImpl;
 
 public class CreateRoomPageCommand implements Command {
-    private RoomPriceServiceImpl roomPriceService;
+    private final RoomPriceServiceImpl roomPriceService;
 
     public CreateRoomPageCommand(RoomPriceServiceImpl roomPriceService) {
         this.roomPriceService = roomPriceService;
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+    public CommandResult execute(HttpServletRequest req, HttpServletResponse resp)
+            throws DaoException, ServiceException {
         List<RoomPrice> listOfPrices = roomPriceService.getRoomPrices();
         req.setAttribute("listOfPrices", listOfPrices);
-        return new CommandResult("/createRoom.jsp", false);
+        return CommandResult.forward("/pages/admin-pages/createRoom.jsp");
     }
 }

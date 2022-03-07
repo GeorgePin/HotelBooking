@@ -1,8 +1,7 @@
 package com.epam.hotelbooking.entity;
 
-import java.io.Serializable;
+public class Room extends Entity {
 
-public class Room implements Identifable, Serializable {
     private static final long serialVersionUID = -1343084847929251069L;
     private Long id;
     private int capacity;
@@ -10,6 +9,7 @@ public class Room implements Identifable, Serializable {
     private int number;
     private boolean isBlocked;
     private RoomPrice roomPrice;
+    private Long roomPriceId;
 
     public Room(Long id, int capacity, RoomClass type, int number, boolean isBlocked, RoomPrice roomPrice) {
         this.id = id;
@@ -26,6 +26,13 @@ public class Room implements Identifable, Serializable {
         this.number = number;
         this.isBlocked = isBlocked;
         this.roomPrice = roomPrice;
+    }
+
+    public Room(int capacity, RoomClass type, int number, Long roomPriceId) {
+        this.capacity = capacity;
+        this.type = type;
+        this.number = number;
+        this.roomPriceId = roomPriceId;
     }
 
     @Override
@@ -51,6 +58,10 @@ public class Room implements Identifable, Serializable {
 
     public RoomPrice getRoomPrice() {
         return roomPrice;
+    }
+
+    public Long getRoomPriceId() {
+        return roomPriceId;
     }
 
 }

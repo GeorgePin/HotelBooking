@@ -6,9 +6,12 @@ import com.epam.hotelbooking.entity.Request;
 import com.epam.hotelbooking.exception.DaoException;
 
 public interface RequestDao {
-    List<Request> getRequestsForAdmin(int startElement) throws DaoException;
 
     List<Request> getRequestsForClient(int startElement) throws DaoException;
 
-    boolean insertRoomIntoRequest(Long requestId, Long roomId) throws DaoException;
+    void insertRoomIntoRequest(Long requestId, Long roomId) throws DaoException;
+
+    List<Request> getUnapprovedRequestsForAdmin(int startElement) throws DaoException;
+
+    Integer getAmountOfPages() throws DaoException;
 }

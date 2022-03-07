@@ -6,11 +6,11 @@ import javax.servlet.http.HttpServletResponse;
 public class LogoutCommand implements Command {
 
     @Override
-    public CommandResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+    public CommandResult execute(HttpServletRequest req, HttpServletResponse resp) {
         req.getSession()
-                .setAttribute("user", null);
+                .setAttribute("userId", null);
         req.getSession()
                 .setAttribute("isLoggedIn", false);
-        return new CommandResult("/index.jsp", false);
+        return CommandResult.forward("/pages/common-pages/index.jsp");
     }
 }

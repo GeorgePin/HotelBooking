@@ -1,6 +1,5 @@
 package com.epam.hotelbooking.dao;
 
-import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,13 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.epam.hotelbooking.entity.Entity;
 import com.epam.hotelbooking.entity.EntityType;
-import com.epam.hotelbooking.entity.Identifable;
+import com.epam.hotelbooking.exception.DaoException;
 import com.epam.hotelbooking.mapper.RowMapper;
 
-public abstract class AbstractDao<T extends Identifable & Serializable> implements Dao<T> {
-    private static final int RECORDS_PER_PAGE = 5;
+public abstract class AbstractDao<T extends Entity> implements Dao<T> {
+    protected static final int RECORDS_PER_PAGE = 5;
     protected static final String NO_IMPLEMENTATION = "No implementation";
+    protected static final String ZERO = "0";
     private final Connection connection;
     private final RowMapper<T> rowMapper;
 
@@ -24,7 +25,7 @@ public abstract class AbstractDao<T extends Identifable & Serializable> implemen
         this.rowMapper = rowMapper;
     }
 
-    protected final List<T> executeQuery(String query, Object... params) throws SQLException {
+    protected final List<T> executeQuery(String query, Object... params) throws DaoException {
         try (PreparedStatement statement = createStatement(query, params);
                 ResultSet resultSet = statement.executeQuery()) {
             List<T> entities = new ArrayList<>();
@@ -33,20 +34,25 @@ public abstract class AbstractDao<T extends Identifable & Serializable> implemen
                 entities.add(entity);
             }
             return entities;
+        } catch (SQLException exception) {
+            throw new DaoException("Error during executing query", exception);
         }
     }
 
-    private final PreparedStatement createStatement(String query, Object... params) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement(query);
-        for (int i = 1; i <= params.length; i++) {
-            statement.setObject(i, params[i - 1]);
+    private final PreparedStatement createStatement(String query, Object... params) throws DaoException {
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
+            for (int i = 1; i <= params.length; i++) {
+                statement.setObject(i, params[i - 1]);
+            }
+            return statement;
+        } catch (SQLException exception) {
+            throw new DaoException("Error during creating statement", exception);
         }
-        return statement;
-
     }
 
-    protected final Optional<T> executeForSingleResult(String query, Object... params) throws SQLException {
-        List<T> entity = executeQuery(query, rowMapper, params);
+    protected final Optional<T> executeForSingleResult(String query, Object... params) throws DaoException {
+        List<T> entity = executeQuery(query, params);
         if (entity.size() == 1) {
             return Optional.of(entity.get(0));
         } else if (entity.size() > 1) {
@@ -56,25 +62,32 @@ public abstract class AbstractDao<T extends Identifable & Serializable> implemen
         }
     }
 
-    protected final boolean executeQueryWithoutReturnValue(String query, Object... params) throws SQLException {
+    protected final void executeQueryWithoutReturnValue(String query, Object... params) throws DaoException {
         try (PreparedStatement statement = createStatement(query, params)) {
-            return statement.execute();
+            statement.execute();
+        } catch (SQLException exception) {
+            throw new DaoException("Error during executing query without return value", exception);
         }
     }
 
-    protected final List<T> getItemsForPage(int startElement, EntityType entityType, String filter, String filterValue)
-            throws SQLException {
-        final String query = "select * from " + entityType.getEntityType() + " where " + filter + "=?" + filterValue
-                + " limit ?, ?";
+    protected final List<T> getItemsForSinglePage(int startElement, EntityType entityType, String filter,
+            String filterValue) throws DaoException {
+        final String query = "select * from " + entityType.getEntityType() + " where " + filter + "=? limit ?, ?";
         return executeQuery(query, filterValue, startElement, RECORDS_PER_PAGE);
     }
 
-    protected final int getAmountOfItems(EntityType entityType, String filter, String filterValue) throws SQLException {
-        final String query = "select count(*) from " + entityType.getEntityType() + " where " + filter + "="
-                + filterValue;
-        try (PreparedStatement statement = createStatement(query, filter, filterValue);
-                ResultSet resultSet = statement.executeQuery()) {
-            return resultSet.getInt(1);
+    protected final Integer getAmountOfPages(EntityType entityType) throws DaoException {
+        final String query = "select count(*) from " + entityType.getEntityType();
+        try (PreparedStatement statement = createStatement(query); ResultSet resultSet = statement.executeQuery()) {
+            if (resultSet.next()) {
+                Integer amountOfItems = resultSet.getInt(1);
+                int numberOfPages = (int) Math.ceil(amountOfItems * 1.0 / RECORDS_PER_PAGE);
+                return numberOfPages;
+            } else {
+                throw new DaoException("Can't find amountOfItems from resultSet");
+            }
+        } catch (SQLException exception) {
+            throw new DaoException("Error during getting amount of all items", exception);
         }
     }
 }

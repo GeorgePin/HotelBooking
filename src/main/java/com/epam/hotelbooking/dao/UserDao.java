@@ -11,5 +11,5 @@ public interface UserDao {
 
     List<User> getAllClients() throws DaoException;
 
-    boolean banUser(Long userId) throws DaoException;
+    void banUser(Long userId) throws DaoException;
 }

@@ -1,35 +1,27 @@
 package com.epam.hotelbooking.command;
 
-import java.util.List;
-import java.util.Optional;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.epam.hotelbooking.entity.Room;
-import com.epam.hotelbooking.entity.RoomsAmount;
-import com.epam.hotelbooking.service.AmountOfRoomsServiceImpl;
-import com.epam.hotelbooking.service.RoomsPageServiceImpl;
+import com.epam.hotelbooking.entity.ItemsTransferObject;
+import com.epam.hotelbooking.exception.DaoException;
+import com.epam.hotelbooking.exception.ServiceException;
+import com.epam.hotelbooking.service.RoomServiceImpl;
 
 public class RoomsPageCommand implements Command {
-    private static final int RECORDS_PER_PAGE = 5;
-    private final RoomsPageServiceImpl roomsPageService;
-    private final AmountOfRoomsServiceImpl amountOfRoomsService;
+    private final RoomServiceImpl roomService;
 
-    public RoomsPageCommand(RoomsPageServiceImpl roomsPageService, AmountOfRoomsServiceImpl amountOfRoomsService) {
-        this.roomsPageService = roomsPageService;
-        this.amountOfRoomsService = amountOfRoomsService;
+    public RoomsPageCommand(RoomServiceImpl roomService) {
+        this.roomService = roomService;
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+    public CommandResult execute(HttpServletRequest req, HttpServletResponse resp)
+            throws ServiceException, DaoException {
         int page = Integer.parseInt(req.getParameter("page"));
-        List<Room> rooms = roomsPageService.getRooms((page - 1) * RECORDS_PER_PAGE);
-        Optional<RoomsAmount> numberOfRooms = amountOfRoomsService.getNumberOfRooms();
-        int numberOfPages = (int) Math.ceil(numberOfRooms.get()
-                .getAmountOfRooms() * 1.0 / RECORDS_PER_PAGE);
-        req.setAttribute("roomsList", rooms);
-        req.setAttribute("numberOfPages", numberOfPages);
-        return new CommandResult("/rooms.jsp", false);
+        ItemsTransferObject transferObject = roomService.getRoomsForSinglePage(page, false);
+        req.setAttribute("roomsList", transferObject.getItems());
+        req.setAttribute("numberOfPages", transferObject.getAmountOfPages());
+        return CommandResult.forward("/pages/admin-pages/rooms.jsp");
     }
 }
