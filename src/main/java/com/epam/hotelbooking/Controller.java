@@ -38,9 +38,10 @@ public class Controller extends HttpServlet {
             CommandResult result = action.execute(req, resp);
             dispatch(req, resp, result);
         } catch (Exception exception) {
-//            exception.printStackTrace();
-            req.setAttribute("errorMessage", exception.getMessage());
-            dispatch(req, resp, CommandResult.forward("/pages/common-pages/errorPage.jsp"));
+           System.out.println(exception.getMessage());
+           exception.printStackTrace();
+//            req.setAttribute("errorMessage", exception.getMessage());
+//            dispatch(req, resp, CommandResult.forward("/pages/common-pages/errorPage.jsp"));
         }
     }
 

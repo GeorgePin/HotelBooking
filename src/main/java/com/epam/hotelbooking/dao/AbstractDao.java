@@ -69,25 +69,37 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
             throw new DaoException("Error during executing query without return value", exception);
         }
     }
-
-    protected final List<T> getItemsForSinglePage(int startElement, EntityType entityType, String filter,
-            String filterValue) throws DaoException {
-        final String query = "select * from " + entityType.getEntityType() + " where " + filter + "=? limit ?, ?";
-        return executeQuery(query, filterValue, startElement, RECORDS_PER_PAGE);
-    }
-
-    protected final Integer getAmountOfPages(EntityType entityType) throws DaoException {
-        final String query = "select count(*) from " + entityType.getEntityType();
-        try (PreparedStatement statement = createStatement(query); ResultSet resultSet = statement.executeQuery()) {
-            if (resultSet.next()) {
-                Integer amountOfItems = resultSet.getInt(1);
-                int numberOfPages = (int) Math.ceil(amountOfItems * 1.0 / RECORDS_PER_PAGE);
-                return numberOfPages;
-            } else {
-                throw new DaoException("Can't find amountOfItems from resultSet");
-            }
-        } catch (SQLException exception) {
-            throw new DaoException("Error during getting amount of all items", exception);
-        }
-    }
+//TODO this logic MUST be removed because of uselesssness
+//    protected final List<T> getItemsForSinglePage(int startElement, EntityType entityType, String filter,
+//            String filterValue) throws DaoException {
+//        final String query = "select * from " + entityType.getEntityType() + " where " + filter + "=? limit ?, ?";
+//        return executeQuery(query, filterValue, startElement, RECORDS_PER_PAGE);
+//    }
+//
+//    protected final Integer getAmountOfPages(EntityType entityType, String filter, String filterValue)
+//            throws DaoException {
+//        final String query = "select count(*) from " + entityType.getEntityType() + " where " + filter + "="
+//                + filterValue;
+//  
+//        return getAmountOfPagesExecutor(query);
+//    }
+//
+//    protected final Integer getAmountOfPages(EntityType entityType) throws DaoException {
+//        final String query = "select count(*) from " + entityType.getEntityType();
+//        return getAmountOfPagesExecutor(query);
+//    }
+//
+//    private Integer getAmountOfPagesExecutor(String query) throws DaoException {
+//        try (PreparedStatement statement = createStatement(query); ResultSet resultSet = statement.executeQuery()) {
+//            if (resultSet.next()) {
+//                Integer amountOfItems = resultSet.getInt(1);
+//                int numberOfPages = (int) Math.ceil(amountOfItems * 1.0 / RECORDS_PER_PAGE);
+//                return numberOfPages;
+//            } else {
+//                throw new DaoException("Can't find amountOfItems from resultSet");
+//            }
+//        } catch (SQLException exception) {
+//            throw new DaoException("Error during getting amount of all items", exception);
+//        }
+//    }
 }

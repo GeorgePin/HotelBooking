@@ -29,6 +29,7 @@ public class RequestRoomCommand implements Command {
         Long userId = (Long) req.getSession()
                 .getAttribute("userId");
         requestService.createRoomRequest(new Request(userId, startDate, endDate, roomCapacity, roomClass));
-        return CommandResult.redirect("/pages/common-pages/index.jsp");
+        return CommandResult.redirect("pages/common-pages/index.jsp");
+
     }
 }

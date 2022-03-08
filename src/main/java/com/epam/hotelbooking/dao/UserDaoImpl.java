@@ -57,4 +57,5 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
     public void banUser(Long userId) throws DaoException {
         update(userId, BAN_USER);
     }
+
 }

@@ -19,7 +19,6 @@ public class RoomDaoImpl extends AbstractDao<Room> implements RoomDao {
     private static final String GET_ROOMS_WITH_PRICES = "select room.id, room.capacity, room.type,"
             + " room.number, room.is_blocked, room.room_price_id, room_price.price, room_price.valid_from"
             + " from room inner join room_price on room_price.id=room.room_price_id ORDER BY `id` limit ?, ?";
-
     public RoomDaoImpl(ProxyConnection proxyConnection, RowMapper<Room> rowMapper) {
         super(proxyConnection, rowMapper);
     }

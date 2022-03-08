@@ -21,9 +21,11 @@ public class RequestsPageCommand implements Command {
         int pageInt = Integer.parseInt(req.getParameter("page"));
         boolean isAdmin = (Boolean) req.getSession()
                 .getAttribute("isAdmin");
-        ItemsTransferObject transferObject = requestService.getRequestsForUser(pageInt, isAdmin);
+        Long userId = (Long) req.getSession()
+                .getAttribute("userId");
+        ItemsTransferObject transferObject = requestService.getRequestsForUser(pageInt, userId, isAdmin);
         req.setAttribute("requestsList", transferObject.getItems());
         req.setAttribute("numberOfPages", transferObject.getAmountOfPages());
-        return CommandResult.forward("/page/common-pages/requests.jsp");
+        return CommandResult.forward("/pages/common-pages/requests.jsp");
     }
 }

@@ -8,14 +8,16 @@
 <head>
 <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
 <title>language bar</title>
+<base href="http://localhost:8080/HotelBooking/">
 <link rel="stylesheet" href="static/styles/language-bar-style.css" type="text/css" />
 </head>
 <body>
 	<div class="dropdown">
 		<img class="dropbtn" alt="globus icon" src="static/images/globus.png" width="50px">
 		<div class="dropdown-content">
-			<a href="${pageContext.request.contextPath}/?sessionLocale=ru"><fmt:message key="ru" /> </a> <a href="?sessionLocale=en"><fmt:message
-					key="en" /></a> <a href="?sessionLocale=fr"><fmt:message key="fr" /></a>
+			<a href="controller?command=setLanguage&sessionLocale=ru"><fmt:message key="ru" /> </a> <a
+				href="controller?command=setLanguage&sessionLocale=en"><fmt:message key="en" /></a> <a
+				href="controller?command=setLanguage&sessionLocale=fr"><fmt:message key="fr" /></a>
 		</div>
 	</div>
 </body>

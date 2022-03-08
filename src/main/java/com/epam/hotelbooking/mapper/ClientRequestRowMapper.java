@@ -1,5 +1,6 @@
 package com.epam.hotelbooking.mapper;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,7 +9,7 @@ import com.epam.hotelbooking.entity.Request;
 import com.epam.hotelbooking.entity.RoomClass;
 import com.epam.hotelbooking.exception.DaoException;
 
-public class RequestRowMapper implements RowMapper<Request> {
+public class ClientRequestRowMapper implements RowMapper<Request> {
 
     @Override
     public Request map(ResultSet resultSet) throws DaoException {
@@ -22,7 +23,8 @@ public class RequestRowMapper implements RowMapper<Request> {
             RoomClass roomClass = RoomClass.valueOf(resultSet.getString("room_class")
                     .toUpperCase());
             boolean isApproved = resultSet.getBoolean("is_approved");
-            return new Request(id, roomId, userId, startDate, endDate, roomCapacity, roomClass, isApproved);
+            BigDecimal price = resultSet.getBigDecimal("price");
+            return new Request(id, roomId, userId, startDate, endDate, roomCapacity, roomClass, isApproved, price);
         } catch (SQLException exception) {
             throw new DaoException("Error during getting data from db", exception);
         }

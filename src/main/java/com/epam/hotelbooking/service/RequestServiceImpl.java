@@ -10,19 +10,22 @@ import com.epam.hotelbooking.entity.ItemsTransferObject;
 import com.epam.hotelbooking.entity.Request;
 import com.epam.hotelbooking.exception.DaoException;
 import com.epam.hotelbooking.exception.ServiceException;
-import com.epam.hotelbooking.mapper.RequestRowMapper;
+import com.epam.hotelbooking.mapper.ClientRequestRowMapper;
 import com.epam.hotelbooking.mapper.RoomRowMapper;
 
 public class RequestServiceImpl implements RequestService {
 
     @Override
-    public ItemsTransferObject getRequestsForUser(int pageNumber, boolean isAdmin) throws ServiceException {
+    public ItemsTransferObject getRequestsForUser(int pageNumber, Long userId, boolean isAdmin)
+            throws ServiceException {
         try (DaoHelper daoHelper = new DaoHelper()) {
             daoHelper.startTransaction();
-            RequestDaoImpl requestDao = daoHelper.createRequestDao(new RequestRowMapper());
+            RequestDaoImpl requestDao = daoHelper.createRequestDao(new ClientRequestRowMapper());
+       
             List<Request> listOfRequests = isAdmin ? requestDao.getUnapprovedRequestsForAdmin(pageNumber)
-                    : requestDao.getRequestsForClient(pageNumber);
-            Integer amountOfAllRequests = requestDao.getAmountOfPages();
+                    : requestDao.getRequestsForClient(pageNumber, userId);
+            Integer amountOfAllRequests = requestDao.getAmountOfPagesForClient(userId);
+         
             ItemsTransferObject transferObject = new ItemsTransferObject(listOfRequests, amountOfAllRequests);
             daoHelper.endTransaction();
             return transferObject;
@@ -35,7 +38,7 @@ public class RequestServiceImpl implements RequestService {
     public Optional<Request> getRequest(Long requestId) throws ServiceException {
         try (DaoHelper daoHelper = new DaoHelper()) {
             daoHelper.startTransaction();
-            RequestDaoImpl requestDao = daoHelper.createRequestDao(new RequestRowMapper());
+            RequestDaoImpl requestDao = daoHelper.createRequestDao(new ClientRequestRowMapper());
             Optional<Request> request = requestDao.read(requestId);
             daoHelper.endTransaction();
             return request;
@@ -48,7 +51,7 @@ public class RequestServiceImpl implements RequestService {
     public void handleRoomRequest(Long requestId, Long roomId) throws ServiceException {
         try (DaoHelper daoHelper = new DaoHelper()) {
             daoHelper.startTransaction();
-            RequestDaoImpl requestDao = daoHelper.createRequestDao(new RequestRowMapper());
+            RequestDaoImpl requestDao = daoHelper.createRequestDao(new ClientRequestRowMapper());
             RoomDaoImpl roomDao = daoHelper.createRoomDao(new RoomRowMapper());
             roomDao.blockRoom(roomId);
             requestDao.insertRoomIntoRequest(requestId, roomId);
@@ -62,7 +65,7 @@ public class RequestServiceImpl implements RequestService {
     public void createRoomRequest(Request request) throws ServiceException {
         try (DaoHelper daoHelper = new DaoHelper()) {
             daoHelper.startTransaction();
-            RequestDaoImpl requestDao = daoHelper.createRequestDao(new RequestRowMapper());
+            RequestDaoImpl requestDao = daoHelper.createRequestDao(new ClientRequestRowMapper());
             requestDao.create(request);
             daoHelper.endTransaction();
         } catch (DaoException exception) {

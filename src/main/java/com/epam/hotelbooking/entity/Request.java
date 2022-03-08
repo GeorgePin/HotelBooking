@@ -1,5 +1,6 @@
 package com.epam.hotelbooking.entity;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 
 public class Request extends Entity {
@@ -13,9 +14,10 @@ public class Request extends Entity {
     private int roomCapacity;
     private RoomClass roomClass;
     private boolean isApproved;
+    private BigDecimal price;
 
     public Request(Long id, Long roomId, Long userId, Date startDate, Date endDate, int roomCapacity,
-            RoomClass roomClass, boolean isApproved) {
+            RoomClass roomClass, boolean isApproved, BigDecimal price) {
         this.id = id;
         this.roomId = roomId;
         this.userId = userId;
@@ -24,6 +26,7 @@ public class Request extends Entity {
         this.roomCapacity = roomCapacity;
         this.roomClass = roomClass;
         this.isApproved = isApproved;
+        this.price = price;
     }
 
     public Request(Long userId, Date startDate, Date endDate, int roomCapacity, RoomClass roomClass) {
@@ -65,6 +68,10 @@ public class Request extends Entity {
     @Override
     public Long getId() {
         return id;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
     }
 
 }

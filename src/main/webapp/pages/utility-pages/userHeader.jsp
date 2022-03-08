@@ -8,6 +8,7 @@
 <head>
 <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
 <title>User header</title>
+<base href="http://localhost:8080/HotelBooking/">
 <link rel="stylesheet" href="static/styles/header-style.css" type="text/css" />
 </head>
 <header>
@@ -15,7 +16,7 @@
 		src="static/images/hotel_logo.png" alt="hotel logo" id="hotel-logo"></a>
 	<div class="navigation-bar">
 		<a href="controller?command=showPage&page=pages/user-pages/requestRoom"> <fmt:message key="request-room" />
-		</a> | <a href="controller?command=showPage&page=pages/common-pages/requests"><fmt:message key="requests" /></a> | <a
+		</a> | <a href="controller?command=requestsPage&page=1"><fmt:message key="requests" /></a> | <a
 			href="controller?command=logout"><fmt:message key="log-out" /></a>
 	</div>
 	<div id="language-bar">

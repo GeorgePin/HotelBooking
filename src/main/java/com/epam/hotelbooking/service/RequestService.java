@@ -8,8 +8,7 @@ import com.epam.hotelbooking.exception.ServiceException;
 
 public interface RequestService {
 
-    ItemsTransferObject getRequestsForUser(int startElement, boolean isAdmin)
-            throws ServiceException;
+    ItemsTransferObject getRequestsForUser(int startElement, Long userId, boolean isAdmin) throws ServiceException;
 
     Optional<Request> getRequest(Long requestId) throws ServiceException;
 

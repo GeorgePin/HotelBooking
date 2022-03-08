@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+body {
+	background: linear-gradient(105.47deg, rgba(50, 131, 253, 0.13) -9.01%, #E0CDFE 101.5%);
+	margin: 0px;
+}
+
+#page-content {
+	position: relative;
+	width: 50%;
+	margin: 0 auto;
+	top: 300px;
+}
+
+#requets-table {
+	width: 100%;
+	border-collapse: separate;
+	border-radius: 6px;
+	border: solid black 1px;
+}
+
+#requets-table td, th {
+	border: 1px solid;
+	text-align: center;
+}
+
+#requets-table tr:nth-child(odd) {
+	background-color: #fbd2ed;
+}
+
+#requets-table tr:nth-child(even) {
+	background-color: #eed8fc;
+}
+
+#page-navigation {
+	position: absolute;
+	margin-left: 47%;
+	margin-top: 5%;
+	width: 90px;
+}

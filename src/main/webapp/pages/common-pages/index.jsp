@@ -4,12 +4,17 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <fmt:setLocale value="${sessionScope.lang}" />
 <fmt:setBundle basename="messages" />
+<c:set var="currentPageCommand" value="/controller?command=showPage&page=pages/common-pages/index"
+	scope="session" />
 <html lang="${sessionScope.lang}">
 <head>
 <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
 <title>Main page</title>
-<link rel="stylesheet" href="static/styles/basic-style.css" type="text/css" />
-<link rel="stylesheet" href="static/styles/index-style.css" type="text/css" />
+<base href="http://localhost:8080/HotelBooking/">
+<link rel="stylesheet" href="static/styles/basic-style.css"
+	type="text/css" />
+<link rel="stylesheet" href="static/styles/index-style.css"
+	type="text/css" />
 </head>
 <body class="${isLoggedIn ? 'main-page-body' : 'login-page-body'}">
 	<c:choose>
