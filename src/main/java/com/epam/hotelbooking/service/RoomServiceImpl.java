@@ -1,7 +1,5 @@
 package com.epam.hotelbooking.service;
 
-import java.util.List;
-
 import com.epam.hotelbooking.dao.DaoHelper;
 import com.epam.hotelbooking.dao.RoomDaoImpl;
 import com.epam.hotelbooking.entity.ItemsTransferObject;
@@ -17,12 +15,16 @@ public class RoomServiceImpl implements RoomService {
         try (DaoHelper daoHelper = new DaoHelper()) {
             daoHelper.startTransaction();
             RoomDaoImpl dao = daoHelper.createRoomDao(new RoomRowMapper());
-            List<Room> listOfRooms = isForHandling ? dao.getFreeRoomsForSinglePage(startElement)
-                    : dao.getRoomsWithPrices(startElement);
-            Integer amountOfAllRooms = dao.getAmountOfPages();
-            ItemsTransferObject transferObject = new ItemsTransferObject(listOfRooms, amountOfAllRooms);
+            ItemsTransferObject itemsTransferObject;
+            if (isForHandling) {
+                itemsTransferObject = new ItemsTransferObject(dao.getFreeRoomsForSinglePage(startElement),
+                        dao.getAmountOfPagesForFreeRooms());
+            } else {
+                itemsTransferObject = new ItemsTransferObject(dao.getRoomsWithPrices(startElement),
+                        dao.getAmountOfPagesForRooms());
+            }
             daoHelper.endTransaction();
-            return transferObject;
+            return itemsTransferObject;
         } catch (DaoException exception) {
             throw new ServiceException("Error during getting free rooms for single page", exception);
         }
@@ -49,6 +51,17 @@ public class RoomServiceImpl implements RoomService {
             daoHelper.endTransaction();
         } catch (DaoException exception) {
             throw new ServiceException("Error during deleting room", exception);
+        }
+    }
+    @Override
+    public void unblockRoom(Long roomId) throws ServiceException {
+        try (DaoHelper daoHelper = new DaoHelper()) {
+            daoHelper.startTransaction();
+            RoomDaoImpl dao = daoHelper.createRoomDao(new RoomRowMapper());
+            dao.unblockRoom(roomId);
+            daoHelper.endTransaction();
+        } catch (DaoException exception) {
+            throw new ServiceException("Error during unblocking room", exception);
         }
     }
 }

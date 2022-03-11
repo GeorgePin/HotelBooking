@@ -23,7 +23,7 @@
 
 #log-in-btn {
 	margin: 20px;
-	margin-left: 76px;
+	margin-left: 87px;
 }
 
 #login-input {
@@ -39,8 +39,10 @@
 	position: relative;
 	width: 40%;
 	height: 50%;
-	left: 500px;
+	left: 530px;
 	top: 200px;
+	display: flex;
+	flex-direction: column;
 }
 
 #language-bar {

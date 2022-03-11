@@ -1,8 +1,10 @@
-package com.epam.hotelbooking.command;
+package com.epam.hotelbooking.command.request;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.epam.hotelbooking.command.Command;
+import com.epam.hotelbooking.command.CommandResult;
 import com.epam.hotelbooking.entity.ItemsTransferObject;
 import com.epam.hotelbooking.exception.DaoException;
 import com.epam.hotelbooking.exception.ServiceException;

@@ -1,5 +1,6 @@
 package com.epam.hotelbooking.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,6 +11,7 @@ import com.epam.hotelbooking.entity.ItemsTransferObject;
 import com.epam.hotelbooking.entity.Request;
 import com.epam.hotelbooking.exception.DaoException;
 import com.epam.hotelbooking.exception.ServiceException;
+import com.epam.hotelbooking.mapper.AdminRequestRowMapper;
 import com.epam.hotelbooking.mapper.ClientRequestRowMapper;
 import com.epam.hotelbooking.mapper.RoomRowMapper;
 
@@ -20,12 +22,17 @@ public class RequestServiceImpl implements RequestService {
             throws ServiceException {
         try (DaoHelper daoHelper = new DaoHelper()) {
             daoHelper.startTransaction();
-            RequestDaoImpl requestDao = daoHelper.createRequestDao(new ClientRequestRowMapper());
-       
-            List<Request> listOfRequests = isAdmin ? requestDao.getUnapprovedRequestsForAdmin(pageNumber)
-                    : requestDao.getRequestsForClient(pageNumber, userId);
-            Integer amountOfAllRequests = requestDao.getAmountOfPagesForClient(userId);
-         
+            List<Request> listOfRequests = new ArrayList<>();
+            Integer amountOfAllRequests;
+            if (isAdmin) {
+                RequestDaoImpl adminRequestDao = daoHelper.createRequestDao(new AdminRequestRowMapper());
+                listOfRequests = adminRequestDao.getUnapprovedRequestsForAdmin(pageNumber);
+                amountOfAllRequests = adminRequestDao.getAmountOfRequestsPagesForAdmin();
+            } else {
+                RequestDaoImpl userRequestDao = daoHelper.createRequestDao(new ClientRequestRowMapper());
+                listOfRequests = userRequestDao.getRequestsForClient(pageNumber, userId);
+                amountOfAllRequests = userRequestDao.getAmountOfPagesForClient(userId);
+            }
             ItemsTransferObject transferObject = new ItemsTransferObject(listOfRequests, amountOfAllRequests);
             daoHelper.endTransaction();
             return transferObject;
@@ -38,7 +45,7 @@ public class RequestServiceImpl implements RequestService {
     public Optional<Request> getRequest(Long requestId) throws ServiceException {
         try (DaoHelper daoHelper = new DaoHelper()) {
             daoHelper.startTransaction();
-            RequestDaoImpl requestDao = daoHelper.createRequestDao(new ClientRequestRowMapper());
+            RequestDaoImpl requestDao = daoHelper.createRequestDao(new AdminRequestRowMapper());
             Optional<Request> request = requestDao.read(requestId);
             daoHelper.endTransaction();
             return request;

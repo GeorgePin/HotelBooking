@@ -27,7 +27,7 @@ public class RoomPriceDaoImpl extends AbstractDao<RoomPrice> implements RoomPric
     }
 
     @Override
-    public void update(Long itemId, String query, Object... params) throws DaoException {
+    public void update(String query, Object... params) throws DaoException {
         throw new UnsupportedOperationException(NO_IMPLEMENTATION);
     }
 

@@ -59,12 +59,32 @@ a:hover {
 	text-decoration: underline;
 }
 
-p, label {
+p:not([class="table-text"],[class="table-heading-text"]), label {
 	width: 400px;
 	font-family: Gideon Roman;
 	font-style: normal;
 	font-weight: normal;
 	font-size: 24px;
+	line-height: 30px;
+	letter-spacing: 0.06em;
+	color: #735C51;
+}
+
+p[class="table-heading-text"] {
+	font-family: Gideon Roman;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 16px;
+	line-height: 30px;
+	letter-spacing: 0.06em;
+	color: #735C51;
+}
+
+p[class="table-text"] {
+	font-family: Gideon Roman;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
 	line-height: 30px;
 	letter-spacing: 0.06em;
 	color: #735C51;
@@ -78,4 +98,28 @@ p, label {
 	line-height: 30px;
 	color: #ff0632;
 	letter-spacing: 0.02em;
+}
+
+table:not(.page-navigation) {
+	border-collapse: separate;
+	border-radius: 6px;
+	border: solid black 1px;
+}
+
+table:not(.page-navigation) td, th {
+	border: 1px solid;
+	text-align: center;
+}
+
+table:not(.page-navigation) tr:nth-child(odd) {
+	background-color: #fbd2ed;
+}
+
+table:not(.page-navigation) tr:nth-child(even) {
+	background-color: #eed8fc;
+}
+
+.pending-image, .accept-image {
+	width: 20px;
+	height: 20px;
 }

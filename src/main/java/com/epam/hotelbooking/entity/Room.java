@@ -44,8 +44,9 @@ public class Room extends Entity {
         return capacity;
     }
 
-    public RoomClass getType() {
-        return type;
+    public String getRoomClass() {
+        return type.toString()
+                .toLowerCase();
     }
 
     public int getNumber() {

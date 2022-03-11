@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.epam.hotelbooking.dao.DaoHelper;
 import com.epam.hotelbooking.dao.UserDaoImpl;
+import com.epam.hotelbooking.entity.ItemsTransferObject;
 import com.epam.hotelbooking.entity.User;
 import com.epam.hotelbooking.exception.DaoException;
 import com.epam.hotelbooking.exception.ServiceException;
@@ -39,13 +40,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAllClients() throws ServiceException {
+    public ItemsTransferObject getAllClients(int pageNumber) throws ServiceException {
         try (DaoHelper daoHelper = new DaoHelper()) {
             daoHelper.startTransaction();
             UserDaoImpl userDao = daoHelper.createUserDao(new ClientRowMapper());
-            List<User> listOfClients = userDao.getAllClients();
+            List<User> listOfClients = userDao.getAllClients(pageNumber);
+            Integer amountOfPagesWithClients = userDao.getAmountOfPagesWithCleints();
+            ItemsTransferObject itemsTransferObject = new ItemsTransferObject(listOfClients, amountOfPagesWithClients);
             daoHelper.endTransaction();
-            return listOfClients;
+            return itemsTransferObject;
         } catch (DaoException exception) {
             throw new ServiceException("Error during reading all clients", exception);
         }

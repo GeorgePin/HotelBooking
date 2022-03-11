@@ -1,7 +1,8 @@
 @charset "UTF-8";
 
 body {
-	background: linear-gradient(105.47deg, rgba(50, 131, 253, 0.13) -9.01%, #E0CDFE 101.5%);
+	background: linear-gradient(121.99deg, #FED5CD 4.95%, #E0CDFE 70.55%);
+	margin: 0px;
 }
 
 input, label {

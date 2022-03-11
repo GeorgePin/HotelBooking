@@ -1,23 +1,36 @@
 @charset "UTF-8";
 
 body {
-	background: linear-gradient(121.99deg, #FED5CD 4.95%, #E0CDFE 70.55%);
+	background: linear-gradient(110.85deg, rgba(253, 50, 221, 0.16) 20.87%, rgba(20, 0, 255, 0.16)
+		89.79%);
+	mix-blend-mode: normal;
+	margin: 0px;
 }
 
-#rooms-table {
-	position: absolute;
-	top: 200px;
-	left: 400px;
+#page-content {
+	position: relative;
+	width: 60%;
+	margin: 0 auto;
+	top: 250px;
 }
 
-#page-navigation-table {
+.page-navigation {
 	position: absolute;
-	top: 150px;
-	left: 400px;
+	margin-left: 47%;
+	margin-top: 17%;
+	width: 90px;
 }
 
 #create-new-room {
 	position: absolute;
 	top: 500px;
 	left: 600px;
+}
+
+#counter-row {
+	width: 5%;
+}
+
+#is-blocked-row {
+	width: 1%;
 }

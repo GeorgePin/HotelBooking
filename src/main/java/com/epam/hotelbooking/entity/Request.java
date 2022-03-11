@@ -29,6 +29,15 @@ public class Request extends Entity {
         this.price = price;
     }
 
+    public Request(Long id, Long userId, Date startDate, Date endDate, int roomCapacity, RoomClass roomClass) {
+        this.id = id;
+        this.userId = userId;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.roomCapacity = roomCapacity;
+        this.roomClass = roomClass;
+    }
+
     public Request(Long userId, Date startDate, Date endDate, int roomCapacity, RoomClass roomClass) {
         this.userId = userId;
         this.startDate = startDate;
@@ -57,8 +66,9 @@ public class Request extends Entity {
         return roomCapacity;
     }
 
-    public RoomClass getRoomClass() {
-        return roomClass;
+    public String getRoomClass() {
+        return roomClass.toString()
+                .toLowerCase();
     }
 
     public boolean getisApproved() {

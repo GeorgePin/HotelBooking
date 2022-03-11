@@ -14,4 +14,6 @@ public interface RequestDao {
     List<Request> getRequestsForClient(int pageNumber, Long userId) throws DaoException;
 
     Integer getAmountOfPagesForClient(Long userId) throws DaoException;
+
+    Integer getAmountOfRequestsPagesForAdmin() throws DaoException;
 }

@@ -8,24 +8,18 @@ body {
 #page-content {
 	position: relative;
 	width: 50%;
+	height: 50%;
+	top: 220px;
 	margin: 0 auto;
-	top: 300px;
 }
 
 .page-navigation {
 	position: absolute;
-	margin-left: 47%;
-	margin-top: 22%;
+	margin-left: 42%;
+	margin-top: 5%;
 	width: 90px;
 }
 
-#dash>h1 {
-	margin: 0px;
-	line-height: 10px;
-}
-
-#main-page-btn {
-	position: absolute;
-	margin-top: 15%;
-	left: 290px;
+#rooms-table {
+	margin-top: 5%;
 }

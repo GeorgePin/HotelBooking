@@ -11,7 +11,7 @@ public interface Dao<T extends Entity> {
 
     Optional<T> read(Long itemId) throws DaoException;
 
-    void update(Long itemId, String query, Object... params) throws DaoException;
+    void update(String query, Object... params) throws DaoException;
 
     void delete(Long itemId) throws DaoException;
 }

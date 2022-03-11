@@ -10,6 +10,7 @@ public interface RoomService {
 
     void deleteRoom(Long roomId) throws ServiceException;
 
-    ItemsTransferObject getRoomsForSinglePage(int startElement, boolean isForHandling)
-            throws ServiceException;
+    ItemsTransferObject getRoomsForSinglePage(int startElement, boolean isForHandling) throws ServiceException;
+
+    void unblockRoom(Long roomId) throws ServiceException;
 }

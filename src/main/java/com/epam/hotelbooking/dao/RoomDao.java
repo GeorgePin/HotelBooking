@@ -13,5 +13,11 @@ public interface RoomDao {
 
     List<Room> getRoomsWithPrices(int startElement) throws DaoException;
 
-    Integer getAmountOfPages() throws DaoException;
+    void update(String query, Object... params) throws DaoException;
+
+    Integer getAmountOfPagesForFreeRooms() throws DaoException;
+
+    Integer getAmountOfPagesForRooms() throws DaoException;
+
+    void unblockRoom(Long itemId) throws DaoException;
 }

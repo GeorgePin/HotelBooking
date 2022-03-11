@@ -24,9 +24,10 @@ public class RequestDaoImpl extends AbstractDao<Request> implements RequestDao {
             + "    reservation.end_date," + "    reservation.room_capacity," + "    reservation.room_class,"
             + "    reservation.is_approved," + "    room_price.price" + " FROM " + " reservation" + " LEFT JOIN"
             + "    room ON room.id = reservation.room_id" + " LEFT JOIN"
-            + " room_price ON room_price.id = room.room_price_id" + " WHERE"
-            + "    reservation.user_id=? limit ?, ?";
+            + " room_price ON room_price.id = room.room_price_id" + " WHERE" + "    reservation.user_id=? limit ?, ?";
 //TODO those constants should be formated
+    private static final String UNAPPROVED_REQUESTS = "select * from reservation where is_approved=0 limit ?, ?";
+
     public RequestDaoImpl(ProxyConnection proxyConnection, RowMapper<Request> rowMapper) {
         super(proxyConnection, rowMapper);
     }
@@ -49,8 +50,8 @@ public class RequestDaoImpl extends AbstractDao<Request> implements RequestDao {
     }
 
     @Override
-    public void update(Long itemId, String query, Object... params) throws DaoException {
-        executeQueryWithoutReturnValue(query, params, itemId);
+    public void update(String query, Object... params) throws DaoException {
+        executeQueryWithoutReturnValue(query, params);
     }
 
     @Override
@@ -61,7 +62,7 @@ public class RequestDaoImpl extends AbstractDao<Request> implements RequestDao {
     @Override
     public List<Request> getUnapprovedRequestsForAdmin(int pageNumber) throws DaoException {
         int startElement = (pageNumber - 1) * RECORDS_PER_PAGE;
-        return super.getItemsForSinglePage(startElement, EntityType.REQUEST, FILTER_FOR_ADMIN, ZERO);
+        return super.executeQuery(UNAPPROVED_REQUESTS, startElement, RECORDS_PER_PAGE);
     }
 
     @Override
@@ -76,7 +77,12 @@ public class RequestDaoImpl extends AbstractDao<Request> implements RequestDao {
     }
 
     @Override
+    public Integer getAmountOfRequestsPagesForAdmin() throws DaoException {
+        return super.getAmountOfPages(EntityType.REQUEST, FILTER_FOR_ADMIN, ZERO);
+    }
+
+    @Override
     public void insertRoomIntoRequest(Long requestId, Long roomId) throws DaoException {
-        update(requestId, INSERT_ROOM_INTO_REQUEST, roomId);
+        update(INSERT_ROOM_INTO_REQUEST, roomId, requestId);
     }
 }
