@@ -11,9 +11,10 @@ public class User extends Entity {
     private boolean isBlocked;
     private boolean isAdmin;
 
-    public User(long id, boolean isAdmin) {
+    public User(long id, boolean isAdmin, boolean isBlocked) {
         this.id = id;
         this.isAdmin = isAdmin;
+        this.isBlocked = isBlocked;
     }
 
     public User(String name, String surname, String login, String password) {

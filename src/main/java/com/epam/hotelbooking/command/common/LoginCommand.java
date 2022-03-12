@@ -13,6 +13,7 @@ import com.epam.hotelbooking.exception.ServiceException;
 import com.epam.hotelbooking.service.UserServiceImpl;
 
 public class LoginCommand implements Command {
+    private static final String MAIN_PAGE = "/pages/common-pages/index.jsp";
     private final UserServiceImpl userService;
 
     public LoginCommand(UserServiceImpl userService) {
@@ -24,22 +25,25 @@ public class LoginCommand implements Command {
             throws ServiceException, DaoException {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
-        Optional<User> user = userService.login(login, password);
-        if (user.isPresent()) {
-            boolean isAdmin = user.get()
-                    .isAdmin();
+        Optional<User> optionalUser = userService.login(login, password);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            if (user.getIsBlocked()) {
+                req.setAttribute("errorMessage", "errorMessage.blocked");
+                return CommandResult.forward(MAIN_PAGE);
+            }
+            boolean isAdmin = user.isAdmin();
             req.getSession()
-                    .setAttribute("userId", user.get()
-                            .getId());
+                    .setAttribute("userId", user.getId());
             req.getSession()
                     .setAttribute("isLoggedIn", true);
             req.getSession()
                     .setAttribute("isAdmin", isAdmin);
             return isAdmin ? CommandResult.forward("/controller?command=requestsPage&page=1")
-                    : CommandResult.forward("/pages/common-pages/index.jsp");
+                    : CommandResult.forward(MAIN_PAGE);
         } else {
             req.setAttribute("errorMessage", "errorMessage.login");
-            return CommandResult.forward("/pages/common-pages/index.jsp");
+            return CommandResult.forward(MAIN_PAGE);
         }
     }
 }

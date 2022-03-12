@@ -1,8 +1,8 @@
 package com.epam.hotelbooking.dao;
 
-import java.util.List;
 import java.util.Optional;
 
+import com.epam.hotelbooking.entity.ItemsTransferObject;
 import com.epam.hotelbooking.entity.User;
 import com.epam.hotelbooking.exception.DaoException;
 
@@ -11,7 +11,5 @@ public interface UserDao {
 
     void banUser(Long userId) throws DaoException;
 
-    Integer getAmountOfPagesWithCleints() throws DaoException;
-
-    List<User> getAllClients(int pageNumber) throws DaoException;
+    ItemsTransferObject getAllClients(int pageNumber) throws DaoException;
 }

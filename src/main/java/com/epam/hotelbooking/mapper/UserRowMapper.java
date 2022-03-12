@@ -13,7 +13,8 @@ public class UserRowMapper implements RowMapper<User> {
         try {
             Long id = resultSet.getLong("id");
             boolean isAdmin = resultSet.getBoolean("is_admin");
-            return new User(id, isAdmin);
+            boolean isBlocked = resultSet.getBoolean("is_blocked");
+            return new User(id, isAdmin,isBlocked);
         } catch (SQLException exception) {
             throw new DaoException("Error during getting data from db", exception);
         }

@@ -1,7 +1,5 @@
 package com.epam.hotelbooking.service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import com.epam.hotelbooking.dao.DaoHelper;
@@ -22,18 +20,14 @@ public class RequestServiceImpl implements RequestService {
             throws ServiceException {
         try (DaoHelper daoHelper = new DaoHelper()) {
             daoHelper.startTransaction();
-            List<Request> listOfRequests = new ArrayList<>();
-            Integer amountOfAllRequests;
+            ItemsTransferObject transferObject;
             if (isAdmin) {
                 RequestDaoImpl adminRequestDao = daoHelper.createRequestDao(new AdminRequestRowMapper());
-                listOfRequests = adminRequestDao.getUnapprovedRequestsForAdmin(pageNumber);
-                amountOfAllRequests = adminRequestDao.getAmountOfRequestsPagesForAdmin();
+                transferObject = adminRequestDao.getUnapprovedRequestsForAdmin(pageNumber);
             } else {
                 RequestDaoImpl userRequestDao = daoHelper.createRequestDao(new ClientRequestRowMapper());
-                listOfRequests = userRequestDao.getRequestsForClient(pageNumber, userId);
-                amountOfAllRequests = userRequestDao.getAmountOfPagesForClient(userId);
+                transferObject = userRequestDao.getRequestsForClient(pageNumber, userId);
             }
-            ItemsTransferObject transferObject = new ItemsTransferObject(listOfRequests, amountOfAllRequests);
             daoHelper.endTransaction();
             return transferObject;
         } catch (DaoException exception) {

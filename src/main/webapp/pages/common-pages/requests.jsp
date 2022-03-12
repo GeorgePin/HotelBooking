@@ -26,9 +26,9 @@
 	<c:choose>
 		<c:when test="${isAdmin}">
 			<div id="page-content">
-				<table id="requets-table">
+				<table id="requests-table">
 					<tr>
-						<th>#</th>
+						<th><p class="table-heading-text">#</p></th>
 						<th><p class="table-heading-text"><fmt:message key="user-id" /></p></th>
 						<th><p class="table-heading-text"><fmt:message key="start-date" /></p></th>
 						<th><p class="table-heading-text"><fmt:message key="end-date" /></p></th>
@@ -53,21 +53,21 @@
 			<div id="page-content">
 				<table id="requets-table">
 					<tr>
-						<th>#</th>
-						<th><fmt:message key="start-date" /></th>
-						<th><fmt:message key="end-date" /></th>
-						<th><fmt:message key="room-capacity" /></th>
-						<th><fmt:message key="room-class" /></th>
-						<th><fmt:message key="is-approved" /></th>
-						<th><fmt:message key="room-price" /></th>
+						<th><p class="table-heading-text">#</th>
+						<th><p class="table-heading-text"><fmt:message key="start-date" /></p></th>
+						<th><p class="table-heading-text"><fmt:message key="end-date" /></p></th>
+						<th><p class="table-heading-text"><fmt:message key="room-capacity" /></p></th>
+						<th><p class="table-heading-text"><fmt:message key="room-class" /></p></th>
+						<th><p class="table-heading-text"><fmt:message key="is-approved" /></p></th>
+						<th><p class="table-heading-text"><fmt:message key="room-price" /></p></th>
 					</tr>
 					<c:forEach var="request" items="${requestsList}" varStatus="counter">
 						<tr>
 							<td><c:out value="${counter.count}" /></td>
-							<td>${request.startDate}</td>
-							<td>${request.endDate}</td>
-							<td>${request.roomCapacity}</td>
-							<td><fmt:message key="${request.roomClass}" /></td>
+							<td><p class="table-text">${request.startDate}</p></td>
+							<td><p class="table-text">${request.endDate}</p></td>
+							<td><p class="table-text">${request.roomCapacity}</p></td>
+							<td><p class="table-text"><fmt:message key="${request.roomClass}" /></p></td>
 							<c:choose>
 								<c:when test="${request.isApproved}">
 									<td><img src="static/images/accept.png" alt="accpect image" class="accept-image"></td>

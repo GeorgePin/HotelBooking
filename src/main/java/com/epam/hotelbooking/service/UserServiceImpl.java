@@ -1,6 +1,5 @@
 package com.epam.hotelbooking.service;
 
-import java.util.List;
 import java.util.Optional;
 
 import com.epam.hotelbooking.dao.DaoHelper;
@@ -44,9 +43,7 @@ public class UserServiceImpl implements UserService {
         try (DaoHelper daoHelper = new DaoHelper()) {
             daoHelper.startTransaction();
             UserDaoImpl userDao = daoHelper.createUserDao(new ClientRowMapper());
-            List<User> listOfClients = userDao.getAllClients(pageNumber);
-            Integer amountOfPagesWithClients = userDao.getAmountOfPagesWithCleints();
-            ItemsTransferObject itemsTransferObject = new ItemsTransferObject(listOfClients, amountOfPagesWithClients);
+            ItemsTransferObject itemsTransferObject = userDao.getAllClients(pageNumber);
             daoHelper.endTransaction();
             return itemsTransferObject;
         } catch (DaoException exception) {

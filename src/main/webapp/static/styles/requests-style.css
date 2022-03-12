@@ -7,9 +7,15 @@ body {
 
 #page-content {
 	position: relative;
-	width: 50%;
+	width: 60%;
 	margin: 0 auto;
 	top: 300px;
+	display: flex;
+	justify-content: center;
+}
+
+#requests-table {
+	width: 100%;
 }
 
 .page-navigation {
@@ -26,6 +32,6 @@ body {
 
 #main-page-btn {
 	position: absolute;
-	margin-top: 15%;
-	left: 290px;
+	margin-top: 33%;
+	left: 345px;
 }

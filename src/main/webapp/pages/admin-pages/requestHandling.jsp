@@ -84,16 +84,16 @@
 				</tr>
 			</c:forEach>
 		</table>
-		<table class="page-navigation">
-			<tr>
-				<c:forEach begin="1" end="${numberOfPages}" var="i">
-					<td><h2>
-							<a
-								href="controller?command=requestHandlingPage&requestId=${requestScope.request.id}&page=${i}">${i}</a>
-						</h2></td>
-				</c:forEach>
-			</tr>
-		</table>
 	</div>
+	<table class="page-navigation">
+		<tr>
+			<c:forEach begin="1" end="${numberOfPages}" var="i">
+				<td><h2>
+						<a
+							href="controller?command=requestHandlingPage&requestId=${requestScope.request.id}&page=${i}">${i}</a>
+					</h2></td>
+			</c:forEach>
+		</tr>
+	</table>
 </body>
 </html>

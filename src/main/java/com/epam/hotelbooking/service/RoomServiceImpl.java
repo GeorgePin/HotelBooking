@@ -16,13 +16,8 @@ public class RoomServiceImpl implements RoomService {
             daoHelper.startTransaction();
             RoomDaoImpl dao = daoHelper.createRoomDao(new RoomRowMapper());
             ItemsTransferObject itemsTransferObject;
-            if (isForHandling) {
-                itemsTransferObject = new ItemsTransferObject(dao.getFreeRoomsForSinglePage(startElement),
-                        dao.getAmountOfPagesForFreeRooms());
-            } else {
-                itemsTransferObject = new ItemsTransferObject(dao.getRoomsWithPrices(startElement),
-                        dao.getAmountOfPagesForRooms());
-            }
+            itemsTransferObject = isForHandling ? dao.getFreeRoomsForSinglePage(startElement)
+                    : dao.getRoomsWithPrices(startElement);
             daoHelper.endTransaction();
             return itemsTransferObject;
         } catch (DaoException exception) {
@@ -53,6 +48,7 @@ public class RoomServiceImpl implements RoomService {
             throw new ServiceException("Error during deleting room", exception);
         }
     }
+
     @Override
     public void unblockRoom(Long roomId) throws ServiceException {
         try (DaoHelper daoHelper = new DaoHelper()) {
