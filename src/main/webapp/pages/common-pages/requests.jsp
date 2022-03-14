@@ -9,7 +9,7 @@
 <html lang="${sessionScope.lang}">
 <head>
 <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
-<title>Requets page</title>
+<title><fmt:message key="requests-page" /></title>
 <base href="http://localhost:8080/HotelBooking/">
 <link rel="stylesheet" href="static/styles/basic-style.css" type="text/css" />
 <link rel="stylesheet" href="static/styles/requests-style.css" type="text/css" />
@@ -83,7 +83,7 @@
 				</table>
 				<a href="controller?command=showPage&page=pages/common-pages/index"> <input type="button"
 						id="main-page-btn" value="<fmt:message
-                            key="main-page"  />"></a>
+                            key="main-page-btn"  />"></a>
 			</div>
 		</c:otherwise>
 	</c:choose>

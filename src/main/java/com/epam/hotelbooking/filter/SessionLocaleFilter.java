@@ -20,7 +20,6 @@ public class SessionLocaleFilter implements Filter {
                 .getAttribute("lang") == null) {
             req.getSession()
                     .setAttribute("lang", "en");
-
         }
         chain.doFilter(request, response);
     }

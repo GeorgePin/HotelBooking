@@ -1,27 +1,51 @@
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ page isELIgnored="false"%>
-<html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<fmt:setLocale value="${sessionScope.lang}" />
+<fmt:setBundle basename="messages" />
+<c:set var="currentPageCommand"
+	value="/controller?command=showPage&page=pages/common-pages/registrationPage" scope="session" />
+<html lang="${sessionScope.lang}">
 <head>
-<meta charset="UTF-8">
-<title>Registration page</title>
-<link rel="stylesheet" href="static/styles/registration.css" type="text/css" />
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+<title><fmt:message key="registration-page" /></title>
+<base href="http://localhost:8080/HotelBooking/">
+<link rel="stylesheet" href="static/styles/basic-style.css" type="text/css" />
+<link rel="stylesheet" href="static/styles/registration-style.css" type="text/css" />
 </head>
 <body>
-        <jsp:include page="/pages/utility-pages/adminHeader.jsp"></jsp:include>
-	<form method="POST" action="controller?command=registration">
-		<div id="input-data">
-			<input type="text" id="user-name" name="userName">
-			<label for="user-name">Name</label>
-
-			<input type="text" id="user-surname" name="userSurname">
-			<label for="user-surname">Surname</label>
-
-			<input type="text" id="user-login" name="userLogin">
-			<label for="user-login">Login</label>
-
-			<input type="text" id="user-password" name="userPassword">
-			<label for="user-password">Password</label>
-			<input type="submit" id="register-btn" value="register">
+<div id="language-bar">
+	<jsp:include page="/pages/utility-pages/languageBar.jsp"></jsp:include></div>
+	<main>
+		<h1 id="lets-be-friends-msg">
+			<fmt:message key="beFriends" />
+		</h1>
+		<form method="POST" action="controller?command=register" id="registration-forms">
+			<div>
+				<input type="text" id="name-input" name="name"
+					placeholder="<fmt:message
+                            key="name" />">
+				<input type="text" id="surname-input" name="surname"
+					placeholder="<fmt:message
+                            key="surname" />">
+				<br></br>
+				<input type="text" id="login-input" name="login"
+					placeholder="<fmt:message
+                            key="login" />">
+				<input type="password" id="password-input" name="password"
+					placeholder="<fmt:message
+                            key="password" />">
+			</div>
+			<input type="submit" id="register-btn"
+				value="<fmt:message
+                            key="register-btn" />">
+		</form>
+		<div class="error-msg">
+			<c:if test="${not empty errorMessage}">
+				<fmt:message key="${errorMessage}" />
+			</c:if>
 		</div>
-	</form>
+	</main>
 </body>
 </html>

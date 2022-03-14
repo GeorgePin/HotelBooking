@@ -9,7 +9,7 @@
 <html lang="${sessionScope.lang}">
 <head>
 <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
-<title>Main page</title>
+<title><fmt:message key="main-page" /></title>
 <base href="http://localhost:8080/HotelBooking/">
 <link rel="stylesheet" href="static/styles/basic-style.css"
 	type="text/css" />
@@ -55,7 +55,7 @@
 					<input type="password" id="password-input" name="password"
 						placeholder="<fmt:message
                             key="password" />">
-					<br></br> <a href="controller?command=showPage&page=registrationPage" id="registration-msg">
+					<br></br> <a href="controller?command=showPage&page=pages/common-pages/registrationPage" id="registration-msg">
 						<fmt:message key="registrationProposal" />
 					</a>
 					<input type="submit" id="log-in-btn"

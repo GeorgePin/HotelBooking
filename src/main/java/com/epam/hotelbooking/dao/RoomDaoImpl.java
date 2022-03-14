@@ -34,7 +34,7 @@ public class RoomDaoImpl extends AbstractDao<Room> implements RoomDao {
         String roomClass = item.getRoomClass();
         int numberOfRoom = item.getNumber();
         boolean isBlocked = item.getIsBlocked();
-        RoomPrice roomPriceId = item.getRoomPrice();
+        Long roomPriceId = item.getRoomPriceId();
         executeQueryWithoutReturnValue(CREATE_NEW_ROOM, capacity, roomClass, numberOfRoom, isBlocked, roomPriceId);
     }
 

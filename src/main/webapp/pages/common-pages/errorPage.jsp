@@ -1,13 +1,17 @@
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ page isELIgnored="false"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-<html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<fmt:setLocale value="${sessionScope.lang}" />
+<fmt:setBundle basename="messages" />
+<html lang="${sessionScope.lang}">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+<title><fmt:message key="error-page" /></title>
+<base href="http://localhost:8080/HotelBooking/">
+<link rel="stylesheet" href="static/styles/basic-style.css" type="text/css" />
 </head>
 <body>
-${errorMessage}
+	<fmt:message key="${errorMessage}" />
 </body>
 </html>

@@ -10,7 +10,7 @@
 <html lang="${sessionScope.lang}">
 <head>
 <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
-<title>Request handling page</title>
+<title><fmt:message key="request-handling-page" /></title>
 <base href="http://localhost:8080/HotelBooking/">
 <link rel="stylesheet" href="static/styles/basic-style.css" type="text/css" />
 <link rel="stylesheet" href="static/styles/request-handling-style.css" type="text/css" />

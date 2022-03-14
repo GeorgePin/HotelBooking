@@ -1,41 +1,60 @@
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ page isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<html>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<fmt:setLocale value="${sessionScope.lang}" />
+<fmt:setBundle basename="messages" />
+<c:set var="currentPageCommand" value="/controller?command=createRoomPage" scope="session" />
+<html lang="${sessionScope.lang}">
 <head>
-<meta charset="UTF-8">
-<title>Create room</title>
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+<title><fmt:message key="create-room-page" /></title>
+<base href="http://localhost:8080/HotelBooking/">
+<link rel="stylesheet" href="static/styles/basic-style.css" type="text/css" />
 <link rel="stylesheet" href="static/styles/create-room-style.css" type="text/css" />
 </head>
 <body>
 	<jsp:include page="/pages/utility-pages/adminHeader.jsp"></jsp:include>
-	<form method="POST" action="controller?command=createRoom">
-		<div id="input-data">
-			<select name="roomCapacity">
-				<option value="1" selected>1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-			</select>
-			<input type="radio" id="is-blocked-true" name="isBlocked" value="true" checked>
-			<label for="is-blocked-true">room is free</label>
-			<input type="radio" id="is-blocked-false" name="isBlocked" value="false">
-			<label for="is-blocked-false">room is not free</label>
-			<br> <br>
-			<input type="number" id="number-of-room" name="numberOfRoom" pattern="\d{3}"
-				title="Number of room must contain exactly 3 digits">
-			<select name="roomClass">
-				<option value="standart" selected>standart</option>
-				<option value="deluxe">deluxe</option>
-				<option value="premium">premium</option>
-			</select>
-			<label for="price-of-room">Room price</label>
-			<select name="idOfPrice" id="price-of-room">
-				<c:forEach var="price" items="${listOfPrices}">
-					<option value="${price.id}">${price.price}</option>
-				</c:forEach>
-			</select>
-			<input type="submit" id="create-room-btn" value="create room">
-		</div>
-	</form>
+	<main>
+		<form method="POST" action="controller?command=createRoom">
+			<div id="flex-container">
+				<div id="left-column">
+					<label>
+						<fmt:message key="room-capacity" />
+						<select name="roomCapacity">
+							<option value="1" selected>1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+						</select>
+					</label>
+					<label>
+						<fmt:message key="room-number" />
+						<input type="text" id="number-of-room" name="numberOfRoom" maxlength="3" pattern="\d{3}"
+							title="Number of room must contain exactly 3 digits">
+					</label>
+				</div>
+				<div id="right-column">
+					<label>
+						<fmt:message key="room-class" />
+						<select name="roomClass">
+							<option value="standart" selected>standart</option>
+							<option value="deluxe">deluxe</option>
+							<option value="premium">premium</option>
+						</select>
+					</label>
+					<label>
+						<fmt:message key="room-price" />
+						<select name="idOfPrice" id="price-of-room">
+							<c:forEach var="price" items="${listOfPrices}">
+								<option value="${price.id}">${price.price}</option>
+							</c:forEach>
+						</select>
+					</label>
+				</div>
+			</div>
+			<input type="submit" id="create-room-btn" value="<fmt:message key="create-room-btn" />">
+		</form>
+	</main>
 </body>
 </html>

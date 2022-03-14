@@ -8,7 +8,7 @@
 <html lang="${sessionScope.lang}">
 <head>
 <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
-<title>Rooms page</title>
+<title><fmt:message key="rooms-page" /></title>
 <base href="http://localhost:8080/HotelBooking/">
 <script src="static/js/scripts.js"></script>
 <link rel="stylesheet" href="static/styles/basic-style.css" type="text/css" />
@@ -47,10 +47,14 @@
 			</tr>
 			<c:forEach var="room" items="${roomsList}" varStatus="counter">
 				<tr>
-					<td><p class="table-text"><c:out value="${counter.count}" /></p></td>
+					<td><p class="table-text">
+							<c:out value="${counter.count}" />
+						</p></td>
 					<td><p class="table-text">${room.number}</p></td>
 					<td><p class="table-text">${room.capacity}</p></td>
-					<td><p class="table-text"><fmt:message key="${room.roomClass}" /></p></td>
+					<td><p class="table-text">
+							<fmt:message key="${room.roomClass}" />
+						</p></td>
 					<c:choose>
 						<c:when test="${room.isBlocked}">
 							<td><img src="static/images/accept.png" alt="accpect image" class="accept-image"></td>
@@ -78,4 +82,8 @@
 			</c:forEach>
 		</tr>
 	</table>
+	<button id="create-room-btn" onclick="location.href='controller?command=createRoomPage'"
+		type="button">
+		<fmt:message key="create-room-btn" />
+	</button>
 </body>

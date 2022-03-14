@@ -1,4 +1,4 @@
-package com.epam.hotelbooking.command.user;
+package com.epam.hotelbooking.command.common;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,11 +20,11 @@ public class RegistrationCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest req, HttpServletResponse resp)
             throws ServiceException, DaoException {
-        String name = req.getParameter("userName");
-        String surname = req.getParameter("userSurname");
-        String login = req.getParameter("userLogin");
-        String password = req.getParameter("userPassword");
+        String name = req.getParameter("name");
+        String surname = req.getParameter("surname");
+        String login = req.getParameter("login");
+        String password = req.getParameter("password");
         userService.createUser(new User(name, surname, login, password));
-        return CommandResult.redirect("/pages/common-pages/index.jsp");
+        return CommandResult.redirect(req.getContextPath() + "/pages/common-pages/index.jsp");
     }
 }

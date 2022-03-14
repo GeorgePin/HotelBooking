@@ -26,7 +26,7 @@ public class CreateRoomCommand implements Command {
         RoomClass roomClass = RoomClass.valueOf(req.getParameter("roomClass")
                 .toUpperCase());
         Long roomPriceId = Long.parseLong(req.getParameter("idOfPrice"));
-        Room room = new Room(capacity, roomClass, numberOfRoom,roomPriceId);
+        Room room = new Room(capacity, roomClass, numberOfRoom, roomPriceId);
         roomService.createRoom(room);
         return CommandResult.redirect("controller?command=roomsPage&page=1");
     }

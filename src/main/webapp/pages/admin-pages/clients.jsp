@@ -8,7 +8,7 @@
 <html lang="${sessionScope.lang}">
 <head>
 <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
-<title>Clients page</title>
+<title><fmt:message key="clients-page" /></title>
 <base href="http://localhost:8080/HotelBooking/">
 <script src="static/js/scripts.js"></script>
 <link rel="stylesheet" href="static/styles/basic-style.css" type="text/css" />
@@ -20,18 +20,36 @@
 		<table>
 			<tr>
 				<th><p class="table-heading-text">#</p></th>
-				<th><p class="table-heading-text"><fmt:message key="name" /></p></th>
-				<th><p class="table-heading-text"><fmt:message key="surname" /></p></th>
-				<th><p class="table-heading-text"><fmt:message key="login" /></p></th>
-				<th><p class="table-heading-text"><fmt:message key="is-user-blocked" /></p></th>
-				<th><p class="table-heading-text"><fmt:message key="block-user" /></p></th>
+				<th><p class="table-heading-text">
+						<fmt:message key="name" />
+					</p></th>
+				<th><p class="table-heading-text">
+						<fmt:message key="surname" />
+					</p></th>
+				<th><p class="table-heading-text">
+						<fmt:message key="login" />
+					</p></th>
+				<th><p class="table-heading-text">
+						<fmt:message key="is-user-blocked" />
+					</p></th>
+				<th><p class="table-heading-text">
+						<fmt:message key="block-user" />
+					</p></th>
 			</tr>
 			<c:forEach var="client" items="${listOfClients}" varStatus="counter">
 				<tr>
-					<td><p class="table-text"><c:out value="${counter.count}" /></p></td>
-					<td><p class="table-text"><c:out value="${client.name}" /></p></td>
-					<td><p class="table-text"><c:out value="${client.surname}" /></p></td>
-					<td><p class="table-text"><c:out value="${client.login}" /></p></td>
+					<td><p class="table-text">
+							<c:out value="${counter.count}" />
+						</p></td>
+					<td><p class="table-text">
+							<c:out value="${client.name}" />
+						</p></td>
+					<td><p class="table-text">
+							<c:out value="${client.surname}" />
+						</p></td>
+					<td><p class="table-text">
+							<c:out value="${client.login}" />
+						</p></td>
 					<c:choose>
 						<c:when test="${client.isBlocked}">
 							<td><img src="static/images/accept.png" alt="accpect image" class="accept-image"></td>

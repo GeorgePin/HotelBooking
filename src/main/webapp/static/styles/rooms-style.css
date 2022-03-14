@@ -34,3 +34,10 @@ body {
 #is-blocked-row {
 	width: 1%;
 }
+
+#create-room-btn {
+	position: absolute;
+	margin-top: 20%;
+	width: fit-content;
+	margin-left: 41%;
+}

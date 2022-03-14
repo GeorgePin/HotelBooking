@@ -9,7 +9,7 @@
 <html lang="${sessionScope.lang}">
 <head>
 <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
-<title>Request room page</title>
+<title><fmt:message key="request-room-page" /></title>
 <link rel="stylesheet" href="static/styles/basic-style.css" type="text/css" />
 <link rel="stylesheet" href="static/styles/request-room-style.css" type="text/css" />
 </head>

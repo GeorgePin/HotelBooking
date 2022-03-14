@@ -38,7 +38,7 @@ public class RoomPriceDaoImpl extends AbstractDao<RoomPrice> implements RoomPric
 
     @Override
     public List<RoomPrice> getRoomsPrices() throws DaoException {
-        List<RoomPrice> roomPrices = executeQuery(GET_ALL_PRICES, new RoomPriceRowMapper());
+        List<RoomPrice> roomPrices = executeQuery(GET_ALL_PRICES);
         return roomPrices;
     }
 }

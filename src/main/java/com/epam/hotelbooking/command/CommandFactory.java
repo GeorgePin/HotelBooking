@@ -2,6 +2,7 @@ package com.epam.hotelbooking.command;
 
 import com.epam.hotelbooking.command.common.LoginCommand;
 import com.epam.hotelbooking.command.common.LogoutCommand;
+import com.epam.hotelbooking.command.common.RegistrationCommand;
 import com.epam.hotelbooking.command.common.SetLanguageCommand;
 import com.epam.hotelbooking.command.common.ShowPageCommand;
 import com.epam.hotelbooking.command.request.RequestHandlingCommand;
@@ -15,7 +16,6 @@ import com.epam.hotelbooking.command.room.RoomsPageCommand;
 import com.epam.hotelbooking.command.room.UnblockRoomCommand;
 import com.epam.hotelbooking.command.user.BanUserCommand;
 import com.epam.hotelbooking.command.user.ClientsPageCommand;
-import com.epam.hotelbooking.command.user.RegistrationCommand;
 import com.epam.hotelbooking.service.RequestServiceImpl;
 import com.epam.hotelbooking.service.RoomPriceServiceImpl;
 import com.epam.hotelbooking.service.RoomServiceImpl;
@@ -31,7 +31,7 @@ public class CommandFactory {
             return new LogoutCommand();
         case "registrationPage":
             return new ShowPageCommand();
-        case "registration":
+        case "register":
             return new RegistrationCommand(new UserServiceImpl());
         case "requestsPage":
             return new RequestsPageCommand(new RequestServiceImpl());

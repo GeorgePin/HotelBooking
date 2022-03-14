@@ -1,0 +1,41 @@
+@charset "UTF-8";
+
+main {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	flex-direction: column;
+	height: 90%;
+	width: 100%
+}
+
+body {
+	margin: 0px;
+	background: linear-gradient(121.99deg, #FED5CD 4.95%, #E0CDFE 70.55%);
+}
+
+#language-bar {
+	position: absolute;
+	top: 30px;
+	right: 70px;
+}
+
+#register-btn {
+	margin-top: 8%;
+	width: fit-content;
+}
+
+header {
+	position: absolute;
+	top: 30px;
+	right: 70px;
+}
+
+#name-input, #login-input {
+	margin-right: 10px;
+}
+
+#lets-be-friends-msg {
+	margin-bottom: 3%;
+}

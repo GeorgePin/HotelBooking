@@ -12,7 +12,7 @@ import com.epam.hotelbooking.mapper.RowMapper;
 
 public class UserDaoImpl extends AbstractDao<User> implements UserDao {
     private static final String FIND_BY_LOGIN_AND_PASSWORD = "select user.id, user.is_admin, user.is_blocked from user where login = ? and password = MD5(?) ";
-    private static final String CREATE_NEW_USER = "insert into user(name, surname, login, password) values(?, ?, ?, ?)";
+    private static final String CREATE_NEW_USER = "insert into user(name, surname, login, password) values(?, ?, ?, MD5(?))";
     private static final String BAN_USER = "update user set is_blocked='1' where id=?";
     private static final String GET_ALL_CLIENTS = "select user.id, user.name, user.surname, user.login, user.is_Blocked from user where is_admin='0' limit ?, ?";
     private static final String IS_ADMIN_FILTER = "is_admin";
