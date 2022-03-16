@@ -9,9 +9,11 @@ import com.epam.hotelbooking.entity.User;
 import com.epam.hotelbooking.exception.DaoException;
 import com.epam.hotelbooking.exception.ServiceException;
 import com.epam.hotelbooking.service.UserServiceImpl;
+import com.epam.hotelbooking.validation.UserValidator;
 
 public class RegistrationCommand implements Command {
     private final UserServiceImpl userService;
+    private final UserValidator userValidator = new UserValidator();
 
     public RegistrationCommand(UserServiceImpl userService) {
         this.userService = userService;
@@ -24,7 +26,11 @@ public class RegistrationCommand implements Command {
         String surname = req.getParameter("surname");
         String login = req.getParameter("login");
         String password = req.getParameter("password");
-        userService.createUser(new User(name, surname, login, password));
-        return CommandResult.redirect(req.getContextPath() + "/pages/common-pages/index.jsp");
+        User user = new User(name, surname, login, password);
+        if (!userValidator.isDataForRegistrationValid(user)) {
+            throw new ServiceException("Data for registration is invalid");
+        }
+        userService.createUser(user);
+        return CommandResult.redirect(req.getContextPath() + "/index.jsp");
     }
 }

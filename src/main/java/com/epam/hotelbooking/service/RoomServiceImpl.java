@@ -12,6 +12,7 @@ import com.epam.hotelbooking.exception.ServiceException;
 import com.epam.hotelbooking.mapper.RoomRowMapper;
 
 public class RoomServiceImpl implements RoomService {
+
     private static final Logger LOGGER = LogManager.getLogger(RoomServiceImpl.class);
 
     @Override

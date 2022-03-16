@@ -24,6 +24,6 @@ public class RoomsPageCommand implements Command {
         ItemsTransferObject transferObject = roomService.getRoomsForSinglePage(page, false);
         req.setAttribute("roomsList", transferObject.getItems());
         req.setAttribute("numberOfPages", transferObject.getAmountOfPages());
-        return CommandResult.forward("/pages/admin-pages/rooms.jsp");
+        return CommandResult.forward("/WEB-INF/view/admin-pages/rooms.jsp");
     }
 }

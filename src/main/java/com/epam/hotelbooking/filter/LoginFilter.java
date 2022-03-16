@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 public class LoginFilter implements Filter {
-    private static final String REGISTRATION_PAGE = "/controller\\?command=showPage&page=pages/common-pages/registrationPage";
+    private static final String REGISTRATION_PAGE = "/controller\\?command=showPage&page=registrationPage";
     private static final String ALTERNATIVE_LOGIN_PAGE = "/";
-    private static final String LOGIN_PAGE = "/pages/common-pages/index.jsp";
+    private static final String LOGIN_PAGE = "/index.jsp";
     private static final String REGISTER_COMMAND = "/controller\\?command=register";
     private static final String LOGIN_COMMAND = "/controller\\?command=login";
     private static final String LOGOUT_COMMAND = "/controller\\?command=logout";
@@ -45,7 +45,7 @@ public class LoginFilter implements Filter {
         }
         if (isLoginRequiredForPage(httpRequest) && !((boolean) session.getAttribute("isLoggedIn"))) {
             httpRequest.setAttribute("errorMessage", "notLoggedInMsg");
-            RequestDispatcher dispatcher = httpRequest.getRequestDispatcher("/pages/common-pages/errorPage.jsp");
+            RequestDispatcher dispatcher = httpRequest.getRequestDispatcher("/errorPage.jsp");
             dispatcher.forward(request, response);
         } else {
             chain.doFilter(request, response);

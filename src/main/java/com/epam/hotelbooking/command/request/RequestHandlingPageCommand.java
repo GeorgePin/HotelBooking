@@ -34,6 +34,6 @@ public class RequestHandlingPageCommand implements Command {
         req.setAttribute("request", requestForHandling.isPresent() ? requestForHandling.get() : Optional.empty());
         req.setAttribute("listOfRooms", transferObject.getItems());
         req.setAttribute("numberOfPages", transferObject.getAmountOfPages());
-        return CommandResult.forward("/pages/admin-pages/requestHandling.jsp");
+        return CommandResult.forward("/WEB-INF/view/admin-pages/requestHandling.jsp");
     }
 }

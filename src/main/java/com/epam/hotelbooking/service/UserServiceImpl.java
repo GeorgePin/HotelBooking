@@ -15,7 +15,9 @@ import com.epam.hotelbooking.mapper.ClientRowMapper;
 import com.epam.hotelbooking.mapper.UserRowMapper;
 
 public class UserServiceImpl implements UserService {
+
     private static final Logger LOGGER = LogManager.getLogger(UserServiceImpl.class);
+
     @Override
     public Optional<User> login(String login, String password) throws ServiceException {
         LOGGER.info("Starting login procedure");

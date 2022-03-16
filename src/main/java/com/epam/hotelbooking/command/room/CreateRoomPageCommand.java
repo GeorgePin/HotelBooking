@@ -24,6 +24,6 @@ public class CreateRoomPageCommand implements Command {
             throws DaoException, ServiceException {
         List<RoomPrice> listOfPrices = roomPriceService.getRoomPrices();
         req.setAttribute("listOfPrices", listOfPrices);
-        return CommandResult.forward("/pages/admin-pages/createRoom.jsp");
+        return CommandResult.forward("/WEB-INF/view/admin-pages/createRoom.jsp");
     }
 }

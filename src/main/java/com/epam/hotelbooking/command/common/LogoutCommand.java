@@ -14,6 +14,6 @@ public class LogoutCommand implements Command {
                 .setAttribute("userId", null);
         req.getSession()
                 .setAttribute("isLoggedIn", false);
-        return CommandResult.forward("/pages/common-pages/index.jsp");
+        return CommandResult.forward("/index.jsp");
     }
 }

@@ -1,5 +1,7 @@
 package com.epam.hotelbooking.entity;
 
+import java.util.Objects;
+
 public class User extends Entity {
 
     private static final long serialVersionUID = 1372779825189737930L;
@@ -60,4 +62,24 @@ public class User extends Entity {
     public boolean isAdmin() {
         return isAdmin;
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, isAdmin, isBlocked, login, name, password, surname);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        User other = (User) obj;
+        return id == other.id && isAdmin == other.isAdmin && isBlocked == other.isBlocked
+                && Objects.equals(login, other.login) && Objects.equals(name, other.name)
+                && Objects.equals(password, other.password) && Objects.equals(surname, other.surname);
+    }
+
 }

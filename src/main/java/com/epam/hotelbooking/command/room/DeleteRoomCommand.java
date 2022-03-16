@@ -21,6 +21,6 @@ public class DeleteRoomCommand implements Command {
             throws ServiceException, DaoException {
         Long roomId = Long.parseLong(req.getParameter("roomId"));
         roomService.deleteRoom(roomId);
-        return CommandResult.redirect("controller?command=roomsPage&page=1");
+        return CommandResult.redirect(req.getContextPath() + "/controller?command=roomsPage&page=1");
     }
 }

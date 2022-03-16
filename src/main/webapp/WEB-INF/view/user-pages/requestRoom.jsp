@@ -5,20 +5,21 @@
 <fmt:setLocale value="${sessionScope.lang}" />
 <fmt:setBundle basename="messages" />
 <c:set var="currentPageCommand"
-	value="/controller?command=showPage&page=pages/user-pages/requestRoom" scope="session" />
+	value="/controller?command=showPage&page=WEB-INF/view/user-pages/requestRoom" scope="session" />
 <html lang="${sessionScope.lang}">
 <head>
 <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
 <title><fmt:message key="request-room-page" /></title>
+<script src="static/js/scripts.js"></script>
 <link rel="stylesheet" href="static/styles/basic-style.css" type="text/css" />
 <link rel="stylesheet" href="static/styles/request-room-style.css" type="text/css" />
 </head>
 <c:choose>
 	<c:when test="${isAdmin}">
-		<jsp:include page="/pages/utility-pages/adminHeader.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/view/utility-pages/adminHeader.jsp"></jsp:include>
 	</c:when>
 	<c:otherwise>
-		<jsp:include page="/pages/utility-pages/userHeader.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/view/utility-pages/userHeader.jsp"></jsp:include>
 	</c:otherwise>
 </c:choose>
 <body>
@@ -42,13 +43,15 @@
 				<label for="start-date">
 					<fmt:message key="start-date" />
 				</label>
-				<input type="date" name="startDate" value="2022-03-07" min="2022-03-07" max="2023-03-07">
+				<input type="date" name="startDate" id="startDate" value="2022-03-15" min="2022-03-01"
+					max="2022-03-31" onchange=updateEndDate() required>
 			</div>
 			<div id="end-date">
 				<label for="end-date">
 					<fmt:message key="end-date" />
 				</label>
-				<input type="date" name="endDate" value="2022-03-07" min="2022-03-07" max="2023-03-07">
+				<input type="date" name="endDate" id="endDate" value="2022-03-15" min="2022-03-01"
+					max="2022-03-31">
 			</div>
 			<div id="room-class">
 				<label for="room-class">

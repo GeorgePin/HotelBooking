@@ -2,6 +2,7 @@ package com.epam.hotelbooking.entity;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.Objects;
 
 public class Request extends Entity {
 
@@ -82,6 +83,33 @@ public class Request extends Entity {
 
     public BigDecimal getPrice() {
         return price;
+    }
+
+    @Override
+    public String toString() {
+        return "Request [id=" + id + ", roomId=" + roomId + ", userId=" + userId + ", startDate=" + startDate
+                + ", endDate=" + endDate + ", roomCapacity=" + roomCapacity + ", roomClass=" + roomClass
+                + ", isApproved=" + isApproved + ", price=" + price + "]";
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(endDate, id, isApproved, price, roomCapacity, roomClass, roomId, startDate, userId);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Request other = (Request) obj;
+        return Objects.equals(endDate, other.endDate) && Objects.equals(id, other.id) && isApproved == other.isApproved
+                && Objects.equals(price, other.price) && roomCapacity == other.roomCapacity
+                && roomClass == other.roomClass && Objects.equals(roomId, other.roomId)
+                && Objects.equals(startDate, other.startDate) && Objects.equals(userId, other.userId);
     }
 
 }

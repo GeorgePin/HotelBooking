@@ -5,7 +5,7 @@
 <fmt:setLocale value="${sessionScope.lang}" />
 <fmt:setBundle basename="messages" />
 <c:set var="currentPageCommand"
-	value="/controller?command=showPage&page=pages/common-pages/registrationPage" scope="session" />
+	value="/controller?command=showPage&page=registrationPage" scope="session" />
 <html lang="${sessionScope.lang}">
 <head>
 <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
@@ -15,25 +15,25 @@
 <link rel="stylesheet" href="static/styles/registration-style.css" type="text/css" />
 </head>
 <body>
-<div id="language-bar">
-	<jsp:include page="/pages/utility-pages/languageBar.jsp"></jsp:include></div>
+	<div id="language-bar">
+		<jsp:include page="/WEB-INF/view/utility-pages/languageBar.jsp"></jsp:include></div>
 	<main>
 		<h1 id="lets-be-friends-msg">
 			<fmt:message key="beFriends" />
 		</h1>
 		<form method="POST" action="controller?command=register" id="registration-forms">
 			<div>
-				<input type="text" id="name-input" name="name"
+				<input type="text" id="name-input" name="name" maxlength="10" pattern="\w{3,20}"
 					placeholder="<fmt:message
                             key="name" />">
-				<input type="text" id="surname-input" name="surname"
+				<input type="text" id="surname-input" name="surname" maxlength="10" pattern="\w{3,20}"
 					placeholder="<fmt:message
                             key="surname" />">
 				<br></br>
-				<input type="text" id="login-input" name="login"
+				<input type="text" id="login-input" name="login" maxlength="10" pattern="[\d|\w]{1,10}"
 					placeholder="<fmt:message
                             key="login" />">
-				<input type="password" id="password-input" name="password"
+				<input type="password" id="password-input" name="password" maxlength="10" pattern="[\d|\w]{1,10}"
 					placeholder="<fmt:message
                             key="password" />">
 			</div>

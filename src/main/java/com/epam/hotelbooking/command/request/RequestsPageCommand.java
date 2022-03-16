@@ -28,6 +28,6 @@ public class RequestsPageCommand implements Command {
         ItemsTransferObject transferObject = requestService.getRequestsForUser(pageInt, userId, isAdmin);
         req.setAttribute("requestsList", transferObject.getItems());
         req.setAttribute("numberOfPages", transferObject.getAmountOfPages());
-        return CommandResult.forward("/pages/common-pages/requests.jsp");
+        return CommandResult.forward("/WEB-INF/view/common-pages/requests.jsp");
     }
 }

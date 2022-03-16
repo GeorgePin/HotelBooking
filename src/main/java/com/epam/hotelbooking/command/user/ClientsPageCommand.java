@@ -24,6 +24,6 @@ public class ClientsPageCommand implements Command {
         ItemsTransferObject transferObject = userService.getAllClients(currentPage);
         req.setAttribute("listOfClients", transferObject.getItems());
         req.setAttribute("numberOfPages", transferObject.getAmountOfPages());
-        return CommandResult.forward("/pages/admin-pages/clients.jsp");
+        return CommandResult.forward("/WEB-INF/view/admin-pages/clients.jsp");
     }
 }

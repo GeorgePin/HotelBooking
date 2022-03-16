@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="static/styles/rooms-style.css" type="text/css" />
 </head>
 <body>
-	<jsp:include page="/pages/utility-pages/adminHeader.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/view/utility-pages/adminHeader.jsp"></jsp:include>
 	<div id="page-content">
 		<table id="rooms-table">
 			<tr>

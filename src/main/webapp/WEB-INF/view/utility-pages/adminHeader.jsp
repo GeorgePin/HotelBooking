@@ -23,6 +23,6 @@
 		</a> | <a href="controller?command=logout"><fmt:message key="log-out" /></a>
 	</div>
 	<div id="language-bar">
-		<jsp:include page="/pages/utility-pages/languageBar.jsp"></jsp:include></div>
+		<jsp:include page="/WEB-INF/view/utility-pages/languageBar.jsp"></jsp:include></div>
 </header>
 </html>

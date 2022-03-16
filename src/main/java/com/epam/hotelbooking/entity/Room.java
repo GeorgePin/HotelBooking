@@ -1,5 +1,7 @@
 package com.epam.hotelbooking.entity;
 
+import java.util.Objects;
+
 public class Room extends Entity {
 
     private static final long serialVersionUID = -1343084847929251069L;
@@ -63,6 +65,25 @@ public class Room extends Entity {
 
     public Long getRoomPriceId() {
         return roomPriceId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(capacity, id, isBlocked, number, roomPrice, roomPriceId, type);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Room other = (Room) obj;
+        return capacity == other.capacity && Objects.equals(id, other.id) && isBlocked == other.isBlocked
+                && number == other.number && Objects.equals(roomPrice, other.roomPrice)
+                && Objects.equals(roomPriceId, other.roomPriceId) && type == other.type;
     }
 
 }

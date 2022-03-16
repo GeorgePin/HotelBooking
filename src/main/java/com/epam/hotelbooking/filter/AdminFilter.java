@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 public class AdminFilter implements Filter {
-    private static final String CLIENTS_PAGE = "/pages/admin-pages/clients\\.jsp";
+    private static final String CLIENTS_COMMAND = "/controller\\?command=clientsPage";
     private static final String BAN_USER_COMMAND = "/controller\\?command=banUser";
     private static final String UNBLOCK_ROOM_COMMAND = "/controller\\?command=unblockRoom";
     private static final String ROOMS_PAGE_COMMAND = "/controller\\?command=roomsPage";
@@ -22,10 +22,10 @@ public class AdminFilter implements Filter {
     private static final String CREATE_ROOM_COMMAND = "/controller\\?command=createRoom";
     private static final String REQUEST_HANDLING_PAGE_COMMAND = "/controller\\?command=requestHandlingPage";
     private static final String REQUEST_HANDLING_COMMAND = "/controller\\?command=requestHandling";
-    private static final String ADMIN_PRIVILEGES_NEDDED_PATTERN = "(.+)(" + CLIENTS_PAGE + "|" + BAN_USER_COMMAND + "|"
+    private static final String ADMIN_PRIVILEGES_NEDDED_PATTERN = ".*(?=" + CLIENTS_COMMAND + "|" + BAN_USER_COMMAND + "|"
             + UNBLOCK_ROOM_COMMAND + "|" + ROOMS_PAGE_COMMAND + "|" + DELETE_ROOM_COMMAND + "|"
             + CREATE_ROOM_PAGE_COMMAND + "|" + CREATE_ROOM_COMMAND + "|" + REQUEST_HANDLING_PAGE_COMMAND + "|"
-            + REQUEST_HANDLING_COMMAND + ")(.+)";
+            + REQUEST_HANDLING_COMMAND + ").*";
 
     public void init(FilterConfig config) throws ServletException {
     }
@@ -45,7 +45,7 @@ public class AdminFilter implements Filter {
         }
         if (isAdminRightsRequiredForPage(httpRequest) && !((boolean) session.getAttribute("isAdmin"))) {
             httpRequest.setAttribute("errorMessage", "notAdminMsg");
-            RequestDispatcher dispatcher = httpRequest.getRequestDispatcher("/pages/common-pages/errorPage.jsp");
+            RequestDispatcher dispatcher = httpRequest.getRequestDispatcher("/errorPage.jsp");
             dispatcher.forward(request, response);
         } else {
             chain.doFilter(request, response);

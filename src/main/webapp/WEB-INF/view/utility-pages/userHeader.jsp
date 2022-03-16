@@ -12,14 +12,14 @@
 <link rel="stylesheet" href="static/styles/header-style.css" type="text/css" />
 </head>
 <header>
-	<a href="controller?command=showPage&page=pages/common-pages/index"> <img
+	<a href="controller?command=showPage&page=index"> <img
 		src="static/images/hotel_logo.png" alt="hotel logo" id="hotel-logo"></a>
 	<div class="navigation-bar">
-		<a href="controller?command=showPage&page=pages/user-pages/requestRoom"> <fmt:message key="request-room" />
+		<a href="controller?command=showPage&page=WEB-INF/view/user-pages/requestRoom"> <fmt:message key="request-room" />
 		</a> | <a href="controller?command=requestsPage&page=1"><fmt:message key="requests" /></a> | <a
 			href="controller?command=logout"><fmt:message key="log-out" /></a>
 	</div>
 	<div id="language-bar">
-		<jsp:include page="/pages/utility-pages/languageBar.jsp"></jsp:include></div>
+		<jsp:include page="/WEB-INF/view/utility-pages/languageBar.jsp"></jsp:include></div>
 </header>
 </html>

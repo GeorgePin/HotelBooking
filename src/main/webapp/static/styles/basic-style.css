@@ -1,7 +1,5 @@
 @charset "UTF-8";
 
-@import url('https://fonts.googleapis.com/css2?family=B612:ital,wght@0,700;1,700&display=swap');
-
 input[type="submit"], input[type="button"], button {
 	background: linear-gradient(101deg, rgba(250, 29, 108, 0.1755) -40.7%, rgba(0, 87, 255, 0.3081)
 		139.66%);
@@ -60,14 +58,14 @@ a:hover {
 }
 
 p:not([class="table-text"], [class="table-heading-text"]), label {
-	width: 400px;
+ 	width: 400px;
 	font-family: Gideon Roman;
 	font-style: normal;
 	font-weight: normal;
 	font-size: 24px;
 	line-height: 30px;
 	letter-spacing: 0.06em;
-	color: #735C51;
+	color: #735C51; 
 }
 
 p[class="table-heading-text"] {

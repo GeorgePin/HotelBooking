@@ -11,10 +11,12 @@ import com.epam.hotelbooking.entity.User;
 import com.epam.hotelbooking.exception.DaoException;
 import com.epam.hotelbooking.exception.ServiceException;
 import com.epam.hotelbooking.service.UserServiceImpl;
+import com.epam.hotelbooking.validation.UserValidator;
 
 public class LoginCommand implements Command {
-    private static final String MAIN_PAGE = "/pages/common-pages/index.jsp";
+    private static final String MAIN_PAGE = "/index.jsp";
     private final UserServiceImpl userService;
+    private final UserValidator userValidator = new UserValidator();
 
     public LoginCommand(UserServiceImpl userService) {
         this.userService = userService;
@@ -25,6 +27,9 @@ public class LoginCommand implements Command {
             throws ServiceException, DaoException {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
+        if (!userValidator.isDataForLoginValid(login, password)) {
+            throw new ServiceException("Data for logging in is invalid");
+        }
         Optional<User> optionalUser = userService.login(login, password);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
@@ -39,8 +44,8 @@ public class LoginCommand implements Command {
                     .setAttribute("isLoggedIn", true);
             req.getSession()
                     .setAttribute("isAdmin", isAdmin);
-            return isAdmin ? CommandResult.forward("/controller?command=requestsPage&page=1")
-                    : CommandResult.forward(MAIN_PAGE);
+            return isAdmin ? CommandResult.redirect(req.getContextPath() + "/controller?command=requestsPage&page=1")
+                    : CommandResult.redirect(req.getContextPath() + MAIN_PAGE);
         } else {
             req.setAttribute("errorMessage", "errorMessage.login");
             return CommandResult.forward(MAIN_PAGE);

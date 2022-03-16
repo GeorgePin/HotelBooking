@@ -5,7 +5,7 @@
 <fmt:setLocale value="${sessionScope.lang}" />
 <fmt:setBundle basename="messages" />
 <c:set var="currentPageCommand"
-	value="/controller?command=requestHandlingPage&requestId=${param.requestId}&page=${param.page}"
+	value="/controller?command=requestHandlingPage&requestId=${param.requestId}&page=1"
 	scope="session" />
 <html lang="${sessionScope.lang}">
 <head>
@@ -16,7 +16,7 @@
 <link rel="stylesheet" href="static/styles/request-handling-style.css" type="text/css" />
 </head>
 <body>
-	<jsp:include page="/pages/utility-pages/adminHeader.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/view/utility-pages/adminHeader.jsp"></jsp:include>
 	<div id="page-content">
 		<table id="request-table">
 			<tr>

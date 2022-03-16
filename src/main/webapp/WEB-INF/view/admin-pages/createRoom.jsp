@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <fmt:setLocale value="${sessionScope.lang}" />
 <fmt:setBundle basename="messages" />
-<c:set var="currentPageCommand" value="/controller?command=createRoomPage" scope="session" />
+<c:set var="currentPageCommand" value="/controller?command=createRoomPage&page=${param.page}" scope="session" />
 <html lang="${sessionScope.lang}">
 <head>
 <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="static/styles/create-room-style.css" type="text/css" />
 </head>
 <body>
-	<jsp:include page="/pages/utility-pages/adminHeader.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/view/utility-pages/adminHeader.jsp"></jsp:include>
 	<main>
 		<form method="POST" action="controller?command=createRoom">
 			<div id="flex-container">
@@ -30,8 +30,7 @@
 					</label>
 					<label>
 						<fmt:message key="room-number" />
-						<input type="text" id="number-of-room" name="numberOfRoom" maxlength="3" pattern="\d{3}"
-							title="Number of room must contain exactly 3 digits">
+						<input type="text" id="number-of-room" name="numberOfRoom" maxlength="3" pattern="\d{1,3}">
 					</label>
 				</div>
 				<div id="right-column">

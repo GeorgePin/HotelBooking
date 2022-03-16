@@ -13,7 +13,9 @@ import com.epam.hotelbooking.exception.ServiceException;
 import com.epam.hotelbooking.mapper.RoomPriceRowMapper;
 
 public class RoomPriceServiceImpl implements RoomPriceService {
+
     private static final Logger LOGGER = LogManager.getLogger(RoomPriceServiceImpl.class);
+
     @Override
     public List<RoomPrice> getRoomPrices() throws ServiceException {
         LOGGER.info("Getting prices for room creating");
