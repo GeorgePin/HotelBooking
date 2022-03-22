@@ -12,10 +12,12 @@ import com.epam.hotelbooking.command.request.RequestsPageCommand;
 import com.epam.hotelbooking.command.room.CreateRoomCommand;
 import com.epam.hotelbooking.command.room.CreateRoomPageCommand;
 import com.epam.hotelbooking.command.room.DeleteRoomCommand;
+import com.epam.hotelbooking.command.room.EditRoomCommand;
+import com.epam.hotelbooking.command.room.EditRoomPageCommand;
 import com.epam.hotelbooking.command.room.RoomsPageCommand;
-import com.epam.hotelbooking.command.room.UnblockRoomCommand;
-import com.epam.hotelbooking.command.user.BanUserCommand;
+import com.epam.hotelbooking.command.room.SetRoomStateCommand;
 import com.epam.hotelbooking.command.user.ClientsPageCommand;
+import com.epam.hotelbooking.command.user.SetUserStateCommand;
 import com.epam.hotelbooking.service.RequestServiceImpl;
 import com.epam.hotelbooking.service.RoomPriceServiceImpl;
 import com.epam.hotelbooking.service.RoomServiceImpl;
@@ -53,12 +55,16 @@ public class CommandFactory {
             return new ShowPageCommand();
         case "clientsPage":
             return new ClientsPageCommand(new UserServiceImpl());
-        case "banUser":
-            return new BanUserCommand(new UserServiceImpl());
+        case "setUserState":
+            return new SetUserStateCommand(new UserServiceImpl());
         case "setLanguage":
             return new SetLanguageCommand();
-        case "unblockRoom":
-            return new UnblockRoomCommand(new RoomServiceImpl());
+        case "setRoomState":
+            return new SetRoomStateCommand(new RoomServiceImpl());
+        case "editRoomPage":
+            return new EditRoomPageCommand(new RoomPriceServiceImpl(), new RoomServiceImpl());
+        case "editRoom":
+            return new EditRoomCommand(new RoomServiceImpl());
         default:
             throw new IllegalArgumentException("Unknown command = " + command);
         }

@@ -5,6 +5,10 @@
 	margin: 0px;
 }
 
+#main-heading {
+	width: 400px;
+}
+
 .login-page-body {
 	background: #E0CDFE;
 	margin: 0px;
@@ -72,6 +76,4 @@
 	border-radius: 50%;
 	width: 560.16px;
 	height: 549.29px;
-	background: radial-gradient(109.53% 113.91% at -9.56% 0%, rgba(115, 120, 224, 0.22) 0%,
-		rgba(74, 233, 255, 0.22) 100%);
 }

@@ -29,9 +29,6 @@
 				<th><p class="table-heading-text">
 						<fmt:message key="room-class" />
 					</p></th>
-				<th id="is-blocked-row"><p class="table-heading-text">
-						<fmt:message key="is-room-blocked" />
-					</p></th>
 				<th><p class="table-heading-text">
 						<fmt:message key="room-price" />
 					</p></th>
@@ -39,7 +36,13 @@
 						<fmt:message key="valid-from" />
 					</p></th>
 				<th><p class="table-heading-text">
-						<fmt:message key="unblock-room" />
+						<fmt:message key="is-room-blocked" />
+					</p></th>
+				<th><p class="table-heading-text">
+						<fmt:message key="block-unblock" />
+					</p></th>
+				<th><p class="table-heading-text">
+						<fmt:message key="edit-room" />
 					</p></th>
 				<th><p class="table-heading-text">
 						<fmt:message key="delete-room" />
@@ -55,18 +58,22 @@
 					<td><p class="table-text">
 							<fmt:message key="${room.roomClass}" />
 						</p></td>
+					<td><p class="table-text">${room.roomPrice.price}</p></td>
+					<td><p class="table-text">${room.roomPrice.validFrom}</p></td>
 					<c:choose>
 						<c:when test="${room.isBlocked}">
 							<td><img src="static/images/accept.png" alt="accpect image" class="accept-image"></td>
+							<td><a href="controller?command=setRoomState&roomId=${room.id}&state=0"><fmt:message
+										key="unban" /></a></td>
 						</c:when>
 						<c:otherwise>
-							<td><img src="static/images/pending.png" alt="pending image" class="pending-image"></td>
+							<td><img src="static/images/pending.png" alt="pending room" class="pending-image"></td>
+							<td><a href="controller?command=setRoomState&roomId=${room.id}&state=1"
+								onclick="return ConfirmDelete()"><fmt:message key="ban" /></a></td>
 						</c:otherwise>
 					</c:choose>
-					<td><p class="table-text">${room.roomPrice.price}</p></td>
-					<td><p class="table-text">${room.roomPrice.validFrom}</p></td>
-					<td><a href="controller?command=unblockRoom&roomId=${room.id}"
-						onclick="return ConfirmDelete()"> <fmt:message key="unblock-room" />
+					<td><a href="controller?command=editRoomPage&roomId=${room.id}"> <fmt:message
+								key="edit-room" />
 					</a></td>
 					<td><a href="controller?command=deleteRoom&roomId=${room.id}"
 						onclick="return ConfirmDelete()"> <fmt:message key="delete-room" />
@@ -74,16 +81,16 @@
 				</tr>
 			</c:forEach>
 		</table>
+		<table class="page-navigation">
+			<tr>
+				<c:forEach begin="1" end="${numberOfPages}" var="i">
+					<td><a href="controller?command=roomsPage&page=${i}">${i}</a></td>
+				</c:forEach>
+			</tr>
+		</table>
+		<button id="create-room-btn" onclick="location.href='controller?command=createRoomPage'"
+			type="button">
+			<fmt:message key="create-room-btn" />
+		</button>
 	</div>
-	<table class="page-navigation">
-		<tr>
-			<c:forEach begin="1" end="${numberOfPages}" var="i">
-				<td><a href="controller?command=roomsPage&page=${i}">${i}</a></td>
-			</c:forEach>
-		</tr>
-	</table>
-	<button id="create-room-btn" onclick="location.href='controller?command=createRoomPage'"
-		type="button">
-		<fmt:message key="create-room-btn" />
-	</button>
 </body>

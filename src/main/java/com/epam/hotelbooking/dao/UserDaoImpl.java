@@ -11,23 +11,39 @@ import com.epam.hotelbooking.exception.DaoException;
 import com.epam.hotelbooking.mapper.RowMapper;
 
 public class UserDaoImpl extends AbstractDao<User> implements UserDao {
-    private static final String FIND_BY_LOGIN_AND_PASSWORD = "select user.id, user.is_admin, user.is_blocked from user where login = ? and password = MD5(?) ";
-    private static final String CREATE_NEW_USER = "insert into user(name, surname, login, password) values(?, ?, ?, MD5(?))";
+
+    private static final String FIND_BY_LOGIN_AND_PASSWORD = "select user.id, user.is_admin,"
+            + " user.is_blocked from user where login = ? and password = MD5(?) ";
+
+    private static final String CREATE_NEW_USER = "insert into user(name, surname, login, password)"
+            + " values(?, ?, ?, MD5(?))";
+
     private static final String BAN_USER = "update user set is_blocked='1' where id=?";
-    private static final String GET_ALL_CLIENTS = "select user.id, user.name, user.surname, user.login, user.is_Blocked from user where is_admin='0' limit ?, ?";
+
+    private static final String UNBAN_USER = "update user set is_blocked='0' where id=?";
+
+    private static final String GET_ALL_CLIENTS = "select user.id, user.name, user.surname, "
+            + "user.login, user.is_Blocked from user where is_admin='0' limit ?, ?";
+
     private static final String IS_ADMIN_FILTER = "is_admin";
+
+    private static final String DOES_USER_EXISTS = "select * from user where user.login=?";
 
     public UserDaoImpl(ProxyConnection proxyConnection, RowMapper<User> rowMapper) {
         super(proxyConnection, rowMapper);
     }
 
     @Override
-    public void create(User item) throws DaoException {
+    public boolean create(User item) throws DaoException {
+        String userLogin = item.getLogin();
+        if (doesUserExists(userLogin).isPresent()) {
+            return false;
+        }
         String userName = item.getName();
         String userSurname = item.getSurname();
-        String userLogin = item.getLogin();
         String userPassword = item.getPassword();
         executeQueryWithoutReturnValue(CREATE_NEW_USER, userName, userSurname, userLogin, userPassword);
+        return true;
     }
 
     @Override
@@ -63,4 +79,12 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
         update(BAN_USER, userId);
     }
 
+    @Override
+    public void unbanUser(Long userId) throws DaoException {
+        update(UNBAN_USER, userId);
+    }
+
+    private Optional<User> doesUserExists(String login) throws DaoException {
+        return executeForSingleResult(DOES_USER_EXISTS, login);
+    }
 }

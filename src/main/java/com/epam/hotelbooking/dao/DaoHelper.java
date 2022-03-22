@@ -20,19 +20,19 @@ public class DaoHelper implements AutoCloseable {
                 .getConnection();
     }
 
-    public UserDaoImpl createUserDao(RowMapper<User> rowMapper) {
+    public UserDao createUserDao(RowMapper<User> rowMapper) {
         return new UserDaoImpl(connection, rowMapper);
     }
 
-    public RoomPriceDaoImpl createRoomPriceDao(RowMapper<RoomPrice> rowMapper) {
+    public RoomPriceDao createRoomPriceDao(RowMapper<RoomPrice> rowMapper) {
         return new RoomPriceDaoImpl(connection, rowMapper);
     }
 
-    public RequestDaoImpl createRequestDao(RowMapper<Request> rowMapper) {
+    public RequestDao createRequestDao(RowMapper<Request> rowMapper) {
         return new RequestDaoImpl(connection, rowMapper);
     }
 
-    public RoomDaoImpl createRoomDao(RowMapper<Room> rowMapper) {
+    public RoomDao createRoomDao(RowMapper<Room> rowMapper) {
         return new RoomDaoImpl(connection, rowMapper);
     }
 

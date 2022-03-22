@@ -9,10 +9,10 @@ import com.epam.hotelbooking.exception.DaoException;
 import com.epam.hotelbooking.exception.ServiceException;
 import com.epam.hotelbooking.service.RoomServiceImpl;
 
-public class UnblockRoomCommand implements Command {
+public class SetRoomStateCommand implements Command {
     private final RoomServiceImpl roomService;
 
-    public UnblockRoomCommand(RoomServiceImpl roomService) {
+    public SetRoomStateCommand(RoomServiceImpl roomService) {
         this.roomService = roomService;
     }
 
@@ -20,7 +20,8 @@ public class UnblockRoomCommand implements Command {
     public CommandResult execute(HttpServletRequest req, HttpServletResponse resp)
             throws ServiceException, DaoException {
         Long roomId = Long.parseLong(req.getParameter("roomId"));
-        roomService.unblockRoom(roomId);
+        boolean roomState = Integer.parseInt(req.getParameter("state")) == 1;
+        roomService.setStateOfRoom(roomId, roomState);
         return CommandResult.redirect(req.getContextPath() + "/controller?command=roomsPage&page=1");
     }
 }

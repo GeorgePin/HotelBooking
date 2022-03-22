@@ -33,7 +33,7 @@
 						<fmt:message key="is-user-blocked" />
 					</p></th>
 				<th><p class="table-heading-text">
-						<fmt:message key="block-user" />
+						<fmt:message key="block-unblock" />
 					</p></th>
 			</tr>
 			<c:forEach var="client" items="${listOfClients}" varStatus="counter">
@@ -53,13 +53,15 @@
 					<c:choose>
 						<c:when test="${client.isBlocked}">
 							<td><img src="static/images/accept.png" alt="accpect image" class="accept-image"></td>
+							<td><a href="controller?command=setUserState&userId=${client.id}&state=0"><fmt:message
+										key="unban" /></a></td>
 						</c:when>
 						<c:otherwise>
 							<td><img src="static/images/pending.png" alt="pending image" class="pending-image"></td>
+							<td><a href="controller?command=setUserState&userId=${client.id}&state=1"
+								onclick="return ConfirmDelete()"><fmt:message key="ban" /></a></td>
 						</c:otherwise>
 					</c:choose>
-					<td><a href="controller?command=banUser&userId=${client.id}"
-						onclick="return ConfirmDelete()"><fmt:message key="ban" /></a></td>
 				</tr>
 			</c:forEach>
 		</table>

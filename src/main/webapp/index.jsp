@@ -5,8 +5,7 @@
 <%@ taglib uri="WEB-INF/custom-tag.tld" prefix="custom"%>
 <fmt:setLocale value="${sessionScope.lang}" />
 <fmt:setBundle basename="messages" />
-<c:set var="currentPageCommand" value="/controller?command=showPage&page=index"
-	scope="session" />
+<c:set var="currentPageCommand" value="/controller?command=showPage&page=index" scope="session" />
 <c:set var="salary" scope="page" value="" />
 <html lang="${sessionScope.lang}">
 <head>
@@ -28,7 +27,7 @@
 				</c:otherwise>
 			</c:choose>
 			<div id="main-page-content">
-				<h1>
+				<h1 id="main-heading">
 					<fmt:message key="lookingForRoom" />
 				</h1>
 				<p>
@@ -37,8 +36,8 @@
 				<div id="background-circle">
 					<img src="static/images/hotel.png" alt="hotel photo">
 				</div>
-				<a href="controller?command=showPage&page=WEB-INF/view/user-pages/requestRoom"><input type="button"
-						value=" <fmt:message key="request" />"></a>
+				<a href="controller?command=showPage&page=WEB-INF/view/user-pages/requestRoom"><input
+						type="button" value=" <fmt:message key="request" />"></a>
 			</div>
 		</c:when>
 		<c:otherwise>
@@ -54,7 +53,7 @@
                             key="login" />" maxlength="10"
 						pattern="[\d|\w]{1,10}" required>
 					<input type="password" id="password-input" name="password" maxlength="10"
-						pattern="[\d|\w]{1,10}" 
+						pattern="[\d|\w]{1,10}"
 						placeholder="<fmt:message
                             key="password" />" required>
 					<br></br> <a href="controller?command=showPage&page=registrationPage" id="registration-msg">

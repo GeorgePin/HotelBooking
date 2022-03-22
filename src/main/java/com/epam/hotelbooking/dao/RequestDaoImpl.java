@@ -12,16 +12,23 @@ import com.epam.hotelbooking.exception.DaoException;
 import com.epam.hotelbooking.mapper.RowMapper;
 
 public class RequestDaoImpl extends AbstractDao<Request> implements RequestDao {
+
     private static final String FIND_REQUEST_BY_ID = "select * from reservation where id=?";
+
     private static final String CREATE_NEW_ROOM_REQUEST = "insert into reservation (room_capacity,room_class,"
             + "start_date,end_date,user_id) values (?,?,?,?,?)";
+
     private static final String FILTER_FOR_ADMIN = "is_approved";
+
     private static final String FILTER_FOR_CLIENT = "user_id";
+
     private static final String INSERT_ROOM_INTO_REQUEST = "update reservation set room_id = ?,"
             + " is_approved = '1' where id = ?";
+
     private static final String SELECT_ALL_USER_REQUESTS = "SELECT reservation.*,room_price.price FROM "
             + "reservation LEFT JOIN room ON room.id = reservation.room_id LEFT JOIN "
             + "room_price ON room_price.id = room.room_price_id WHERE reservation.user_id=? limit ?, ?";
+
     private static final String UNAPPROVED_REQUESTS = "select * from reservation where is_approved=0 limit ?, ?";
 
     public RequestDaoImpl(ProxyConnection proxyConnection, RowMapper<Request> rowMapper) {
@@ -29,13 +36,14 @@ public class RequestDaoImpl extends AbstractDao<Request> implements RequestDao {
     }
 
     @Override
-    public void create(Request item) throws DaoException {
+    public boolean create(Request item) throws DaoException {
         int roomCapacity = item.getRoomCapacity();
         String roomClass = item.getRoomClass();
         Date startDate = item.getStartDate();
         Date endDate = item.getEndDate();
         Long userId = item.getUserId();
         executeQueryWithoutReturnValue(CREATE_NEW_ROOM_REQUEST, roomCapacity, roomClass, startDate, endDate, userId);
+        return true;
     }
 
     @Override

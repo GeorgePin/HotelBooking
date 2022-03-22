@@ -44,8 +44,9 @@ public class LoginCommand implements Command {
                     .setAttribute("isLoggedIn", true);
             req.getSession()
                     .setAttribute("isAdmin", isAdmin);
-            return isAdmin ? CommandResult.redirect(req.getContextPath() + "/controller?command=requestsPage&page=1")
-                    : CommandResult.redirect(req.getContextPath() + MAIN_PAGE);
+            return isAdmin 
+                   ? CommandResult.redirect(req.getContextPath() + "/controller?command=requestsPage&page=1")
+                   : CommandResult.redirect(req.getContextPath() + MAIN_PAGE);
         } else {
             req.setAttribute("errorMessage", "errorMessage.login");
             return CommandResult.forward(MAIN_PAGE);

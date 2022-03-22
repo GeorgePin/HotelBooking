@@ -12,26 +12,15 @@ body {
 	top: 300px;
 	display: flex;
 	justify-content: center;
-}
-
-#requests-table {
-	width: 100%;
+	align-items: center;
+	flex-direction: column;
 }
 
 .page-navigation {
-	position: absolute;
-	margin-left: 47%;
-	margin-top: 22%;
-	width: 90px;
+	margin-top: 4%;
 }
 
 #dash>h1 {
 	margin: 0px;
 	line-height: 10px;
-}
-
-#main-page-btn {
-	position: absolute;
-	margin-top: 33%;
-	left: 345px;
 }

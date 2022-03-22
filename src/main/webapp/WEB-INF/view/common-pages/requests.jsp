@@ -66,6 +66,15 @@
 						</tr>
 					</c:forEach>
 				</table>
+				<table class="page-navigation">
+					<tr>
+						<c:forEach begin="1" end="${numberOfPages}" var="i">
+							<td><h2>
+									<a href="controller?command=requestsPage&page=${i}">${i}</a>
+								</h2></td>
+						</c:forEach>
+					</tr>
+				</table>
 			</div>
 		</c:when>
 		<c:otherwise>
@@ -121,19 +130,19 @@
 						</tr>
 					</c:forEach>
 				</table>
-				<a href="controller?command=showPage&page=index"> <input type="button"
-						id="main-page-btn" value="<fmt:message
+				<table class="page-navigation">
+					<tr>
+						<c:forEach begin="1" end="${numberOfPages}" var="i">
+							<td><h2>
+									<a href="controller?command=requestsPage&page=${i}">${i}</a>
+								</h2></td>
+						</c:forEach>
+					</tr>
+				</table>
+				<a href="controller?command=showPage&page=index"> <input type="button" id="main-page-btn"
+						value="<fmt:message
                             key="main-page-btn"  />"></a>
 			</div>
 		</c:otherwise>
 	</c:choose>
-	<table class="page-navigation">
-		<tr>
-			<c:forEach begin="1" end="${numberOfPages}" var="i">
-				<td><h2>
-						<a href="controller?command=requestsPage&page=${i}">${i}</a>
-					</h2></td>
-			</c:forEach>
-		</tr>
-	</table>
 </html>

@@ -56,8 +56,8 @@ public class ConnectionPool {
             String dbPassword = props.getProperty("db.password");
             int dbPoolSize = Integer.parseInt(props.getProperty("db.poolsize"));
             Class.forName(dbDriverClass);
-            Connection connection = DriverManager.getConnection(dbConnUrl, dbUserName, dbPassword);
             for (int i = 0; i < dbPoolSize; i++) {
+                Connection connection = DriverManager.getConnection(dbConnUrl, dbUserName, dbPassword);
                 availableConnections.add(new ProxyConnection(connection, ConnectionPool.getInstance()));
             }
         } catch (IOException | ClassNotFoundException | SQLException exception) {

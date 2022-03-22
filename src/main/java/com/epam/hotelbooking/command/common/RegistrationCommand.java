@@ -30,7 +30,11 @@ public class RegistrationCommand implements Command {
         if (!userValidator.isDataForRegistrationValid(user)) {
             throw new ServiceException("Data for registration is invalid");
         }
-        userService.createUser(user);
-        return CommandResult.redirect(req.getContextPath() + "/index.jsp");
+        if (userService.createUser(user)) {
+            return CommandResult.redirect(req.getContextPath() + "/index.jsp");
+        } else {
+            req.setAttribute("errorMessage", "errorMessage.registration");
+            return CommandResult.forward("/registrationPage.jsp");
+        }
     }
 }

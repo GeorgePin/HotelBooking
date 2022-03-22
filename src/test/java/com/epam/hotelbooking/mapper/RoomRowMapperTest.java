@@ -28,7 +28,7 @@ public class RoomRowMapperTest {
         boolean isBlocked = true;
         RoomPrice roomPrice = new RoomPrice(1L, BigDecimal.valueOf(12.32), Date.valueOf("2022-03-30"));
         Room expectedRoom = new Room(id, capacity, roomClass, number, isBlocked, roomPrice);
-        RoomRowMapper roomRowMapper = new RoomRowMapper();
+        RoomWithPriceRowMapper roomRowMapper = new RoomWithPriceRowMapper();
         ResultSet resultSet = mock(ResultSet.class);
         when(resultSet.getLong("id")).thenReturn(23L);
         when(resultSet.getInt("capacity")).thenReturn(4);

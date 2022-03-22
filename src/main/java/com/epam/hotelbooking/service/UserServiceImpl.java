@@ -34,12 +34,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void banUser(Long userId) throws ServiceException {
+    public void setUserState(Long userId, boolean state) throws ServiceException {
         LOGGER.info("Strating block user procedure");
         try (DaoHelper daoHelper = new DaoHelper()) {
             daoHelper.startTransaction();
             UserDaoImpl dao = daoHelper.createUserDao(new UserRowMapper());
-            dao.banUser(userId);
+            if (state) {
+                dao.banUser(userId);
+            } else {
+                dao.unbanUser(userId);
+            }
             daoHelper.endTransaction();
             LOGGER.info("User was blocked successfully");
         } catch (DaoException exception) {
@@ -63,14 +67,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void createUser(User user) throws ServiceException {
+    public boolean createUser(User user) throws ServiceException {
         LOGGER.info("Creating new user");
         try (DaoHelper daoHelper = new DaoHelper()) {
             daoHelper.startTransaction();
             UserDaoImpl userDao = daoHelper.createUserDao(new UserRowMapper());
-            userDao.create(user);
+            boolean wasUserRegistered = userDao.create(user);
             daoHelper.endTransaction();
-            LOGGER.info("User was created successfully");
+            if (wasUserRegistered) {
+                LOGGER.info("User was created successfully");
+                return wasUserRegistered;
+            } else {
+                return false;
+            }
         } catch (DaoException exception) {
             throw new ServiceException("Error during registratig new user", exception);
         }

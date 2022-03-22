@@ -1,5 +1,7 @@
 package com.epam.hotelbooking.service;
 
+import java.util.Optional;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -9,7 +11,9 @@ import com.epam.hotelbooking.entity.ItemsTransferObject;
 import com.epam.hotelbooking.entity.Room;
 import com.epam.hotelbooking.exception.DaoException;
 import com.epam.hotelbooking.exception.ServiceException;
+import com.epam.hotelbooking.mapper.IdentifiableRoomRowMapper;
 import com.epam.hotelbooking.mapper.RoomRowMapper;
+import com.epam.hotelbooking.mapper.RoomWithPriceRowMapper;
 
 public class RoomServiceImpl implements RoomService {
 
@@ -20,7 +24,7 @@ public class RoomServiceImpl implements RoomService {
         LOGGER.info("Getting rooms for single page");
         try (DaoHelper daoHelper = new DaoHelper()) {
             daoHelper.startTransaction();
-            RoomDaoImpl dao = daoHelper.createRoomDao(new RoomRowMapper());
+            RoomDaoImpl dao = daoHelper.createRoomDao(new RoomWithPriceRowMapper());
             ItemsTransferObject itemsTransferObject;
             itemsTransferObject = isForHandling ? dao.getFreeRoomsForSinglePage(startElement)
                     : dao.getRoomsWithPrices(startElement);
@@ -33,14 +37,19 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public void createRoom(Room room) throws ServiceException {
+    public boolean createRoom(Room room) throws ServiceException {
         LOGGER.info("Creating new room");
         try (DaoHelper daoHelper = new DaoHelper()) {
             daoHelper.startTransaction();
             RoomDaoImpl dao = daoHelper.createRoomDao(new RoomRowMapper());
-            dao.create(room);
+            boolean wasRoomCreated = dao.create(room);
             daoHelper.endTransaction();
-            LOGGER.info("Room was created succesfully");
+            if (wasRoomCreated) {
+                LOGGER.info("Room was created succesfully");
+                return wasRoomCreated;
+            } else {
+                return false;
+            }
         } catch (DaoException exception) {
             throw new ServiceException("Error during creating new room", exception);
         }
@@ -51,7 +60,7 @@ public class RoomServiceImpl implements RoomService {
         LOGGER.info("Deleting room");
         try (DaoHelper daoHelper = new DaoHelper()) {
             daoHelper.startTransaction();
-            RoomDaoImpl dao = daoHelper.createRoomDao(new RoomRowMapper());
+            RoomDaoImpl dao = daoHelper.createRoomDao(new RoomWithPriceRowMapper());
             dao.delete(roomId);
             daoHelper.endTransaction();
             LOGGER.info("Room was deleted succesfully");
@@ -61,16 +70,58 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public void unblockRoom(Long roomId) throws ServiceException {
-        LOGGER.info("Unblock room");
+    public Optional<Room> readRoom(Long roomId) throws ServiceException {
+        LOGGER.info("Reading room");
         try (DaoHelper daoHelper = new DaoHelper()) {
             daoHelper.startTransaction();
             RoomDaoImpl dao = daoHelper.createRoomDao(new RoomRowMapper());
-            dao.unblockRoom(roomId);
+            Optional<Room> room = dao.read(roomId);
             daoHelper.endTransaction();
-            LOGGER.info("Room was unblocked succesfully");
+            if (room.isPresent()) {
+                LOGGER.info("Room succesfully read ");
+                return room;
+            } else {
+                return Optional.empty();
+            }
         } catch (DaoException exception) {
-            throw new ServiceException("Error during unblocking room", exception);
+            throw new ServiceException("Error during reading room", exception);
+        }
+    }
+
+    @Override
+    public boolean editRoom(Room room) throws ServiceException {
+        LOGGER.info("Editing room");
+        try (DaoHelper daoHelper = new DaoHelper()) {
+            daoHelper.startTransaction();
+            RoomDaoImpl dao = daoHelper.createRoomDao(new IdentifiableRoomRowMapper());
+            boolean wasRoomEdited = dao.editRoom(room);
+            daoHelper.endTransaction();
+            if (wasRoomEdited) {
+                LOGGER.info("Room updated ");
+                return wasRoomEdited;
+            } else {
+                return false;
+            }
+        } catch (DaoException exception) {
+            throw new ServiceException("Error during updating room", exception);
+        }
+    }
+
+    @Override
+    public void setStateOfRoom(Long roomId, boolean state) throws ServiceException {
+        LOGGER.info("Cnahging state of room");
+        try (DaoHelper daoHelper = new DaoHelper()) {
+            daoHelper.startTransaction();
+            RoomDaoImpl dao = daoHelper.createRoomDao(new RoomWithPriceRowMapper());
+            if (state) {
+                dao.blockRoom(roomId);
+            } else {
+                dao.unblockRoom(roomId);
+            }
+            daoHelper.endTransaction();
+            LOGGER.info("Room state was changed succesfully");
+        } catch (DaoException exception) {
+            throw new ServiceException("Error during changing state of room", exception);
         }
     }
 }

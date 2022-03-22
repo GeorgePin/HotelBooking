@@ -37,6 +37,14 @@ public class Room extends Entity {
         this.roomPriceId = roomPriceId;
     }
 
+    public Room(Long id, int capacity, RoomClass type, int number, Long roomPriceId) {
+        this.id = id;
+        this.capacity = capacity;
+        this.type = type;
+        this.number = number;
+        this.roomPriceId = roomPriceId;
+    }
+
     @Override
     public Long getId() {
         return id;

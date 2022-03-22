@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.epam.hotelbooking.dao.DaoHelper;
+import com.epam.hotelbooking.dao.RequestDao;
 import com.epam.hotelbooking.dao.RequestDaoImpl;
 import com.epam.hotelbooking.dao.RoomDaoImpl;
 import com.epam.hotelbooking.entity.ItemsTransferObject;
@@ -14,7 +15,7 @@ import com.epam.hotelbooking.exception.DaoException;
 import com.epam.hotelbooking.exception.ServiceException;
 import com.epam.hotelbooking.mapper.AdminRequestRowMapper;
 import com.epam.hotelbooking.mapper.ClientRequestRowMapper;
-import com.epam.hotelbooking.mapper.RoomRowMapper;
+import com.epam.hotelbooking.mapper.RoomWithPriceRowMapper;
 
 public class RequestServiceImpl implements RequestService {
 
@@ -62,8 +63,8 @@ public class RequestServiceImpl implements RequestService {
         LOGGER.info("Handling room request");
         try (DaoHelper daoHelper = new DaoHelper()) {
             daoHelper.startTransaction();
-            RequestDaoImpl requestDao = daoHelper.createRequestDao(new ClientRequestRowMapper());
-            RoomDaoImpl roomDao = daoHelper.createRoomDao(new RoomRowMapper());
+            RequestDao requestDao = daoHelper.createRequestDao(new ClientRequestRowMapper());
+            RoomDaoImpl roomDao = daoHelper.createRoomDao(new RoomWithPriceRowMapper());
             roomDao.blockRoom(roomId);
             requestDao.insertRoomIntoRequest(requestId, roomId);
             daoHelper.endTransaction();

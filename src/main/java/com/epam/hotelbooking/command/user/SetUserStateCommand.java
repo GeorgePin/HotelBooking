@@ -9,10 +9,10 @@ import com.epam.hotelbooking.exception.DaoException;
 import com.epam.hotelbooking.exception.ServiceException;
 import com.epam.hotelbooking.service.UserServiceImpl;
 
-public class BanUserCommand implements Command {
+public class SetUserStateCommand implements Command {
     private final UserServiceImpl userService;
 
-    public BanUserCommand(UserServiceImpl userService) {
+    public SetUserStateCommand(UserServiceImpl userService) {
         this.userService = userService;
     }
 
@@ -20,7 +20,8 @@ public class BanUserCommand implements Command {
     public CommandResult execute(HttpServletRequest req, HttpServletResponse resp)
             throws ServiceException, DaoException {
         Long userId = Long.parseLong(req.getParameter("userId"));
-        userService.banUser(userId);
+        boolean userState = Integer.parseInt(req.getParameter("state")) == 1;
+        userService.setUserState(userId, userState);
         return CommandResult.redirect(req.getContextPath() + "/controller?command=clientsPage&page=1");
     }
 }

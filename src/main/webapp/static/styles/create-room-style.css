@@ -11,6 +11,10 @@ header {
 	height: 10%;
 }
 
+.error-msg {
+	margin-top: 2%;
+}
+
 main {
 	height: 90%;
 	width: 100%;

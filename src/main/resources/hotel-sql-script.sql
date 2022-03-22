@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `hotel`.`room_price` (
   `price` DECIMAL(10,2) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 1
+AUTO_INCREMENT = 8
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `hotel`.`room` (
   `number` SMALLINT NOT NULL,
   `is_blocked` TINYINT(1) NOT NULL,
   `room_price_id` INT NOT NULL,
-  `is_deleted` TINYINT(1) NULL DEFAULT 0,
+  `is_deleted` TINYINT(1) NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE INDEX `number_UNIQUE` (`number` ASC) VISIBLE,
   INDEX `fk_room_room_price1_idx` (`room_price_id` ASC) VISIBLE,
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `hotel`.`room` (
     FOREIGN KEY (`room_price_id`)
     REFERENCES `hotel`.`room_price` (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 1
+AUTO_INCREMENT = 43
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `hotel`.`user` (
   `is_blocked` TINYINT(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 1
+AUTO_INCREMENT = 18
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `hotel`.`reservation` (
     FOREIGN KEY (`user_id`)
     REFERENCES `hotel`.`user` (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 1
+AUTO_INCREMENT = 39
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 

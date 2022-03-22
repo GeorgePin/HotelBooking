@@ -12,12 +12,12 @@ import com.epam.hotelbooking.exception.ServiceException;
 import com.epam.hotelbooking.service.RoomServiceImpl;
 import com.epam.hotelbooking.validation.RoomValidator;
 
-public class CreateRoomCommand implements Command {
+public class EditRoomCommand implements Command {
     private final RoomServiceImpl roomService;
     private final RoomValidator roomValidator = new RoomValidator();
     private static final String NUMBER_OF_ROOM = "numberOfRoom";
 
-    public CreateRoomCommand(RoomServiceImpl roomService) {
+    public EditRoomCommand(RoomServiceImpl roomService) {
         this.roomService = roomService;
     }
 
@@ -25,19 +25,20 @@ public class CreateRoomCommand implements Command {
     public CommandResult execute(HttpServletRequest req, HttpServletResponse resp)
             throws DaoException, ServiceException {
         if (!roomValidator.isDataForRoomCreatingValid(req.getParameter(NUMBER_OF_ROOM))) {
-            throw new ServiceException("Data for room creating is invalid");
+            throw new ServiceException("Data for room editing is invalid");
         }
         int capacity = Integer.parseInt(req.getParameter("roomCapacity"));
         int numberOfRoom = Integer.parseInt(req.getParameter(NUMBER_OF_ROOM));
         RoomClass roomClass = RoomClass.valueOf(req.getParameter("roomClass")
                 .toUpperCase());
         Long roomPriceId = Long.parseLong(req.getParameter("idOfPrice"));
-        Room room = new Room(capacity, roomClass, numberOfRoom, roomPriceId);
-        if (roomService.createRoom(room)) {
+        Long roomId = Long.parseLong(req.getParameter("roomId"));
+        Room room = new Room(roomId, capacity, roomClass, numberOfRoom, roomPriceId);
+        if (roomService.editRoom(room)) {
             return CommandResult.redirect(req.getContextPath() + "/controller?command=roomsPage&page=1");
         } else {
             req.setAttribute("errorMessage", "errorMessage.room-number");
-            return CommandResult.forward("/controller?command=createRoomPage");
+            return CommandResult.forward("/controller?command=editRoomPage&roomId=" + roomId);
         }
     }
 }
