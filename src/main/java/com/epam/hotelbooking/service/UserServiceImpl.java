@@ -6,8 +6,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.epam.hotelbooking.dao.DaoHelper;
-import com.epam.hotelbooking.dao.UserDaoImpl;
-import com.epam.hotelbooking.entity.ItemsTransferObject;
+import com.epam.hotelbooking.dao.UserDao;
+import com.epam.hotelbooking.entity.ItemsDto;
 import com.epam.hotelbooking.entity.User;
 import com.epam.hotelbooking.exception.DaoException;
 import com.epam.hotelbooking.exception.ServiceException;
@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
         LOGGER.info("Starting login procedure");
         try (DaoHelper daoHelper = new DaoHelper()) {
             daoHelper.startTransaction();
-            UserDaoImpl dao = daoHelper.createUserDao(new UserRowMapper());
+            UserDao dao = daoHelper.createUserDao(new UserRowMapper());
             Optional<User> user = dao.findUserByLoginAndPassword(login, password);
             daoHelper.endTransaction();
             LOGGER.info("Login data found");
@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
         LOGGER.info("Strating block user procedure");
         try (DaoHelper daoHelper = new DaoHelper()) {
             daoHelper.startTransaction();
-            UserDaoImpl dao = daoHelper.createUserDao(new UserRowMapper());
+            UserDao dao = daoHelper.createUserDao(new UserRowMapper());
             if (state) {
                 dao.banUser(userId);
             } else {
@@ -52,12 +52,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ItemsTransferObject getAllClients(int pageNumber) throws ServiceException {
+    public ItemsDto getAllClients(int pageNumber) throws ServiceException {
         LOGGER.info("Getting all clients");
         try (DaoHelper daoHelper = new DaoHelper()) {
             daoHelper.startTransaction();
-            UserDaoImpl userDao = daoHelper.createUserDao(new ClientRowMapper());
-            ItemsTransferObject itemsTransferObject = userDao.getAllClients(pageNumber);
+            UserDao userDao = daoHelper.createUserDao(new ClientRowMapper());
+            ItemsDto itemsTransferObject = userDao.getAllClients(pageNumber);
             daoHelper.endTransaction();
             LOGGER.info("Clients were successfully found");
             return itemsTransferObject;
@@ -71,7 +71,7 @@ public class UserServiceImpl implements UserService {
         LOGGER.info("Creating new user");
         try (DaoHelper daoHelper = new DaoHelper()) {
             daoHelper.startTransaction();
-            UserDaoImpl userDao = daoHelper.createUserDao(new UserRowMapper());
+            UserDao userDao = daoHelper.createUserDao(new UserRowMapper());
             boolean wasUserRegistered = userDao.create(user);
             daoHelper.endTransaction();
             if (wasUserRegistered) {

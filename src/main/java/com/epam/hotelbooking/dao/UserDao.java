@@ -2,7 +2,7 @@ package com.epam.hotelbooking.dao;
 
 import java.util.Optional;
 
-import com.epam.hotelbooking.entity.ItemsTransferObject;
+import com.epam.hotelbooking.entity.ItemsDto;
 import com.epam.hotelbooking.entity.User;
 import com.epam.hotelbooking.exception.DaoException;
 
@@ -13,7 +13,7 @@ import com.epam.hotelbooking.exception.DaoException;
  * @version 1.0
  * @since 1.0
  */
-public interface UserDao {
+public interface UserDao extends Dao<User>{
 
     /**
      * Purpose of this method is to get specific user from database, knowing login
@@ -53,6 +53,6 @@ public interface UserDao {
      *         clients for specific page.
      * @throws DaoException
      */
-    ItemsTransferObject getAllClients(int pageNumber) throws DaoException;
+    ItemsDto getAllClients(int pageNumber) throws DaoException;
 
 }

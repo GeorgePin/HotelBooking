@@ -5,12 +5,14 @@ import java.util.Optional;
 
 import com.epam.hotelbooking.connection.ProxyConnection;
 import com.epam.hotelbooking.entity.EntityType;
-import com.epam.hotelbooking.entity.ItemsTransferObject;
+import com.epam.hotelbooking.entity.ItemsDto;
 import com.epam.hotelbooking.entity.Room;
 import com.epam.hotelbooking.exception.DaoException;
 import com.epam.hotelbooking.mapper.RowMapper;
 
 public class RoomDaoImpl extends AbstractDao<Room> implements RoomDao {
+
+    private static final String IS_DELETED_FILTER = "is_deleted";
 
     private static final String IS_ROOM_BLOCKED_FILTER = "is_blocked";
 
@@ -76,19 +78,19 @@ public class RoomDaoImpl extends AbstractDao<Room> implements RoomDao {
     }
 
     @Override
-    public ItemsTransferObject getFreeRoomsForSinglePage(int pageNumber) throws DaoException {
+    public ItemsDto getFreeRoomsForSinglePage(int pageNumber) throws DaoException {
         int startElement = (pageNumber - 1) * RECORDS_PER_PAGE;
         Integer amountOfPages = super.getAmountOfPages(EntityType.ROOM, IS_ROOM_BLOCKED_FILTER, ZERO);
         List<Room> listOfRooms = super.executeQuery(GET_FREE_ROOMS_FOR_SINGLE_PAGE, startElement, RECORDS_PER_PAGE);
-        return new ItemsTransferObject(listOfRooms, amountOfPages);
+        return new ItemsDto(listOfRooms, amountOfPages);
     }
 
     @Override
-    public ItemsTransferObject getRoomsWithPrices(int pageNumber) throws DaoException {
+    public ItemsDto getRoomsWithPrices(int pageNumber) throws DaoException {
         int startElement = (pageNumber - 1) * RECORDS_PER_PAGE;
-        Integer amountOfPages = super.getAmountOfPages(EntityType.ROOM);
+        Integer amountOfPages = super.getAmountOfPages(EntityType.ROOM, IS_DELETED_FILTER, ZERO);
         List<Room> listOfRooms = executeQuery(GET_ROOMS_WITH_PRICES, startElement, RECORDS_PER_PAGE);
-        return new ItemsTransferObject(listOfRooms, amountOfPages);
+        return new ItemsDto(listOfRooms, amountOfPages);
     }
 
     @Override
@@ -98,12 +100,12 @@ public class RoomDaoImpl extends AbstractDao<Room> implements RoomDao {
 
     @Override
     public boolean editRoom(Room room) throws DaoException {
-        System.out.println(room.getId());
         int roomNumber = room.getNumber();
         Optional<Room> roomFromDb = doesRoomExists(roomNumber);
-        if (roomFromDb.isEmpty() || roomFromDb.get()
-                .getId()
-                .equals(room.getId())) {
+        if (roomFromDb.isEmpty()
+                || roomFromDb.get()
+                        .getId()
+                        .equals(room.getId())) {
             update(UPDATE_ROOM, room.getCapacity(), room.getRoomClass(), room.getNumber(), room.getRoomPriceId(),
                     room.getId());
             return true;

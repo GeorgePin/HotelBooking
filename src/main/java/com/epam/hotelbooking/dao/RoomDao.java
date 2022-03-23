@@ -1,6 +1,6 @@
 package com.epam.hotelbooking.dao;
 
-import com.epam.hotelbooking.entity.ItemsTransferObject;
+import com.epam.hotelbooking.entity.ItemsDto;
 import com.epam.hotelbooking.entity.Room;
 import com.epam.hotelbooking.exception.DaoException;
 
@@ -11,7 +11,7 @@ import com.epam.hotelbooking.exception.DaoException;
  * @version 1.0
  * @since 1.0
  */
-public interface RoomDao {
+public interface RoomDao extends Dao<Room>{
 
     /**
      * Purpose of this method is to block specific room in database by knowing its
@@ -32,7 +32,7 @@ public interface RoomDao {
      *         rooms for specific page.
      * @throws DaoException
      */
-    ItemsTransferObject getFreeRoomsForSinglePage(int pageNumber) throws DaoException;
+    ItemsDto getFreeRoomsForSinglePage(int pageNumber) throws DaoException;
 
     /**
      * Purpose of this method is to get all rooms for single page from database.
@@ -43,7 +43,7 @@ public interface RoomDao {
      *         rooms for specific page.
      * @throws DaoException
      */
-    ItemsTransferObject getRoomsWithPrices(int pageNumber) throws DaoException;
+    ItemsDto getRoomsWithPrices(int pageNumber) throws DaoException;
 
     /**
      * Purpose of this method is to update specific room in database.

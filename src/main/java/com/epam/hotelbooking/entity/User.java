@@ -2,6 +2,9 @@ package com.epam.hotelbooking.entity;
 
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User extends Entity {
 
     private static final long serialVersionUID = 1372779825189737930L;
@@ -12,6 +15,9 @@ public class User extends Entity {
     private String password;
     private boolean isBlocked;
     private boolean isAdmin;
+
+    public User() {
+    }
 
     public User(long id, boolean isAdmin, boolean isBlocked) {
         this.id = id;

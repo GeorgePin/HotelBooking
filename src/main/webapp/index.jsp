@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="WEB-INF/custom-tag.tld" prefix="custom"%>
 <fmt:setLocale value="${sessionScope.lang}" />
-<fmt:setBundle basename="messages" />
+<fmt:setBundle basename="/messages/messages" />
 <c:set var="currentPageCommand" value="/controller?command=showPage&page=index" scope="session" />
 <c:set var="salary" scope="page" value="" />
 <html lang="${sessionScope.lang}">

@@ -1,7 +1,7 @@
 package com.epam.hotelbooking.service;
 
 import java.util.Optional;
-import com.epam.hotelbooking.entity.ItemsTransferObject;
+import com.epam.hotelbooking.entity.ItemsDto;
 import com.epam.hotelbooking.entity.Request;
 import com.epam.hotelbooking.exception.ServiceException;
 
@@ -31,7 +31,7 @@ public interface RequestService {
      *         of {@code Request} and amount of pages.
      * @throws ServiceException
      */
-    ItemsTransferObject getRequestsForUser(int pageNumber, Long userId, boolean isAdmin) throws ServiceException;
+    ItemsDto getRequestsForUser(int pageNumber, Long userId, boolean isAdmin) throws ServiceException;
 
     /**
      * This method returns single request for admin.

@@ -2,7 +2,7 @@ package com.epam.hotelbooking.service;
 
 import java.util.Optional;
 
-import com.epam.hotelbooking.entity.ItemsTransferObject;
+import com.epam.hotelbooking.entity.ItemsDto;
 import com.epam.hotelbooking.entity.Room;
 import com.epam.hotelbooking.exception.ServiceException;
 
@@ -46,7 +46,7 @@ public interface RoomService {
      *         of {@code Room} and amount of pages.
      * @throws ServiceException
      */
-    ItemsTransferObject getRoomsForSinglePage(int pageNumber, boolean isForHandling) throws ServiceException;
+    ItemsDto getRoomsForSinglePage(int pageNumber, boolean isForHandling) throws ServiceException;
 
     /**
      * This method transfers transfers room id to Dao layer which should unblock

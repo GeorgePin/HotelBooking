@@ -20,7 +20,7 @@ import com.epam.hotelbooking.mapper.RowMapper;
  * @version 1.0
  * @since 1.0
  */
-public abstract class AbstractDao<T extends Entity> implements Dao<T> {
+public abstract class AbstractDao<T extends Entity>{
 
     /**
      * Amount of items per single page.

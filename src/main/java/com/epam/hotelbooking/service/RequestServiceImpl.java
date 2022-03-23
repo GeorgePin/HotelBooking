@@ -7,9 +7,8 @@ import org.apache.logging.log4j.Logger;
 
 import com.epam.hotelbooking.dao.DaoHelper;
 import com.epam.hotelbooking.dao.RequestDao;
-import com.epam.hotelbooking.dao.RequestDaoImpl;
-import com.epam.hotelbooking.dao.RoomDaoImpl;
-import com.epam.hotelbooking.entity.ItemsTransferObject;
+import com.epam.hotelbooking.dao.RoomDao;
+import com.epam.hotelbooking.entity.ItemsDto;
 import com.epam.hotelbooking.entity.Request;
 import com.epam.hotelbooking.exception.DaoException;
 import com.epam.hotelbooking.exception.ServiceException;
@@ -22,17 +21,17 @@ public class RequestServiceImpl implements RequestService {
     private static final Logger LOGGER = LogManager.getLogger(RequestServiceImpl.class);
 
     @Override
-    public ItemsTransferObject getRequestsForUser(int pageNumber, Long userId, boolean isAdmin)
+    public ItemsDto getRequestsForUser(int pageNumber, Long userId, boolean isAdmin)
             throws ServiceException {
         LOGGER.info("Getting requests for user");
         try (DaoHelper daoHelper = new DaoHelper()) {
             daoHelper.startTransaction();
-            ItemsTransferObject transferObject;
+            ItemsDto transferObject;
             if (isAdmin) {
-                RequestDaoImpl adminRequestDao = daoHelper.createRequestDao(new AdminRequestRowMapper());
+                RequestDao adminRequestDao = daoHelper.createRequestDao(new AdminRequestRowMapper());
                 transferObject = adminRequestDao.getUnapprovedRequestsForAdmin(pageNumber);
             } else {
-                RequestDaoImpl userRequestDao = daoHelper.createRequestDao(new ClientRequestRowMapper());
+                RequestDao userRequestDao = daoHelper.createRequestDao(new ClientRequestRowMapper());
                 transferObject = userRequestDao.getRequestsForClient(pageNumber, userId);
             }
             daoHelper.endTransaction();
@@ -48,7 +47,7 @@ public class RequestServiceImpl implements RequestService {
         LOGGER.info("Getting single request for handling");
         try (DaoHelper daoHelper = new DaoHelper()) {
             daoHelper.startTransaction();
-            RequestDaoImpl requestDao = daoHelper.createRequestDao(new AdminRequestRowMapper());
+            RequestDao requestDao = daoHelper.createRequestDao(new AdminRequestRowMapper());
             Optional<Request> request = requestDao.read(requestId);
             daoHelper.endTransaction();
             LOGGER.info("Request founded successfully");
@@ -64,7 +63,7 @@ public class RequestServiceImpl implements RequestService {
         try (DaoHelper daoHelper = new DaoHelper()) {
             daoHelper.startTransaction();
             RequestDao requestDao = daoHelper.createRequestDao(new ClientRequestRowMapper());
-            RoomDaoImpl roomDao = daoHelper.createRoomDao(new RoomWithPriceRowMapper());
+            RoomDao roomDao = daoHelper.createRoomDao(new RoomWithPriceRowMapper());
             roomDao.blockRoom(roomId);
             requestDao.insertRoomIntoRequest(requestId, roomId);
             daoHelper.endTransaction();
@@ -79,7 +78,7 @@ public class RequestServiceImpl implements RequestService {
         LOGGER.info("Creating new room request");
         try (DaoHelper daoHelper = new DaoHelper()) {
             daoHelper.startTransaction();
-            RequestDaoImpl requestDao = daoHelper.createRequestDao(new ClientRequestRowMapper());
+            RequestDao requestDao = daoHelper.createRequestDao(new ClientRequestRowMapper());
             requestDao.create(request);
             daoHelper.endTransaction();
             LOGGER.info("Room request created successfully");

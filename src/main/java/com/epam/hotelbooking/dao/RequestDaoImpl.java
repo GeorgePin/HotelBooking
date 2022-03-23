@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import com.epam.hotelbooking.connection.ProxyConnection;
 import com.epam.hotelbooking.entity.EntityType;
-import com.epam.hotelbooking.entity.ItemsTransferObject;
+import com.epam.hotelbooking.entity.ItemsDto;
 import com.epam.hotelbooking.entity.Request;
 import com.epam.hotelbooking.exception.DaoException;
 import com.epam.hotelbooking.mapper.RowMapper;
@@ -58,25 +58,20 @@ public class RequestDaoImpl extends AbstractDao<Request> implements RequestDao {
     }
 
     @Override
-    public void delete(Long itemId) {
-        throw new UnsupportedOperationException(NO_IMPLEMENTATION);
-    }
-
-    @Override
-    public ItemsTransferObject getUnapprovedRequestsForAdmin(int pageNumber) throws DaoException {
+    public ItemsDto getUnapprovedRequestsForAdmin(int pageNumber) throws DaoException {
         int startElement = (pageNumber - 1) * RECORDS_PER_PAGE;
         Integer amountOfPages = super.getAmountOfPages(EntityType.REQUEST, FILTER_FOR_ADMIN, ZERO);
         List<Request> listOfRequests = super.executeQuery(UNAPPROVED_REQUESTS, startElement, RECORDS_PER_PAGE);
-        return new ItemsTransferObject(listOfRequests, amountOfPages);
+        return new ItemsDto(listOfRequests, amountOfPages);
     }
 
     @Override
-    public ItemsTransferObject getRequestsForClient(int pageNumber, Long userId) throws DaoException {
+    public ItemsDto getRequestsForClient(int pageNumber, Long userId) throws DaoException {
         int startElement = (pageNumber - 1) * RECORDS_PER_PAGE;
         List<Request> listOfRequests = super.executeQuery(SELECT_ALL_USER_REQUESTS, userId, startElement,
                 RECORDS_PER_PAGE);
         Integer amountOfPages = super.getAmountOfPages(EntityType.REQUEST, FILTER_FOR_CLIENT, userId.toString());
-        return new ItemsTransferObject(listOfRequests, amountOfPages);
+        return new ItemsDto(listOfRequests, amountOfPages);
     }
 
     @Override

@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <fmt:setLocale value="${sessionScope.lang}" />
-<fmt:setBundle basename="messages" />
+<fmt:setBundle basename="/messages/messages" />
 <c:set var="currentPageCommand"
 	value="/controller?command=showPage&page=registrationPage" scope="session" />
 <html lang="${sessionScope.lang}">

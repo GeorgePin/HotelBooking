@@ -1,4 +1,4 @@
-package com.epam.hotelbooking.command;
+package com.epam.hotelbooking.command.util;
 
 public class CommandResult {
     private final String page;

@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <fmt:setLocale value="${sessionScope.lang}" />
-<fmt:setBundle basename="messages" />
+<fmt:setBundle basename="/messages/messages" />
 <c:set var="currentPageCommand" value="/controller?command=createRoomPage&page=${param.page}"
 	scope="session" />
 <html lang="${sessionScope.lang}">
@@ -22,7 +22,7 @@
 				<div id="left-column">
 					<label>
 						<fmt:message key="room-capacity" />
-						<select name="roomCapacity">
+						<select name="capacity">
 							<option value="1" selected>1</option>
 							<option value="2">2</option>
 							<option value="3">3</option>
@@ -31,25 +31,25 @@
 					</label>
 					<label>
 						<fmt:message key="room-number" />
-						<input type="text" id="number-of-room" name="numberOfRoom" maxlength="3" pattern="\d{1,3}">
+						<input type="text" id="number-of-room" name="number" maxlength="3" pattern="\d{1,3}">
 					</label>
 				</div>
 				<div id="right-column">
 					<label>
 						<fmt:message key="room-class" />
 						<select name="roomClass">
-							<option value="standart" selected>
+							<option value="STANDART" selected>
 								<fmt:message key="standart" />
 							</option>
-							<option value="deluxe">
+							<option value="DELUXE">
 								<fmt:message key="deluxe" /></option>
-							<option value="premium">
+							<option value="PREMIUM">
 								<fmt:message key="premium" /></option>
 						</select>
 					</label>
 					<label>
 						<fmt:message key="room-price" />
-						<select name="idOfPrice" id="price-of-room">
+						<select name="roomPriceId" id="price-of-room">
 							<c:forEach var="price" items="${listOfPrices}">
 								<option value="${price.id}">${price.price}</option>
 							</c:forEach>

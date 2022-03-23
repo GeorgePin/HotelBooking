@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <fmt:setLocale value="${sessionScope.lang}" />
-<fmt:setBundle basename="messages" />
+<fmt:setBundle basename="/messages/messages" />
 <c:set var="currentPageCommand"
 	value="/controller?command=showPage&page=WEB-INF/view/user-pages/requestRoom" scope="session" />
 <html lang="${sessionScope.lang}">
@@ -58,10 +58,11 @@
 					<fmt:message key="room-class" />
 				</label>
 				<select name="roomClass">
-					<option value="standart" selected><fmt:message key="standart" /></option>
-					<option value="deluxe"><fmt:message key="deluxe" /></option>
-					<option value="premium"><fmt:message key="premium" /></option>
+					<option value="STANDART" selected><fmt:message key="standart" /></option>
+					<option value="DELUXE"><fmt:message key="deluxe" /></option>
+					<option value="PREMIUM"><fmt:message key="premium" /></option>
 				</select>
+				<input type="hidden" name="userId" value="${sessionScope.userId}">
 			</div>
 			<input type="submit" id="apply" value="<fmt:message key="apply" />">
 		</form>

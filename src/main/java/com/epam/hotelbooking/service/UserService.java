@@ -2,7 +2,7 @@ package com.epam.hotelbooking.service;
 
 import java.util.Optional;
 
-import com.epam.hotelbooking.entity.ItemsTransferObject;
+import com.epam.hotelbooking.entity.ItemsDto;
 import com.epam.hotelbooking.entity.User;
 import com.epam.hotelbooking.exception.ServiceException;
 
@@ -28,7 +28,7 @@ public interface UserService {
      *         of clients and amount of pages.
      * @throws ServiceException
      */
-    ItemsTransferObject getAllClients(int pageNumber) throws ServiceException;
+    ItemsDto getAllClients(int pageNumber) throws ServiceException;
 
     /**
      * This method transfers data for logging in to Dao layer.

@@ -1,6 +1,7 @@
 package com.epam.hotelbooking.dao;
 
-import com.epam.hotelbooking.entity.ItemsTransferObject;
+import com.epam.hotelbooking.entity.ItemsDto;
+import com.epam.hotelbooking.entity.Request;
 import com.epam.hotelbooking.exception.DaoException;
 
 /**
@@ -10,7 +11,7 @@ import com.epam.hotelbooking.exception.DaoException;
  * @version 1.0
  * @since 1.0
  */
-public interface RequestDao {
+public interface RequestDao extends Dao<Request>{
 
     /**
      * Purpose of this method is to get all clients from database.
@@ -32,7 +33,7 @@ public interface RequestDao {
      *         requests for specific page.
      * @throws DaoException
      */
-    ItemsTransferObject getUnapprovedRequestsForAdmin(int pageNumber) throws DaoException;
+    ItemsDto getUnapprovedRequestsForAdmin(int pageNumber) throws DaoException;
 
     /**
      * Purpose of this method is to get all requests for specific client from
@@ -45,5 +46,5 @@ public interface RequestDao {
      *         requests for specific page.
      * @throws DaoException
      */
-    ItemsTransferObject getRequestsForClient(int pageNumber, Long userId) throws DaoException;
+    ItemsDto getRequestsForClient(int pageNumber, Long userId) throws DaoException;
 }

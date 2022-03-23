@@ -3,8 +3,8 @@ package com.epam.hotelbooking.command.common;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.epam.hotelbooking.command.Command;
-import com.epam.hotelbooking.command.CommandResult;
+import com.epam.hotelbooking.command.util.Command;
+import com.epam.hotelbooking.command.util.CommandResult;
 
 public class ShowPageCommand implements Command {
 

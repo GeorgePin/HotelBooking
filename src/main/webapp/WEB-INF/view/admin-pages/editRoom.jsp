@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <fmt:setLocale value="${sessionScope.lang}" />
-<fmt:setBundle basename="messages" />
+<fmt:setBundle basename="/messages/messages" />
 <c:set var="currentPageCommand" value="/controller?command=editRoomPage&roomId=${param.roomId}"
 	scope="session" />
 <html lang="${sessionScope.lang}">
@@ -22,7 +22,7 @@
 				<div id="left-column">
 					<label>
 						<fmt:message key="room-capacity" />
-						<select name="roomCapacity">
+						<select name="capacity">
 							<option value="1" ${room.capacity == '1' ? 'selected' : ''}>1</option>
 							<option value="2" ${room.capacity == '2' ? 'selected' : ''}>2</option>
 							<option value="3" ${room.capacity == '3' ? 'selected' : ''}>3</option>
@@ -31,7 +31,7 @@
 					</label>
 					<label>
 						<fmt:message key="room-number" />
-						<input type="text" id="number-of-room" name="numberOfRoom" maxlength="3" pattern="\d{1,3}"
+						<input type="text" id="number-of-room" name="number" maxlength="3" pattern="\d{1,3}"
 							placeholder="${room.number}">
 					</label>
 				</div>
@@ -39,17 +39,17 @@
 					<label>
 						<fmt:message key="room-class" />
 						<select name="roomClass">
-							<option value="standart" ${room.roomClass == 'standart' ? 'selected' : ''}>
+							<option value="STANDART" ${room.roomClass == 'standart' ? 'selected' : ''}>
 								<fmt:message key="standart" /></option>
-							<option value="deluxe" ${room.roomClass == 'deluxe' ? 'selected' : ''}>
+							<option value="DELUXE" ${room.roomClass == 'deluxe' ? 'selected' : ''}>
 								<fmt:message key="deluxe" /></option>
-							<option value="premium" ${room.roomClass == 'premium' ? 'selected' : ''}>
+							<option value="PREMIUM" ${room.roomClass == 'premium' ? 'selected' : ''}>
 								<fmt:message key="premium" /></option>
 						</select>
 					</label>
 					<label>
 						<fmt:message key="room-price" />
-						<select name="idOfPrice" id="price-of-room">
+						<select name="roomPriceId" id="price-of-room">
 							<c:forEach var="price" items="${listOfPrices}">
 								<option value="${price.id}" ${room.roomPriceId == price.id ? 'selected' : ''}>${price.price}</option>
 							</c:forEach>

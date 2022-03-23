@@ -3,13 +3,14 @@ package com.epam.hotelbooking.command.user;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.epam.hotelbooking.command.Command;
-import com.epam.hotelbooking.command.CommandResult;
+import com.epam.hotelbooking.command.util.Command;
+import com.epam.hotelbooking.command.util.CommandResult;
 import com.epam.hotelbooking.exception.DaoException;
 import com.epam.hotelbooking.exception.ServiceException;
 import com.epam.hotelbooking.service.UserServiceImpl;
 
 public class SetUserStateCommand implements Command {
+
     private final UserServiceImpl userService;
 
     public SetUserStateCommand(UserServiceImpl userService) {

@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <fmt:setLocale value="${sessionScope.lang}" />
-<fmt:setBundle basename="messages" />
+<fmt:setBundle basename="/messages/messages" />
 <html lang="${sessionScope.lang}">
 <head>
 <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
@@ -14,12 +14,12 @@
 </head>
 <body>
 	<img id="sad-face-img" src="static/images/sad-face.png" alt="sad face photo">
-	<h1 id="heading"><fmt:message key="smth-went-wrong" /></h1>
-	<p id="error-msg-text">
-		<fmt:message key="${errorMessage}" />
-		</p>
-		<button id="go-back-btn" onclick="location.href='index.jsp'" type="button">
-			<fmt:message key="go-back-btn" />
-		</button>
+	<h1 id="heading">
+		<fmt:message key="smth-went-wrong" />
+	</h1>
+	<p id="error-msg-text">${errorMessage}</p>
+	<button id="go-back-btn" onclick="location.href='index.jsp'" type="button">
+		<fmt:message key="go-back-btn" />
+	</button>
 </body>
 </html>

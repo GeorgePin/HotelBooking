@@ -1,45 +1,52 @@
 package com.epam.hotelbooking.command.request;
 
-import java.sql.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.epam.hotelbooking.command.Command;
-import com.epam.hotelbooking.command.CommandResult;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.epam.hotelbooking.command.util.Command;
+import com.epam.hotelbooking.command.util.CommandResult;
 import com.epam.hotelbooking.entity.Request;
-import com.epam.hotelbooking.entity.RoomClass;
 import com.epam.hotelbooking.exception.DaoException;
 import com.epam.hotelbooking.exception.ServiceException;
 import com.epam.hotelbooking.service.RequestServiceImpl;
 import com.epam.hotelbooking.validation.RequestValidator;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class RequestRoomCommand implements Command {
-    private final RequestServiceImpl requestService;
-    private final RequestValidator requestValidator = new RequestValidator();
-    private static final String END_DATE = "endDate";
-    private static final String START_DATE = "startDate";
 
-    public RequestRoomCommand(RequestServiceImpl requestService) {
+    private static final Logger LOGGER = LogManager.getLogger(RequestRoomCommand.class);
+    private final RequestServiceImpl requestService;
+    private final RequestValidator requestValidator;
+
+    public RequestRoomCommand(RequestServiceImpl requestService, RequestValidator requestValidator) {
         this.requestService = requestService;
+        this.requestValidator = requestValidator;
     }
 
     @Override
     public CommandResult execute(HttpServletRequest req, HttpServletResponse resp)
             throws ServiceException, DaoException {
-        if (!requestValidator.isDataForRoomRequestingValid(req.getParameter(START_DATE), req.getParameter(END_DATE))) {
-            throw new ServiceException("End date is before start date or date is invalid");
+        @SuppressWarnings("unchecked")
+        Request request = convertToRequest(req.getParameterMap());
+        if (!requestValidator.isDataForRoomRequestingValid(request)) {
+            throw new ServiceException("Request data is invalid.");
         }
-        Date startDate = Date.valueOf(req.getParameter(START_DATE));
-        Date endDate = req.getParameter(END_DATE)
-                .isEmpty() ? null : Date.valueOf(req.getParameter(END_DATE));
-        int roomCapacity = Integer.parseInt(req.getParameter("roomCapacity"));
-        RoomClass roomClass = RoomClass.valueOf(req.getParameter("roomClass")
-                .toUpperCase());
-        Long userId = (Long) req.getSession()
-                .getAttribute("userId");
-        requestService.createRoomRequest(new Request(userId, startDate, endDate, roomCapacity, roomClass));
+        requestService.createRoomRequest(request);
         return CommandResult.redirect(req.getContextPath() + "/controller?command=requestsPage&page=1");
+    }
 
+    private Request convertToRequest(Map<String, String[]> parameterMap) {
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String, String> params = new HashMap<>();
+        Map<String, String[]> notConvertedMap = parameterMap;
+        notConvertedMap.forEach((key, value) -> params.put(key, value[0]));
+        LOGGER.debug(params);
+        return mapper.convertValue(params, Request.class);
     }
 }

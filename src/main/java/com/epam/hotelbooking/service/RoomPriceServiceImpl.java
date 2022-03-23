@@ -6,7 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.epam.hotelbooking.dao.DaoHelper;
-import com.epam.hotelbooking.dao.RoomPriceDaoImpl;
+import com.epam.hotelbooking.dao.RoomPriceDao;
 import com.epam.hotelbooking.entity.RoomPrice;
 import com.epam.hotelbooking.exception.DaoException;
 import com.epam.hotelbooking.exception.ServiceException;
@@ -21,7 +21,7 @@ public class RoomPriceServiceImpl implements RoomPriceService {
         LOGGER.info("Getting prices for room creating");
         try (DaoHelper daoHelper = new DaoHelper()) {
             daoHelper.startTransaction();
-            RoomPriceDaoImpl roomPirceDao = daoHelper.createRoomPriceDao(new RoomPriceRowMapper());
+            RoomPriceDao roomPirceDao = daoHelper.createRoomPriceDao(new RoomPriceRowMapper());
             List<RoomPrice> roomPrices = roomPirceDao.getRoomsPrices();
             daoHelper.endTransaction();
             LOGGER.info("Prices were found successfully");

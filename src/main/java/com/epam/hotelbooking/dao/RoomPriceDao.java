@@ -1,6 +1,7 @@
 package com.epam.hotelbooking.dao;
 
 import java.util.List;
+
 import com.epam.hotelbooking.entity.RoomPrice;
 import com.epam.hotelbooking.exception.DaoException;
 
@@ -11,7 +12,7 @@ import com.epam.hotelbooking.exception.DaoException;
  * @version 1.0
  * @since 1.0
  */
-public interface RoomPriceDao {
+public interface RoomPriceDao extends Dao<RoomPrice>{
 
     /**
      * Purpose of this method is to get all room prices from database.

@@ -1,4 +1,4 @@
-package com.epam.hotelbooking.command;
+package com.epam.hotelbooking.command.util;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
