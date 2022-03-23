@@ -1,9 +1,6 @@
 package com.epam.hotelbooking;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -46,11 +43,7 @@ public class Controller extends HttpServlet {
             CommandResult result = action.execute(req, resp);
             dispatch(req, resp, result);
         } catch (Exception exception) {
-            List<StackTraceElement> stacktraceList = Arrays.asList(exception.getStackTrace());
-            List<String> stacktraceStringList = stacktraceList.stream()
-                    .map(x -> x.toString() + "\n")
-                    .collect(Collectors.toList());
-            LOGGER.debug(stacktraceStringList);
+            LOGGER.error("Exception occurred", exception);
             req.setAttribute("errorMessage", exception.getMessage());
             dispatch(req, resp, CommandResult.forward("/errorPage.jsp"));
         }
