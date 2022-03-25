@@ -4,19 +4,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.epam.hotelbooking.entity.User;
-import com.epam.hotelbooking.exception.DaoException;
 
 public class UserRowMapper implements RowMapper<User> {
 
     @Override
-    public User map(ResultSet resultSet) throws DaoException {
+    public User map(ResultSet resultSet) throws SQLException {
         try {
             Long id = resultSet.getLong("id");
-            boolean isAdmin = resultSet.getBoolean("is_admin");
-            boolean isBlocked = resultSet.getBoolean("is_blocked");
-            return new User(id, isAdmin, isBlocked);
+            Boolean isAdmin = resultSet.getBoolean("is_admin");
+            Boolean isBlocked = resultSet.getBoolean("is_blocked");
+            return new User.UserBuilder().withId(id)
+                    .withIsAdmin(isAdmin)
+                    .withIsBlocked(isBlocked)
+                    .build();
         } catch (SQLException exception) {
-            throw new DaoException("Error during getting data from db", exception);
+            throw new SQLException("Error during getting data from db", exception);
         }
     }
 }

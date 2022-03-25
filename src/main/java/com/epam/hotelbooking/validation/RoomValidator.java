@@ -6,7 +6,7 @@ public class RoomValidator {
 
     private static final String CAPACITY_PATTERN = "[1-9]{1}";
     private static final String ROOM_NUMBER_PATTERN = "\\d{1,3}";
-    private static final String ROOM_CLASS_PATTERN = "[a-zA-Z]{3,10}";
+    private static final String ROOM_CLASS_PATTERN = "[a-z]{3,10}";
     private static final String ROOM_PRICE_ID_PATTERN = "\\d{1,10}";
 
     public boolean isDataForRoomValid(Room room) {

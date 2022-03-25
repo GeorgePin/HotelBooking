@@ -53,6 +53,6 @@ public interface UserDao extends Dao<User>{
      *         clients for specific page.
      * @throws DaoException
      */
-    ItemsDto getAllClients(int pageNumber) throws DaoException;
+    ItemsDto<User> getAllClients(int pageNumber) throws DaoException;
 
 }

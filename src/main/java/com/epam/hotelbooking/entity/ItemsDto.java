@@ -2,13 +2,14 @@ package com.epam.hotelbooking.entity;
 
 import java.util.List;
 
-public class ItemsDto extends Entity {
+public class ItemsDto<T extends Entity> extends Entity {
+
     private static final long serialVersionUID = 8073494403894810162L;
     private Long id;
-    private List<? extends Entity> items;
+    private List<T> items;
     private Integer amountOfPages;
 
-    public ItemsDto(List<? extends Entity> items, Integer amountOfPages) {
+    public ItemsDto(List<T> items, Integer amountOfPages) {
         this.items = items;
         this.amountOfPages = amountOfPages;
     }
@@ -18,7 +19,7 @@ public class ItemsDto extends Entity {
         return id;
     }
 
-    public List<? extends Entity> getItems() {
+    public List<T> getItems() {
         return items;
     }
 

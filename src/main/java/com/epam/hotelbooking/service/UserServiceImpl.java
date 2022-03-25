@@ -52,12 +52,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ItemsDto getAllClients(int pageNumber) throws ServiceException {
+    public ItemsDto<User> getAllClients(int pageNumber) throws ServiceException {
         LOGGER.info("Getting all clients");
         try (DaoHelper daoHelper = new DaoHelper()) {
             daoHelper.startTransaction();
             UserDao userDao = daoHelper.createUserDao(new ClientRowMapper());
-            ItemsDto itemsTransferObject = userDao.getAllClients(pageNumber);
+            ItemsDto<User> itemsTransferObject = userDao.getAllClients(pageNumber);
             daoHelper.endTransaction();
             LOGGER.info("Clients were successfully found");
             return itemsTransferObject;

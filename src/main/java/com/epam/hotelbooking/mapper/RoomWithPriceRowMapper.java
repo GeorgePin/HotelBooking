@@ -6,28 +6,31 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.epam.hotelbooking.entity.Room;
-import com.epam.hotelbooking.entity.RoomClass;
 import com.epam.hotelbooking.entity.RoomPrice;
-import com.epam.hotelbooking.exception.DaoException;
 
 public class RoomWithPriceRowMapper implements RowMapper<Room> {
 
     @Override
-    public Room map(ResultSet resultSet) throws DaoException {
+    public Room map(ResultSet resultSet) throws SQLException {
         try {
             Long id = resultSet.getLong("id");
-            int capacity = resultSet.getInt("capacity");
-            RoomClass roomClass = RoomClass.valueOf(resultSet.getString("type")
-                    .toUpperCase());
-            int number = resultSet.getInt("number");
-            boolean isBlocked = resultSet.getBoolean("is_blocked");
+            Integer capacity = resultSet.getInt("capacity");
+            String roomClass = resultSet.getString("type");
+            Integer number = resultSet.getInt("number");
+            Boolean isBlocked = resultSet.getBoolean("is_blocked");
             Long roomPriceId = resultSet.getLong("room_price_id");
             BigDecimal bigDecimalPrice = resultSet.getBigDecimal("price");
             Date priceValidFrom = resultSet.getDate("valid_from");
             RoomPrice entityPrice = new RoomPrice(roomPriceId, bigDecimalPrice, priceValidFrom);
-            return new Room(id, capacity, roomClass, number, isBlocked, entityPrice);
+            return new Room.RoomBuilder().withId(id)
+                    .withCapacity(capacity)
+                    .withRoomClass(roomClass)
+                    .withNumber(number)
+                    .withIsBlocked(isBlocked)
+                    .withRoomPrice(entityPrice)
+                    .build();
         } catch (SQLException exception) {
-            throw new DaoException("Error during getting data from db", exception);
+            throw new SQLException("Error during getting data from db", exception);
         }
     }
 }

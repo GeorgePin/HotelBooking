@@ -28,7 +28,7 @@ public interface UserService {
      *         of clients and amount of pages.
      * @throws ServiceException
      */
-    ItemsDto getAllClients(int pageNumber) throws ServiceException;
+    ItemsDto<User> getAllClients(int pageNumber) throws ServiceException;
 
     /**
      * This method transfers data for logging in to Dao layer.

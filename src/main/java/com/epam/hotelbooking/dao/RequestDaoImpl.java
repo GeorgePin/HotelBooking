@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import com.epam.hotelbooking.connection.ProxyConnection;
-import com.epam.hotelbooking.entity.EntityType;
 import com.epam.hotelbooking.entity.ItemsDto;
 import com.epam.hotelbooking.entity.Request;
 import com.epam.hotelbooking.exception.DaoException;
@@ -37,7 +36,7 @@ public class RequestDaoImpl extends AbstractDao<Request> implements RequestDao {
 
     @Override
     public boolean create(Request item) throws DaoException {
-        int roomCapacity = item.getRoomCapacity();
+        Integer roomCapacity = item.getRoomCapacity();
         String roomClass = item.getRoomClass();
         Date startDate = item.getStartDate();
         Date endDate = item.getEndDate();
@@ -58,20 +57,20 @@ public class RequestDaoImpl extends AbstractDao<Request> implements RequestDao {
     }
 
     @Override
-    public ItemsDto getUnapprovedRequestsForAdmin(int pageNumber) throws DaoException {
+    public ItemsDto<Request> getUnapprovedRequestsForAdmin(int pageNumber) throws DaoException {
         int startElement = (pageNumber - 1) * RECORDS_PER_PAGE;
-        Integer amountOfPages = super.getAmountOfPages(EntityType.REQUEST, FILTER_FOR_ADMIN, ZERO);
+        Integer amountOfPages = super.getAmountOfPages(Request.TABLE_NAME, FILTER_FOR_ADMIN, Integer.toString(0));
         List<Request> listOfRequests = super.executeQuery(UNAPPROVED_REQUESTS, startElement, RECORDS_PER_PAGE);
-        return new ItemsDto(listOfRequests, amountOfPages);
+        return new ItemsDto<>(listOfRequests, amountOfPages);
     }
 
     @Override
-    public ItemsDto getRequestsForClient(int pageNumber, Long userId) throws DaoException {
+    public ItemsDto<Request> getRequestsForClient(int pageNumber, Long userId) throws DaoException {
         int startElement = (pageNumber - 1) * RECORDS_PER_PAGE;
         List<Request> listOfRequests = super.executeQuery(SELECT_ALL_USER_REQUESTS, userId, startElement,
                 RECORDS_PER_PAGE);
-        Integer amountOfPages = super.getAmountOfPages(EntityType.REQUEST, FILTER_FOR_CLIENT, userId.toString());
-        return new ItemsDto(listOfRequests, amountOfPages);
+        Integer amountOfPages = super.getAmountOfPages(Request.TABLE_NAME, FILTER_FOR_CLIENT, userId.toString());
+        return new ItemsDto<>(listOfRequests, amountOfPages);
     }
 
     @Override

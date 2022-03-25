@@ -1,6 +1,8 @@
 package com.epam.hotelbooking.mapper;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import com.epam.hotelbooking.entity.Entity;
 import com.epam.hotelbooking.exception.DaoException;
 
@@ -21,5 +23,5 @@ public interface RowMapper<T extends Entity> {
      * @throws DaoException if any exception occurred during execution.
      * 
      */
-    T map(ResultSet resultSet) throws DaoException;
+    T map(ResultSet resultSet) throws SQLException;
 }

@@ -23,11 +23,8 @@ public class CreateRoomPageCommand implements Command {
     public CommandResult execute(HttpServletRequest req, HttpServletResponse resp)
             throws DaoException, ServiceException {
         List<RoomPrice> listOfPrices = roomPriceService.getRoomPrices();
-        setAttributesOnRequest(req, listOfPrices);
+        req.setAttribute("listOfPrices", listOfPrices);
         return CommandResult.forward("/WEB-INF/view/admin-pages/createRoom.jsp");
     }
 
-    private void setAttributesOnRequest(HttpServletRequest req, List<RoomPrice> listOfPrices) {
-        req.setAttribute("listOfPrices", listOfPrices);
-    }
 }

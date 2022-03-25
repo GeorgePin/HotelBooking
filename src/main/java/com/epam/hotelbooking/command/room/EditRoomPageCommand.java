@@ -16,6 +16,7 @@ import com.epam.hotelbooking.service.RoomPriceServiceImpl;
 import com.epam.hotelbooking.service.RoomServiceImpl;
 
 public class EditRoomPageCommand implements Command {
+
     private final RoomPriceServiceImpl roomPriceService;
     private final RoomServiceImpl roomService;
 
@@ -31,14 +32,10 @@ public class EditRoomPageCommand implements Command {
         Long roomId = Long.parseLong(req.getParameter("roomId"));
         List<RoomPrice> listOfPrices = roomPriceService.getRoomPrices();
         Optional<Room> room = roomService.readRoom(roomId);
-        setAttributesOnRequest(req, room, roomId, listOfPrices);
-        return CommandResult.forward("/WEB-INF/view/admin-pages/editRoom.jsp");
-    }
-
-    private void setAttributesOnRequest(HttpServletRequest req, Optional<Room> room, Long roomId,
-            List<RoomPrice> listOfPrices) {
         req.setAttribute("room", room.isPresent() ? room.get() : room.isEmpty());
         req.setAttribute("roomId", roomId);
         req.setAttribute("listOfPrices", listOfPrices);
+        return CommandResult.forward("/WEB-INF/view/admin-pages/editRoom.jsp");
     }
+
 }

@@ -33,7 +33,7 @@ public interface RequestDao extends Dao<Request>{
      *         requests for specific page.
      * @throws DaoException
      */
-    ItemsDto getUnapprovedRequestsForAdmin(int pageNumber) throws DaoException;
+    ItemsDto<Request> getUnapprovedRequestsForAdmin(int pageNumber) throws DaoException;
 
     /**
      * Purpose of this method is to get all requests for specific client from
@@ -46,5 +46,5 @@ public interface RequestDao extends Dao<Request>{
      *         requests for specific page.
      * @throws DaoException
      */
-    ItemsDto getRequestsForClient(int pageNumber, Long userId) throws DaoException;
+    ItemsDto<Request> getRequestsForClient(int pageNumber, Long userId) throws DaoException;
 }

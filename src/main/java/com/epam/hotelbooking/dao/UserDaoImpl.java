@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import com.epam.hotelbooking.connection.ProxyConnection;
-import com.epam.hotelbooking.entity.EntityType;
 import com.epam.hotelbooking.entity.ItemsDto;
 import com.epam.hotelbooking.entity.User;
 import com.epam.hotelbooking.exception.DaoException;
@@ -57,11 +56,11 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
     }
 
     @Override
-    public ItemsDto getAllClients(int pageNumber) throws DaoException {
+    public ItemsDto<User> getAllClients(int pageNumber) throws DaoException {
         int startElement = (pageNumber - 1) * RECORDS_PER_PAGE;
-        Integer amountOfPages = super.getAmountOfPages(EntityType.USER, IS_ADMIN_FILTER, ZERO);
+        Integer amountOfPages = super.getAmountOfPages(User.TABLE_NAME, IS_ADMIN_FILTER, Integer.toString(0));
         List<User> listOfUsers = executeQuery(GET_ALL_CLIENTS, startElement, RECORDS_PER_PAGE);
-        return new ItemsDto(listOfUsers, amountOfPages);
+        return new ItemsDto<>(listOfUsers, amountOfPages);
     }
 
     @Override

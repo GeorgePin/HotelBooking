@@ -19,6 +19,8 @@ public class ConnectionPool {
     private List<ProxyConnection> availableConnections;
     private List<ProxyConnection> connectionInUse;
     private static final Lock CONNECTIONS_LOCK = new ReentrantLock();
+    private static final Lock GET_CONNECTION_LOCK = new ReentrantLock();
+    private static final Lock RELEASE_CONNETION_LOCK = new ReentrantLock();
 
     private ConnectionPool() {
         availableConnections = new ArrayList<>();
@@ -66,13 +68,23 @@ public class ConnectionPool {
     }
 
     public ProxyConnection getConnection() {
-        ProxyConnection connection = availableConnections.remove(availableConnections.size() - 1);
-        connectionInUse.add(connection);
-        return connection;
+        try {
+            GET_CONNECTION_LOCK.lock();
+            ProxyConnection connection = availableConnections.remove(availableConnections.size() - 1);
+            connectionInUse.add(connection);
+            return connection;
+        } finally {
+            GET_CONNECTION_LOCK.unlock();
+        }
     }
 
     public boolean releaseConnection(ProxyConnection connection) {
-        availableConnections.add(connection);
-        return connectionInUse.remove(connection);
+        try {
+            RELEASE_CONNETION_LOCK.lock();
+            availableConnections.add(connection);
+            return connectionInUse.remove(connection);
+        } finally {
+            RELEASE_CONNETION_LOCK.unlock();
+        }
     }
 }

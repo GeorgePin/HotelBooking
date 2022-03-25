@@ -2,42 +2,26 @@ package com.epam.hotelbooking.entity;
 
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class User extends Entity {
 
+    public static final String TABLE_NAME = "user";
     private static final long serialVersionUID = 1372779825189737930L;
-    private long id;
-    private String name;
-    private String surname;
-    private String login;
-    private String password;
-    private boolean isBlocked;
-    private boolean isAdmin;
+    private final Long id;
+    private final String name;
+    private final String surname;
+    private final String login;
+    private final String password;
+    private final Boolean isBlocked;
+    private final Boolean isAdmin;
 
-    public User() {
-    }
-
-    public User(long id, boolean isAdmin, boolean isBlocked) {
-        this.id = id;
-        this.isAdmin = isAdmin;
-        this.isBlocked = isBlocked;
-    }
-
-    public User(String name, String surname, String login, String password) {
-        this.name = name;
-        this.surname = surname;
-        this.login = login;
-        this.password = password;
-    }
-
-    public User(Long id, String name, String surname, String login, boolean isBlocked) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.login = login;
-        this.isBlocked = isBlocked;
+    public User(UserBuilder userBuilder) {
+        this.id = userBuilder.id;
+        this.name = userBuilder.name;
+        this.surname = userBuilder.surname;
+        this.login = userBuilder.login;
+        this.password = userBuilder.password;
+        this.isBlocked = userBuilder.isBlocked;
+        this.isAdmin = userBuilder.isAdmin;
     }
 
     @Override
@@ -61,11 +45,11 @@ public class User extends Entity {
         return password;
     }
 
-    public boolean getIsBlocked() {
+    public Boolean getIsBlocked() {
         return isBlocked;
     }
 
-    public boolean isAdmin() {
+    public Boolean isAdmin() {
         return isAdmin;
     }
 
@@ -76,16 +60,85 @@ public class User extends Entity {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         User other = (User) obj;
-        return id == other.id && isAdmin == other.isAdmin && isBlocked == other.isBlocked
-                && Objects.equals(login, other.login) && Objects.equals(name, other.name)
-                && Objects.equals(password, other.password) && Objects.equals(surname, other.surname);
+        return id == other.id
+                && isAdmin == other.isAdmin
+                && isBlocked == other.isBlocked
+                && Objects.equals(login, other.login)
+                && Objects.equals(name, other.name)
+                && Objects.equals(password, other.password)
+                && Objects.equals(surname, other.surname);
     }
 
+    public static class UserBuilder implements Builder<User> {
+        private Long id;
+        private String name;
+        private String surname;
+        private String login;
+        private String password;
+        private Boolean isBlocked;
+        private Boolean isAdmin;
+
+        public UserBuilder withId(final Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public UserBuilder withName(final String name) {
+            this.name = name;
+            return this;
+        }
+
+        public UserBuilder withSurname(final String surname) {
+            this.surname = surname;
+            return this;
+        }
+
+        public UserBuilder withLogin(final String login) {
+            this.login = login;
+            return this;
+        }
+
+        public UserBuilder withPassword(final String password) {
+            this.password = password;
+            return this;
+        }
+
+        public UserBuilder withIsBlocked(final Boolean isBlocked) {
+            this.isBlocked = isBlocked;
+            return this;
+        }
+
+        public UserBuilder withIsAdmin(final Boolean isAdmin) {
+            this.isAdmin = isAdmin;
+            return this;
+        }
+
+        @Override
+        public User build() {
+            User user = new User(this);
+            reset();
+            return user;
+        }
+
+        @Override
+        public void reset() {
+            this.id = null;
+            this.name = null;
+            this.surname = null;
+            this.login = null;
+            this.password = null;
+            this.isBlocked = null;
+            this.isAdmin = null;
+        }
+    }
 }

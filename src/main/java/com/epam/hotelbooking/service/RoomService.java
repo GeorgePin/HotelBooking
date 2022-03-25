@@ -46,7 +46,7 @@ public interface RoomService {
      *         of {@code Room} and amount of pages.
      * @throws ServiceException
      */
-    ItemsDto getRoomsForSinglePage(int pageNumber, boolean isForHandling) throws ServiceException;
+    ItemsDto<Room> getRoomsForSinglePage(int pageNumber, boolean isForHandling) throws ServiceException;
 
     /**
      * This method transfers transfers room id to Dao layer which should unblock

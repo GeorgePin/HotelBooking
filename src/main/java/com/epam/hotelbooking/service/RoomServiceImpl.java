@@ -20,13 +20,14 @@ public class RoomServiceImpl implements RoomService {
     private static final Logger LOGGER = LogManager.getLogger(RoomServiceImpl.class);
 
     @Override
-    public ItemsDto getRoomsForSinglePage(int startElement, boolean isForHandling) throws ServiceException {
+    public ItemsDto<Room> getRoomsForSinglePage(int startElement, boolean isForHandling) throws ServiceException {
         LOGGER.info("Getting rooms for single page");
         try (DaoHelper daoHelper = new DaoHelper()) {
             daoHelper.startTransaction();
             RoomDao dao = daoHelper.createRoomDao(new RoomWithPriceRowMapper());
-            ItemsDto itemsTransferObject;
-            itemsTransferObject = isForHandling ? dao.getFreeRoomsForSinglePage(startElement)
+            ItemsDto<Room> itemsTransferObject;
+            itemsTransferObject = isForHandling
+                    ? dao.getFreeRoomsForSinglePage(startElement)
                     : dao.getRoomsWithPrices(startElement);
             daoHelper.endTransaction();
             LOGGER.info("Rooms were successfully found");

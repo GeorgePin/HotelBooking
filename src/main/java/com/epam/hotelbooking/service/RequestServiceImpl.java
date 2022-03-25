@@ -21,12 +21,12 @@ public class RequestServiceImpl implements RequestService {
     private static final Logger LOGGER = LogManager.getLogger(RequestServiceImpl.class);
 
     @Override
-    public ItemsDto getRequestsForUser(int pageNumber, Long userId, boolean isAdmin)
+    public ItemsDto<Request> getRequestsForUser(int pageNumber, Long userId, boolean isAdmin)
             throws ServiceException {
         LOGGER.info("Getting requests for user");
         try (DaoHelper daoHelper = new DaoHelper()) {
             daoHelper.startTransaction();
-            ItemsDto transferObject;
+            ItemsDto<Request> transferObject;
             if (isAdmin) {
                 RequestDao adminRequestDao = daoHelper.createRequestDao(new AdminRequestRowMapper());
                 transferObject = adminRequestDao.getUnapprovedRequestsForAdmin(pageNumber);

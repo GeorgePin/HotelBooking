@@ -31,7 +31,7 @@ public interface RequestService {
      *         of {@code Request} and amount of pages.
      * @throws ServiceException
      */
-    ItemsDto getRequestsForUser(int pageNumber, Long userId, boolean isAdmin) throws ServiceException;
+    ItemsDto<Request> getRequestsForUser(int pageNumber, Long userId, boolean isAdmin) throws ServiceException;
 
     /**
      * This method returns single request for admin.

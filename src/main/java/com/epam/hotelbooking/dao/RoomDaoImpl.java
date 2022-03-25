@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import com.epam.hotelbooking.connection.ProxyConnection;
-import com.epam.hotelbooking.entity.EntityType;
 import com.epam.hotelbooking.entity.ItemsDto;
 import com.epam.hotelbooking.entity.Room;
 import com.epam.hotelbooking.exception.DaoException;
@@ -78,19 +77,19 @@ public class RoomDaoImpl extends AbstractDao<Room> implements RoomDao {
     }
 
     @Override
-    public ItemsDto getFreeRoomsForSinglePage(int pageNumber) throws DaoException {
+    public ItemsDto<Room> getFreeRoomsForSinglePage(int pageNumber) throws DaoException {
         int startElement = (pageNumber - 1) * RECORDS_PER_PAGE;
-        Integer amountOfPages = super.getAmountOfPages(EntityType.ROOM, IS_ROOM_BLOCKED_FILTER, ZERO);
+        Integer amountOfPages = super.getAmountOfPages(Room.TABLE_NAME, IS_ROOM_BLOCKED_FILTER, Integer.toString(0));
         List<Room> listOfRooms = super.executeQuery(GET_FREE_ROOMS_FOR_SINGLE_PAGE, startElement, RECORDS_PER_PAGE);
-        return new ItemsDto(listOfRooms, amountOfPages);
+        return new ItemsDto<>(listOfRooms, amountOfPages);
     }
 
     @Override
-    public ItemsDto getRoomsWithPrices(int pageNumber) throws DaoException {
+    public ItemsDto<Room> getRoomsWithPrices(int pageNumber) throws DaoException {
         int startElement = (pageNumber - 1) * RECORDS_PER_PAGE;
-        Integer amountOfPages = super.getAmountOfPages(EntityType.ROOM, IS_DELETED_FILTER, ZERO);
+        Integer amountOfPages = super.getAmountOfPages(Room.TABLE_NAME, IS_DELETED_FILTER, Integer.toString(0));
         List<Room> listOfRooms = executeQuery(GET_ROOMS_WITH_PRICES, startElement, RECORDS_PER_PAGE);
-        return new ItemsDto(listOfRooms, amountOfPages);
+        return new ItemsDto<>(listOfRooms, amountOfPages);
     }
 
     @Override

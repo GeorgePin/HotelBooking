@@ -4,9 +4,6 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class RoomPrice extends Entity {
     private static final long serialVersionUID = -1127474130423104866L;
     private Long id;
@@ -39,15 +36,18 @@ public class RoomPrice extends Entity {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         RoomPrice other = (RoomPrice) obj;
-        return Objects.equals(id, other.id) && Objects.equals(price, other.price)
+        return Objects.equals(id, other.id)
+                && Objects.equals(price, other.price)
                 && Objects.equals(validFrom, other.validFrom);
     }
-
 }

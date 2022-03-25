@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Optional;
 
 import com.epam.hotelbooking.entity.Entity;
-import com.epam.hotelbooking.entity.EntityType;
 import com.epam.hotelbooking.exception.DaoException;
 import com.epam.hotelbooking.mapper.RowMapper;
 
@@ -20,13 +19,12 @@ import com.epam.hotelbooking.mapper.RowMapper;
  * @version 1.0
  * @since 1.0
  */
-public abstract class AbstractDao<T extends Entity>{
+public abstract class AbstractDao<T extends Entity> {
 
     /**
      * Amount of items per single page.
      */
     protected static final int RECORDS_PER_PAGE = 5;
-    protected static final String ZERO = "0";
     private final Connection connection;
     private final RowMapper<T> rowMapper;
 
@@ -125,10 +123,8 @@ public abstract class AbstractDao<T extends Entity>{
      * @return {@code Integer} amount of pages.
      * @throws DaoException
      */
-    protected final Integer getAmountOfPages(EntityType entityType, String filter, String filterValue)
-            throws DaoException {
-        final String query = "select count(*) from " + entityType.getEntityType() + " where " + filter + "="
-                + filterValue;
+    protected final Integer getAmountOfPages(String tableName, String filter, String filterValue) throws DaoException {
+        final String query = "select count(*) from " + tableName + " where " + filter + "=" + filterValue;
         return getAmountOfPagesExecutor(query);
     }
 
@@ -140,8 +136,8 @@ public abstract class AbstractDao<T extends Entity>{
      * @return {@code Integer} amount of pages.
      * @throws DaoException
      */
-    protected final Integer getAmountOfPages(EntityType entityType) throws DaoException {
-        final String query = "select count(*) from " + entityType.getEntityType();
+    protected final Integer getAmountOfPages(String tableName) throws DaoException {
+        final String query = "select count(*) from " + tableName;
         return getAmountOfPagesExecutor(query);
     }
 

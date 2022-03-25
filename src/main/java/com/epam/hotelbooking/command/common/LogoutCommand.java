@@ -10,14 +10,11 @@ public class LogoutCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest req, HttpServletResponse resp) {
-        setAttributesOnRequest(req);
-        return CommandResult.forward("/index.jsp");
-    }
-
-    private void setAttributesOnRequest(HttpServletRequest req) {
         req.getSession()
                 .setAttribute("userId", null);
         req.getSession()
                 .setAttribute("isLoggedIn", false);
+        return CommandResult.forward("/index.jsp");
     }
+
 }

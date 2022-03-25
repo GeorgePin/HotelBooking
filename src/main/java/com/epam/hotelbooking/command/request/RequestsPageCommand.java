@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.epam.hotelbooking.command.util.Command;
 import com.epam.hotelbooking.command.util.CommandResult;
 import com.epam.hotelbooking.entity.ItemsDto;
+import com.epam.hotelbooking.entity.Request;
 import com.epam.hotelbooking.exception.DaoException;
 import com.epam.hotelbooking.exception.ServiceException;
 import com.epam.hotelbooking.service.RequestServiceImpl;
@@ -26,14 +27,10 @@ public class RequestsPageCommand implements Command {
                 .getAttribute("isAdmin");
         Long userId = (Long) req.getSession()
                 .getAttribute("userId");
-        ItemsDto transferObject = requestService.getRequestsForUser(pageInt, userId, isAdmin);
-        setAttributesOnRequest(req, transferObject);
-        return CommandResult.forward("/WEB-INF/view/common-pages/requests.jsp");
-    }
-
-    private void setAttributesOnRequest(HttpServletRequest req, ItemsDto transferObject) {
+        ItemsDto<Request> transferObject = requestService.getRequestsForUser(pageInt, userId, isAdmin);
         req.setAttribute("requestsList", transferObject.getItems());
         req.setAttribute("numberOfPages", transferObject.getAmountOfPages());
+        return CommandResult.forward("/WEB-INF/view/common-pages/requests.jsp");
     }
 
 }

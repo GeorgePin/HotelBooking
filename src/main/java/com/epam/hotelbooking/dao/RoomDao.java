@@ -32,7 +32,7 @@ public interface RoomDao extends Dao<Room>{
      *         rooms for specific page.
      * @throws DaoException
      */
-    ItemsDto getFreeRoomsForSinglePage(int pageNumber) throws DaoException;
+    ItemsDto<Room> getFreeRoomsForSinglePage(int pageNumber) throws DaoException;
 
     /**
      * Purpose of this method is to get all rooms for single page from database.
@@ -43,7 +43,7 @@ public interface RoomDao extends Dao<Room>{
      *         rooms for specific page.
      * @throws DaoException
      */
-    ItemsDto getRoomsWithPrices(int pageNumber) throws DaoException;
+    ItemsDto<Room> getRoomsWithPrices(int pageNumber) throws DaoException;
 
     /**
      * Purpose of this method is to update specific room in database.
