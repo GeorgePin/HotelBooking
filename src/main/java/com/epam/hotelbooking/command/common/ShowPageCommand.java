@@ -11,6 +11,6 @@ public class ShowPageCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest req, HttpServletResponse resp) {
         String pageName = req.getParameter("page");
-        return CommandResult.forward("/" + pageName + ".jsp");
+        return CommandResult.forward("/" + pageName);
     }
 }

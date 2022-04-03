@@ -13,7 +13,6 @@ import com.epam.hotelbooking.exception.DaoException;
  * @since 1.0
  */
 public interface Dao<T extends Entity> {
-    static final String NO_IMPLEMENTATION = "No implementation";
 
     /**
      * Purpose of this method is to create specific item on database.
@@ -49,6 +48,6 @@ public interface Dao<T extends Entity> {
      * @throws DaoException
      */
     default void delete(Long itemId) throws DaoException {
-        throw new UnsupportedOperationException(NO_IMPLEMENTATION);
+        throw new UnsupportedOperationException();
     }
 }

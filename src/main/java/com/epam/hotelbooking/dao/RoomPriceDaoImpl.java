@@ -18,17 +18,17 @@ public class RoomPriceDaoImpl extends AbstractDao<RoomPrice> implements RoomPric
 
     @Override
     public boolean create(RoomPrice item) throws DaoException {
-        throw new UnsupportedOperationException(NO_IMPLEMENTATION);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Optional<RoomPrice> read(Long itemId) throws DaoException {
-        throw new UnsupportedOperationException(NO_IMPLEMENTATION);
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void update(String query, Object... params) throws DaoException {
-        throw new UnsupportedOperationException(NO_IMPLEMENTATION);
+        throw new UnsupportedOperationException();
     }
 
     @Override

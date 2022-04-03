@@ -43,29 +43,30 @@
 				<label for="start-date">
 					<fmt:message key="start-date" />
 				</label>
-				<input type="date" name="startDate" id="startDate" value="2022-03-15" min="2022-03-01"
-					max="2022-03-31" onchange=updateEndDate() required>
+				<input type="date" name="startDate" id="startDate" onchange=updateEndDate() required>
 			</div>
 			<div id="end-date">
 				<label for="end-date">
 					<fmt:message key="end-date" />
 				</label>
-				<input type="date" name="endDate" id="endDate" value="2022-03-15" min="2022-03-01"
-					max="2022-03-31">
+				<input type="date" name="endDate" id="endDate">
 			</div>
 			<div id="room-class">
 				<label for="room-class">
 					<fmt:message key="room-class" />
 				</label>
 				<select name="roomClass">
-					<option value="STANDART" selected><fmt:message key="standart" /></option>
-					<option value="DELUXE"><fmt:message key="deluxe" /></option>
-					<option value="PREMIUM"><fmt:message key="premium" /></option>
+					<option value="standart" selected><fmt:message key="standart" /></option>
+					<option value="deluxe"><fmt:message key="deluxe" /></option>
+					<option value="premium"><fmt:message key="premium" /></option>
 				</select>
 				<input type="hidden" name="userId" value="${sessionScope.userId}">
 			</div>
 			<input type="submit" id="apply" value="<fmt:message key="apply" />">
 		</form>
 	</div>
+	<script>
+		initialDatesBinding();
+	</script>
 </body>
 </html>

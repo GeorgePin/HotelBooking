@@ -114,7 +114,7 @@ public abstract class AbstractDao<T extends Entity> {
     }
 
     /**
-     * Method which build up a query from given filter , entity type and filter
+     * Method which build up a query from given filter, entity type and filter
      * value and returns a number of pages for.
      * 
      * @param entityType  type of entity which will be inserted in query.
@@ -123,9 +123,9 @@ public abstract class AbstractDao<T extends Entity> {
      * @return {@code Integer} amount of pages.
      * @throws DaoException
      */
-    protected final Integer getAmountOfPages(String tableName, String filter, String filterValue) throws DaoException {
+    protected final Integer amountOfPagesQueryBuilding(String tableName, String filter, String filterValue) throws DaoException {
         final String query = "select count(*) from " + tableName + " where " + filter + "=" + filterValue;
-        return getAmountOfPagesExecutor(query);
+        return amountOfPagesQueryBuildingExecutor(query);
     }
 
     /**
@@ -136,9 +136,9 @@ public abstract class AbstractDao<T extends Entity> {
      * @return {@code Integer} amount of pages.
      * @throws DaoException
      */
-    protected final Integer getAmountOfPages(String tableName) throws DaoException {
+    protected final Integer amountOfPagesQueryBuilding(String tableName) throws DaoException {
         final String query = "select count(*) from " + tableName;
-        return getAmountOfPagesExecutor(query);
+        return amountOfPagesQueryBuildingExecutor(query);
     }
 
     /**
@@ -150,7 +150,7 @@ public abstract class AbstractDao<T extends Entity> {
      * @return {@code Integer} amount of pages.
      * @throws DaoException
      */
-    private Integer getAmountOfPagesExecutor(String query) throws DaoException {
+    private Integer amountOfPagesQueryBuildingExecutor(String query) throws DaoException {
         try (PreparedStatement statement = createStatement(query); ResultSet resultSet = statement.executeQuery()) {
             if (resultSet.next()) {
                 Integer amountOfItems = resultSet.getInt(1);

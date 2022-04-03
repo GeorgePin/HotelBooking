@@ -5,7 +5,7 @@
 <%@ taglib uri="WEB-INF/custom-tag.tld" prefix="custom"%>
 <fmt:setLocale value="${sessionScope.lang}" />
 <fmt:setBundle basename="/messages/messages" />
-<c:set var="currentPageCommand" value="/controller?command=showPage&page=index" scope="session" />
+<c:set var="currentPageCommand" value="/controller?command=showPage&page=index.jsp" scope="session" />
 <c:set var="salary" scope="page" value="" />
 <html lang="${sessionScope.lang}">
 <head>
@@ -17,7 +17,7 @@
 </head>
 <body class="${isLoggedIn ? 'main-page-body' : 'login-page-body'}">
 	<c:choose>
-		<c:when test="${isLoggedIn}">
+		<c:when test="${not empty userId}">
 			<c:choose>
 				<c:when test="${isAdmin}">
 					<jsp:include page="/WEB-INF/view/utility-pages/adminHeader.jsp"></jsp:include>
@@ -36,7 +36,7 @@
 				<div id="background-circle">
 					<img src="static/images/hotel.png" alt="hotel photo">
 				</div>
-				<a href="controller?command=showPage&page=WEB-INF/view/user-pages/requestRoom"><input
+				<a href="controller?command=showPage&page=WEB-INF/view/user-pages/requestRoom.jsp"><input
 						type="button" value=" <fmt:message key="request" />"></a>
 			</div>
 		</c:when>
@@ -56,7 +56,7 @@
 						pattern="[\d|\w]{1,10}"
 						placeholder="<fmt:message
                             key="password" />" required>
-					<br></br> <a href="controller?command=showPage&page=registrationPage" id="registration-msg">
+					<br></br> <a href="controller?command=showPage&page=registrationPage.jsp" id="registration-msg">
 						<fmt:message key="registrationProposal" />
 					</a>
 					<input type="submit" id="log-in-btn"

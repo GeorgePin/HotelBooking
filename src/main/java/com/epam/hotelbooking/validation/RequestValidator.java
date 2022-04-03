@@ -29,13 +29,17 @@ public class RequestValidator {
                 && roomClass.matches(ROOM_CLASS_PATTERN)
                 && startDate.toString()
                         .matches(DATE_PATTERN)
-                && startDate.after(nowDate)) {
+                && (startDate.after(nowDate)
+                        || startDate.toString()
+                                .equals(nowDate.toString()))) {
             if (endDate == null
                     || endDate.toString()
                             .isEmpty()) {
                 return true;
             } else {
-                return endDate.after(startDate);
+                return endDate.after(startDate)
+                        || endDate.toString()
+                                .equals(startDate.toString());
             }
         } else {
             return false;

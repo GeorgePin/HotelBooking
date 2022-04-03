@@ -9,20 +9,16 @@ public class ClientRowMapper implements RowMapper<User> {
 
     @Override
     public User map(ResultSet resultSet) throws SQLException {
-        try {
-            Long id = resultSet.getLong("id");
-            String login = resultSet.getString("login");
-            String name = resultSet.getString("name");
-            String surname = resultSet.getString("surname");
-            Boolean isBlocked = resultSet.getBoolean("is_blocked");
-            return new User.UserBuilder().withId(id)
-                    .withLogin(login)
-                    .withName(name)
-                    .withSurname(surname)
-                    .withIsBlocked(isBlocked)
-                    .build();
-        } catch (SQLException exception) {
-            throw new SQLException("Error during getting data from db", exception);
-        }
+        Long id = resultSet.getLong("id");
+        String login = resultSet.getString("login");
+        String name = resultSet.getString("name");
+        String surname = resultSet.getString("surname");
+        Boolean isBlocked = resultSet.getBoolean("is_blocked");
+        return new User.UserBuilder().withId(id)
+                .withLogin(login)
+                .withName(name)
+                .withSurname(surname)
+                .withIsBlocked(isBlocked)
+                .build();
     }
 }

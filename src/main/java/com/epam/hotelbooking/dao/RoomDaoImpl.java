@@ -79,7 +79,7 @@ public class RoomDaoImpl extends AbstractDao<Room> implements RoomDao {
     @Override
     public ItemsDto<Room> getFreeRoomsForSinglePage(int pageNumber) throws DaoException {
         int startElement = (pageNumber - 1) * RECORDS_PER_PAGE;
-        Integer amountOfPages = super.getAmountOfPages(Room.TABLE_NAME, IS_ROOM_BLOCKED_FILTER, Integer.toString(0));
+        Integer amountOfPages = super.amountOfPagesQueryBuilding(Room.TABLE_NAME, IS_ROOM_BLOCKED_FILTER, Integer.toString(0));
         List<Room> listOfRooms = super.executeQuery(GET_FREE_ROOMS_FOR_SINGLE_PAGE, startElement, RECORDS_PER_PAGE);
         return new ItemsDto<>(listOfRooms, amountOfPages);
     }
@@ -87,7 +87,7 @@ public class RoomDaoImpl extends AbstractDao<Room> implements RoomDao {
     @Override
     public ItemsDto<Room> getRoomsWithPrices(int pageNumber) throws DaoException {
         int startElement = (pageNumber - 1) * RECORDS_PER_PAGE;
-        Integer amountOfPages = super.getAmountOfPages(Room.TABLE_NAME, IS_DELETED_FILTER, Integer.toString(0));
+        Integer amountOfPages = super.amountOfPagesQueryBuilding(Room.TABLE_NAME, IS_DELETED_FILTER, Integer.toString(0));
         List<Room> listOfRooms = executeQuery(GET_ROOMS_WITH_PRICES, startElement, RECORDS_PER_PAGE);
         return new ItemsDto<>(listOfRooms, amountOfPages);
     }

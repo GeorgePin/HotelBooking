@@ -59,7 +59,7 @@ public class RequestDaoImpl extends AbstractDao<Request> implements RequestDao {
     @Override
     public ItemsDto<Request> getUnapprovedRequestsForAdmin(int pageNumber) throws DaoException {
         int startElement = (pageNumber - 1) * RECORDS_PER_PAGE;
-        Integer amountOfPages = super.getAmountOfPages(Request.TABLE_NAME, FILTER_FOR_ADMIN, Integer.toString(0));
+        Integer amountOfPages = super.amountOfPagesQueryBuilding(Request.TABLE_NAME, FILTER_FOR_ADMIN, Integer.toString(0));
         List<Request> listOfRequests = super.executeQuery(UNAPPROVED_REQUESTS, startElement, RECORDS_PER_PAGE);
         return new ItemsDto<>(listOfRequests, amountOfPages);
     }
@@ -69,7 +69,7 @@ public class RequestDaoImpl extends AbstractDao<Request> implements RequestDao {
         int startElement = (pageNumber - 1) * RECORDS_PER_PAGE;
         List<Request> listOfRequests = super.executeQuery(SELECT_ALL_USER_REQUESTS, userId, startElement,
                 RECORDS_PER_PAGE);
-        Integer amountOfPages = super.getAmountOfPages(Request.TABLE_NAME, FILTER_FOR_CLIENT, userId.toString());
+        Integer amountOfPages = super.amountOfPagesQueryBuilding(Request.TABLE_NAME, FILTER_FOR_CLIENT, userId.toString());
         return new ItemsDto<>(listOfRequests, amountOfPages);
     }
 
