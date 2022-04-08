@@ -23,8 +23,9 @@ public class AuthorizationFilter implements Filter {
     private static final Logger LOGGER = LogManager.getLogger(AuthorizationFilter.class);
     private static final String IS_ADMIN = "isAdmin";
 
-    private static final List<String> ADMIN_PAGES = Collections.unmodifiableList(Arrays.asList("clientsPage",
-            "editRoom", "banUser", "setRoomState", "roomsPage", "deleteRoom", "createRoom", "requestHandling"));
+    private static final List<String> ADMIN_PAGES = Collections
+            .unmodifiableList(Arrays.asList("clientsPage", "editRoom", "banUser", "setRoomState", "roomsPage",
+                    "deleteRoom", "createRoom", "requestHandling", "WEB-INF/view/admin-pages", "adminHeader"));
 
     private static final List<String> COMMON_PAGES = Collections.unmodifiableList(
             Arrays.asList("registrationPage", "index.jsp", "register", "login", "logout", "setLanguage&sessionLocale"));
@@ -38,22 +39,18 @@ public class AuthorizationFilter implements Filter {
             throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpSession session = httpRequest.getSession(true);
+        String requestUri = httpRequest.getRequestURI();
         if (session.getAttribute(IS_ADMIN) == null) {
             session.setAttribute(IS_ADMIN, false);
         }
-        if (httpRequest.getRequestURI()
-                .endsWith(".css")
-                || httpRequest.getRequestURI()
-                        .endsWith(".png")
-                || httpRequest.getRequestURI()
-                        .endsWith(".js")) {
+        if (requestUri.endsWith(".css") || requestUri.endsWith(".png") || requestUri.endsWith(".js")) {
             LOGGER.debug("Css, image or js file is passing");
             chain.doFilter(request, response);
             return;
         }
         if (!areSpecificRightsRequiredForPage(httpRequest, COMMON_PAGES)
                 && session.getAttribute("userId") == null
-                && !(httpRequest.getRequestURI()).matches(httpRequest.getContextPath() + "/")) {
+                && !(requestUri).matches(httpRequest.getContextPath() + "/")) {
             LOGGER.debug("User is not logged in. Forwarding to the error page");
             httpRequest.setAttribute("errorMessage", "notLoggedInMsg");
             RequestDispatcher dispatcher = httpRequest.getRequestDispatcher("/errorPage.jsp");

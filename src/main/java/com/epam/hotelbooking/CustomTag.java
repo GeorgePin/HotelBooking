@@ -26,6 +26,7 @@ public class CustomTag extends SimpleTagSupport {
                 break;
             default:
                 out.print("Welcome back!");
+                break;
             }
         } catch (IOException exception) {
             throw new JspException(exception);

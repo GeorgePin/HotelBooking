@@ -11,7 +11,7 @@ import com.epam.hotelbooking.exception.DaoException;
  * @version 1.0
  * @since 1.0
  */
-public interface RoomDao extends Dao<Room>{
+public interface RoomDao extends Dao<Room> {
 
     /**
      * Purpose of this method is to block specific room in database by knowing its
@@ -26,13 +26,14 @@ public interface RoomDao extends Dao<Room>{
      * Purpose of this method is to get all free rooms for single page from
      * database.
      * 
-     * @param pageNumber number of current page for which we need to get rooms from
-     *                   database.
+     * @param pageNumber   number of current page for which we need to get rooms
+     *                     from database.
+     * @param roomCapacity capacity of requested room.
      * @return {ItemsTransferObject} object which contains total number of pages and
      *         rooms for specific page.
      * @throws DaoException
      */
-    ItemsDto<Room> getFreeRoomsForSinglePage(int pageNumber) throws DaoException;
+    ItemsDto<Room> getFreeRoomsForSinglePage(int pageNumber, Integer roomCapacity) throws DaoException;
 
     /**
      * Purpose of this method is to get all rooms for single page from database.

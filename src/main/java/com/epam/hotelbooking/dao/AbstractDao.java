@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.epam.hotelbooking.entity.Entity;
 import com.epam.hotelbooking.exception.DaoException;
 import com.epam.hotelbooking.mapper.RowMapper;
@@ -21,6 +24,7 @@ import com.epam.hotelbooking.mapper.RowMapper;
  */
 public abstract class AbstractDao<T extends Entity> {
 
+    private static final Logger LOGGER = LogManager.getLogger(AbstractDao.class);
     /**
      * Amount of items per single page.
      */
@@ -114,18 +118,27 @@ public abstract class AbstractDao<T extends Entity> {
     }
 
     /**
-     * Method which build up a query from given filter, entity type and filter
-     * value and returns a number of pages for.
+     * Method which build up a query from given filter, entity type and filter value
+     * and returns a number of pages for.
      * 
-     * @param entityType  type of entity which will be inserted in query.
-     * @param filter      specific condition.
-     * @param filterValue value of condition.
+     * @param tableName        name of table from which data will be collected.
+     * @param filtersAndValues represent a pair of filter and value which will be
+     *                         added to query.
      * @return {@code Integer} amount of pages.
      * @throws DaoException
      */
-    protected final Integer amountOfPagesQueryBuilding(String tableName, String filter, String filterValue) throws DaoException {
-        final String query = "select count(*) from " + tableName + " where " + filter + "=" + filterValue;
-        return amountOfPagesQueryBuildingExecutor(query);
+    protected final Integer amountOfPagesQueryBuilding(String tableName, String... filtersAndValues)
+            throws DaoException {
+        StringBuilder builder = new StringBuilder();
+        builder.append(
+                "select count(*) from " + tableName + " where " + filtersAndValues[0] + "=" + filtersAndValues[1]);
+        if (filtersAndValues.length > 2) {
+            for (int i = 2; i < filtersAndValues.length; i += 2) {
+                builder.append(" and " + filtersAndValues[i] + "=" + filtersAndValues[i + 1]);
+            }
+        }
+        LOGGER.debug(builder.toString());
+        return amountOfPagesQueryBuildingExecutor(builder.toString());
     }
 
     /**

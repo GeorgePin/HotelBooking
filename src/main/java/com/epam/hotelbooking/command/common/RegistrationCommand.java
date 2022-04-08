@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.epam.hotelbooking.command.util.Command;
 import com.epam.hotelbooking.command.util.CommandResult;
 import com.epam.hotelbooking.entity.User;
-import com.epam.hotelbooking.exception.DaoException;
 import com.epam.hotelbooking.exception.ServiceException;
 import com.epam.hotelbooking.service.UserServiceImpl;
 import com.epam.hotelbooking.validation.UserValidator;
@@ -23,7 +22,7 @@ public class RegistrationCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest req, HttpServletResponse resp)
-            throws ServiceException, DaoException {
+            throws ServiceException{
         String name = req.getParameter("name");
         String surname = req.getParameter("surname");
         String login = req.getParameter("login");

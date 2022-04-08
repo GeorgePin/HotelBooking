@@ -40,13 +40,25 @@ public interface RoomService {
      * {@code pageNumber}. This method returns {@code ItemsTransferObject} which
      * contains list of {@code Room} and total amount of pages.
      * 
-     * @param pageNumber    number of current page.
-     * @param isForHandling boolean that influences which Dao method will be used.
+     * @param pageNumber   number of current page.
+     * @param roomCapacity given capacity by which rooms will be selected later.
      * @return {@code ItemsTransferObject} data transfer object which contains list
      *         of {@code Room} and amount of pages.
      * @throws ServiceException
      */
-    ItemsDto<Room> getRoomsForSinglePage(int pageNumber, boolean isForHandling) throws ServiceException;
+    ItemsDto<Room> getRoomsForRequestHandling(int pageNumber, Integer roomCapacity) throws ServiceException;
+
+    /**
+     * Purpose of this method is to get specific amount of {@code Room} depending on
+     * {@code pageNumber}. This method returns {@code ItemsTransferObject} which
+     * contains list of {@code Room} and total amount of pages.
+     * 
+     * @param pageNumber number of current page.
+     * @return {@code ItemsTransferObject} data transfer object which contains list
+     *         of {@code Room} and amount of pages.
+     * @throws ServiceException
+     */
+    ItemsDto<Room> getRoomsForView(int pageNumber) throws ServiceException;
 
     /**
      * This method transfers transfers room id to Dao layer which should unblock

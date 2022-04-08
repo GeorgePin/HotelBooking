@@ -7,7 +7,6 @@ import com.epam.hotelbooking.command.util.Command;
 import com.epam.hotelbooking.command.util.CommandResult;
 import com.epam.hotelbooking.entity.ItemsDto;
 import com.epam.hotelbooking.entity.Room;
-import com.epam.hotelbooking.exception.DaoException;
 import com.epam.hotelbooking.exception.ServiceException;
 import com.epam.hotelbooking.service.RoomServiceImpl;
 
@@ -20,10 +19,9 @@ public class RoomsPageCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest req, HttpServletResponse resp)
-            throws ServiceException, DaoException {
+    public CommandResult execute(HttpServletRequest req, HttpServletResponse resp) throws ServiceException {
         int page = Integer.parseInt(req.getParameter("page"));
-        ItemsDto<Room> transferObject = roomService.getRoomsForSinglePage(page, false);
+        ItemsDto<Room> transferObject = roomService.getRoomsForView(page);
         req.setAttribute("roomsList", transferObject.getItems());
         req.setAttribute("numberOfPages", transferObject.getAmountOfPages());
         return CommandResult.forward("/WEB-INF/view/admin-pages/rooms.jsp");

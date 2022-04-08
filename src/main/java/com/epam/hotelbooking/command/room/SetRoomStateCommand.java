@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.epam.hotelbooking.command.util.Command;
 import com.epam.hotelbooking.command.util.CommandResult;
-import com.epam.hotelbooking.exception.DaoException;
 import com.epam.hotelbooking.exception.ServiceException;
 import com.epam.hotelbooking.service.RoomServiceImpl;
 
@@ -17,8 +16,7 @@ public class SetRoomStateCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest req, HttpServletResponse resp)
-            throws ServiceException, DaoException {
+    public CommandResult execute(HttpServletRequest req, HttpServletResponse resp) throws ServiceException {
         Long roomId = Long.parseLong(req.getParameter("roomId"));
         boolean roomState = Integer.parseInt(req.getParameter("state")) == 1;
         roomService.setStateOfRoom(roomId, roomState);

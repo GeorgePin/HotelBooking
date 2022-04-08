@@ -26,4 +26,8 @@ public class RoomValidator {
                 && roomPriceId.toString()
                         .matches(ROOM_PRICE_ID_PATTERN);
     }
+
+    public boolean isNumberOfRoomStartsWithZero(String roomNumber) {
+        return roomNumber.startsWith("0");
+    }
 }

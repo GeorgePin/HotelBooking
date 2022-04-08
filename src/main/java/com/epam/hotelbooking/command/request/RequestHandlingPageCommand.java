@@ -10,7 +10,6 @@ import com.epam.hotelbooking.command.util.CommandResult;
 import com.epam.hotelbooking.entity.ItemsDto;
 import com.epam.hotelbooking.entity.Request;
 import com.epam.hotelbooking.entity.Room;
-import com.epam.hotelbooking.exception.DaoException;
 import com.epam.hotelbooking.exception.ServiceException;
 import com.epam.hotelbooking.service.RequestServiceImpl;
 import com.epam.hotelbooking.service.RoomServiceImpl;
@@ -26,14 +25,18 @@ public class RequestHandlingPageCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest req, HttpServletResponse resp)
-            throws ServiceException, DaoException {
+    public CommandResult execute(HttpServletRequest req, HttpServletResponse resp) throws ServiceException {
         Long requestId = Long.parseLong(req.getParameter("requestId"));
         int pageNumber = Integer.parseInt(req.getParameter("page"));
         Optional<Request> requestForHandling = requestService.getRequest(requestId);
-        ItemsDto<Room> transferObject = roomService.getRoomsForSinglePage(pageNumber, true);
+        Integer roomCapacity = requestForHandling.isPresent()
+                ? requestForHandling.get()
+                        .getRoomCapacity()
+                : null;
+        ItemsDto<Room> transferObject = roomService.getRoomsForRequestHandling(pageNumber, roomCapacity);
         req.setAttribute("request", requestForHandling.isPresent() ? requestForHandling.get() : Optional.empty());
-        req.setAttribute("listOfRooms", transferObject.getItems());
+        req.setAttribute("listOfRooms", transferObject.getItems()
+                .isEmpty() ? null : transferObject.getItems());
         req.setAttribute("numberOfPages", transferObject.getAmountOfPages());
         return CommandResult.forward("/WEB-INF/view/admin-pages/requestHandling.jsp");
     }

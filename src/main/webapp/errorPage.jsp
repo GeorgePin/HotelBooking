@@ -17,7 +17,9 @@
 	<h1 id="heading">
 		<fmt:message key="smth-went-wrong" />
 	</h1>
-	<p id="error-msg-text">${errorMessage}</p>
+	<p id="error-msg-text">
+		<fmt:message key="${errorMessage}" />
+	</p>
 	<button id="go-back-btn" onclick="location.href='index.jsp'" type="button">
 		<fmt:message key="go-back-btn" />
 	</button>

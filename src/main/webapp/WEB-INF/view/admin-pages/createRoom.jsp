@@ -31,7 +31,7 @@
 					</label>
 					<label>
 						<fmt:message key="room-number" />
-						<input type="text" id="number-of-room" name="number" maxlength="3" pattern="\d{1,3}">
+						<input type="text" id="number-of-room" name="number" maxlength="3" pattern="^(?!0)\d{1,3}">
 					</label>
 				</div>
 				<div id="right-column">

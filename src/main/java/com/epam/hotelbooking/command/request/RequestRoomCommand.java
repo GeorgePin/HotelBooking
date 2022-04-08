@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.epam.hotelbooking.command.util.Command;
 import com.epam.hotelbooking.command.util.CommandResult;
 import com.epam.hotelbooking.entity.Request;
-import com.epam.hotelbooking.exception.DaoException;
 import com.epam.hotelbooking.exception.ServiceException;
 import com.epam.hotelbooking.service.RequestServiceImpl;
 import com.epam.hotelbooking.validation.RequestValidator;
@@ -26,8 +25,7 @@ public class RequestRoomCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest req, HttpServletResponse resp)
-            throws ServiceException, DaoException {
+    public CommandResult execute(HttpServletRequest req, HttpServletResponse resp) throws ServiceException {
         Date startDate = Date.valueOf(req.getParameter(START_DATE));
         Date endDate = req.getParameter(END_DATE)
                 .isEmpty() ? null : Date.valueOf(req.getParameter(END_DATE));

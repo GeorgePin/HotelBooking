@@ -20,15 +20,29 @@ public class RoomServiceImpl implements RoomService {
     private static final Logger LOGGER = LogManager.getLogger(RoomServiceImpl.class);
 
     @Override
-    public ItemsDto<Room> getRoomsForSinglePage(int startElement, boolean isForHandling) throws ServiceException {
+    public ItemsDto<Room> getRoomsForRequestHandling(int pageNumber, Integer roomCapacity) throws ServiceException {
         LOGGER.info("Getting rooms for single page");
         try (DaoHelper daoHelper = new DaoHelper()) {
             daoHelper.startTransaction();
             RoomDao dao = daoHelper.createRoomDao(new RoomWithPriceRowMapper());
             ItemsDto<Room> itemsTransferObject;
-            itemsTransferObject = isForHandling
-                    ? dao.getFreeRoomsForSinglePage(startElement)
-                    : dao.getRoomsWithPrices(startElement);
+            itemsTransferObject = dao.getFreeRoomsForSinglePage(pageNumber, roomCapacity);
+            daoHelper.endTransaction();
+            LOGGER.info("Rooms were successfully found");
+            return itemsTransferObject;
+        } catch (DaoException exception) {
+            throw new ServiceException("Error during getting free rooms for single page", exception);
+        }
+    }
+
+    @Override
+    public ItemsDto<Room> getRoomsForView(int pageNumber) throws ServiceException {
+        LOGGER.info("Getting rooms for single page");
+        try (DaoHelper daoHelper = new DaoHelper()) {
+            daoHelper.startTransaction();
+            RoomDao dao = daoHelper.createRoomDao(new RoomWithPriceRowMapper());
+            ItemsDto<Room> itemsTransferObject;
+            itemsTransferObject = dao.getRoomsWithPrices(pageNumber);
             daoHelper.endTransaction();
             LOGGER.info("Rooms were successfully found");
             return itemsTransferObject;

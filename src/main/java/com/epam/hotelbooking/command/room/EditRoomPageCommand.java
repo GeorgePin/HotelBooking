@@ -10,7 +10,6 @@ import com.epam.hotelbooking.command.util.Command;
 import com.epam.hotelbooking.command.util.CommandResult;
 import com.epam.hotelbooking.entity.Room;
 import com.epam.hotelbooking.entity.RoomPrice;
-import com.epam.hotelbooking.exception.DaoException;
 import com.epam.hotelbooking.exception.ServiceException;
 import com.epam.hotelbooking.service.RoomPriceServiceImpl;
 import com.epam.hotelbooking.service.RoomServiceImpl;
@@ -27,8 +26,7 @@ public class EditRoomPageCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest req, HttpServletResponse resp)
-            throws DaoException, ServiceException {
+    public CommandResult execute(HttpServletRequest req, HttpServletResponse resp) throws ServiceException {
         Long roomId = Long.parseLong(req.getParameter("roomId"));
         List<RoomPrice> listOfPrices = roomPriceService.getRoomPrices();
         Optional<Room> room = roomService.readRoom(roomId);

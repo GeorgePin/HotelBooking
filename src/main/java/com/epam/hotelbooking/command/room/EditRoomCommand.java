@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.epam.hotelbooking.command.util.Command;
 import com.epam.hotelbooking.command.util.CommandResult;
 import com.epam.hotelbooking.entity.Room;
-import com.epam.hotelbooking.exception.DaoException;
 import com.epam.hotelbooking.exception.ServiceException;
 import com.epam.hotelbooking.service.RoomServiceImpl;
 import com.epam.hotelbooking.validation.RoomValidator;
@@ -22,8 +21,7 @@ public class EditRoomCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest req, HttpServletResponse resp)
-            throws DaoException, ServiceException {
+    public CommandResult execute(HttpServletRequest req, HttpServletResponse resp) throws ServiceException {
         Integer capacity = Integer.parseInt(req.getParameter("roomCapacity"));
         Integer numberOfRoom = Integer.parseInt(req.getParameter("number"));
         String roomClass = req.getParameter("roomClass");

@@ -4,8 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <fmt:setLocale value="${sessionScope.lang}" />
 <fmt:setBundle basename="/messages/messages" />
-<c:set var="currentPageCommand"
-	value="/controller?command=showPage&page=registrationPage" scope="session" />
+<c:set var="currentPageCommand" value="/controller?command=showPage&page=registrationPage"
+	scope="session" />
 <html lang="${sessionScope.lang}">
 <head>
 <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
@@ -23,17 +23,18 @@
 		</h1>
 		<form method="POST" action="controller?command=register" id="registration-forms">
 			<div>
-				<input type="text" id="name-input" name="name" maxlength="10" pattern="\w{3,20}"
+				<input type="text" id="name-input" name="name" maxlength="10" pattern="[a-zA-z]{3,20}"
 					placeholder="<fmt:message
                             key="name" />">
-				<input type="text" id="surname-input" name="surname" maxlength="10" pattern="\w{3,20}"
+				<input type="text" id="surname-input" name="surname" maxlength="10" pattern="[a-zA-Z]{3,20}"
 					placeholder="<fmt:message
                             key="surname" />">
 				<br></br>
 				<input type="text" id="login-input" name="login" maxlength="10" pattern="[\d|\w]{1,10}"
 					placeholder="<fmt:message
                             key="login" />">
-				<input type="password" id="password-input" name="password" maxlength="10" pattern="[\d|\w]{1,10}"
+				<input type="password" id="password-input" name="password" maxlength="10"
+					pattern="[\d|\w]{1,10}"
 					placeholder="<fmt:message
                             key="password" />">
 			</div>

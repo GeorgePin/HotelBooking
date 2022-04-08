@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.epam.hotelbooking.command.util.Command;
 import com.epam.hotelbooking.command.util.CommandResult;
-import com.epam.hotelbooking.exception.DaoException;
 import com.epam.hotelbooking.exception.ServiceException;
 import com.epam.hotelbooking.service.RequestServiceImpl;
 
@@ -17,8 +16,7 @@ public class RequestHandlingCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest req, HttpServletResponse resp)
-            throws ServiceException, DaoException {
+    public CommandResult execute(HttpServletRequest req, HttpServletResponse resp) throws ServiceException {
         Long requestId = Long.parseLong(req.getParameter("requestId"));
         Long roomId = Long.parseLong(req.getParameter("roomId"));
         requestService.handleRoomRequest(requestId, roomId);

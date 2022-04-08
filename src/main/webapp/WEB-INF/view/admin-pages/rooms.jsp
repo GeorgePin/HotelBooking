@@ -5,6 +5,9 @@
 <fmt:setLocale value="${sessionScope.lang}" />
 <fmt:setBundle basename="/messages/messages" />
 <c:set var="currentPageCommand" value="/controller?command=roomsPage&page=1" scope="session" />
+<c:set var="DatePattern">
+	<fmt:message key="date" />
+</c:set>
 <html lang="${sessionScope.lang}">
 <head>
 <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
@@ -59,7 +62,9 @@
 							<fmt:message key="${room.roomClass}" />
 						</p></td>
 					<td><p class="table-text">${room.roomPrice.price}</p></td>
-					<td><p class="table-text">${room.roomPrice.validFrom}</p></td>
+					<td><p class="table-text">
+							<fmt:formatDate pattern="${DatePattern}" value="${room.roomPrice.validFrom}" />
+						</p></td>
 					<c:choose>
 						<c:when test="${room.isBlocked}">
 							<td><img src="static/images/accept.png" alt="accpect image" class="accept-image"></td>

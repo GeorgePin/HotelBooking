@@ -8,7 +8,6 @@ import com.epam.hotelbooking.command.util.Command;
 import com.epam.hotelbooking.command.util.CommandResult;
 import com.epam.hotelbooking.entity.ItemsDto;
 import com.epam.hotelbooking.entity.Request;
-import com.epam.hotelbooking.exception.DaoException;
 import com.epam.hotelbooking.exception.ServiceException;
 import com.epam.hotelbooking.service.RequestServiceImpl;
 
@@ -21,8 +20,7 @@ public class RequestsPageCommand implements Command {
     }
 
     @Override
-    public CommandResult execute(HttpServletRequest req, HttpServletResponse resp)
-            throws ServiceException, DaoException {
+    public CommandResult execute(HttpServletRequest req, HttpServletResponse resp) throws ServiceException {
         HttpSession session = req.getSession();
         int pageInt = Integer.parseInt(req.getParameter("page"));
         boolean isAdmin = (Boolean) session.getAttribute("isAdmin");

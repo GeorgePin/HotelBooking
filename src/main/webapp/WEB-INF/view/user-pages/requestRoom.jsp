@@ -5,7 +5,7 @@
 <fmt:setLocale value="${sessionScope.lang}" />
 <fmt:setBundle basename="/messages/messages" />
 <c:set var="currentPageCommand"
-	value="/controller?command=showPage&page=WEB-INF/view/user-pages/requestRoom" scope="session" />
+	value="/controller?command=showPage&page=WEB-INF/view/user-pages/requestRoom.jsp" scope="session" />
 <html lang="${sessionScope.lang}">
 <head>
 <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />

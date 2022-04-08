@@ -6,6 +6,9 @@
 <fmt:setBundle basename="/messages/messages" />
 <c:set var="currentPageCommand" value="/controller?command=requestsPage&page=${param.page}"
 	scope="session" />
+<c:set var="DatePattern">
+	<fmt:message key="date" />
+</c:set>
 <html lang="${sessionScope.lang}">
 <head>
 <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
@@ -30,9 +33,6 @@
 					<tr>
 						<th><p class="table-heading-text">#</p></th>
 						<th><p class="table-heading-text">
-								<fmt:message key="user-id" />
-							</p></th>
-						<th><p class="table-heading-text">
 								<fmt:message key="start-date" />
 							</p></th>
 						<th><p class="table-heading-text">
@@ -49,11 +49,14 @@
 						<tr>
 							<td><a href="controller?command=requestHandlingPage&requestId=${request.id}&page=1"><c:out
 										value="${counter.count}" /></a></td>
-							<td><p class="table-text">${request.userId}</p></td>
-							<td><p class="table-text">${request.startDate}</p></td>
+							<td><p class="table-text">
+									<fmt:formatDate pattern="${DatePattern}" value="${request.startDate}" />
+								</p></td>
 							<c:choose>
 								<c:when test="${not empty request.endDate}">
-									<td><p class="table-text">${request.endDate}</p></td>
+									<td><p class="table-text">
+											<fmt:formatDate pattern="${DatePattern}" value="${request.endDate}" />
+										</p></td>
 								</c:when>
 								<c:otherwise>
 									<td id="dash"><h1>-</h1></td>
@@ -104,10 +107,14 @@
 					<c:forEach var="request" items="${requestsList}" varStatus="counter">
 						<tr>
 							<td><c:out value="${counter.count}" /></td>
-							<td><p class="table-text">${request.startDate}</p></td>
+							<td><p class="table-text">
+									<fmt:formatDate pattern="${DatePattern}" value="${request.startDate}" />
+								</p></td>
 							<c:choose>
 								<c:when test="${not empty request.endDate}">
-									<td><p class="table-text">${request.endDate}</p></td>
+									<td><p class="table-text">
+											<fmt:formatDate pattern="${DatePattern}" value="${request.endDate}" />
+										</p></td>
 								</c:when>
 								<c:otherwise>
 									<td id="dash"><h1>-</h1></td>

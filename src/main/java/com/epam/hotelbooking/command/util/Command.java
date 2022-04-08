@@ -3,7 +3,6 @@ package com.epam.hotelbooking.command.util;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.epam.hotelbooking.exception.DaoException;
 import com.epam.hotelbooking.exception.ServiceException;
 
 /**
@@ -24,7 +23,8 @@ public interface Command {
      * @param resp response which is given for processing.
      * @return CommandResult object that declares page to which user will be
      *         redirected or forwarded.
+     * @throws ServiceException if any service exception occurred during processing.
      * 
      */
-    CommandResult execute(HttpServletRequest req, HttpServletResponse resp) throws DaoException, ServiceException;
+    CommandResult execute(HttpServletRequest req, HttpServletResponse resp) throws ServiceException;
 }

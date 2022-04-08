@@ -10,7 +10,6 @@ import com.epam.hotelbooking.entity.Request;
 public class RequestValidator {
 
     private static final Logger LOGGER = LogManager.getLogger(RequestValidator.class);
-    private static final String DATE_PATTERN = "[0-9]{4}-[0-9]{2}-[0-9]{2}";
     private static final String CAPACITY_PATTERN = "[1-9]{1}";
     private static final String ROOM_CLASS_PATTERN = "[a-z]{3,10}";
 
@@ -27,8 +26,6 @@ public class RequestValidator {
         if (capacity.toString()
                 .matches(CAPACITY_PATTERN)
                 && roomClass.matches(ROOM_CLASS_PATTERN)
-                && startDate.toString()
-                        .matches(DATE_PATTERN)
                 && (startDate.after(nowDate)
                         || startDate.toString()
                                 .equals(nowDate.toString()))) {
@@ -37,9 +34,9 @@ public class RequestValidator {
                             .isEmpty()) {
                 return true;
             } else {
-                return endDate.after(startDate)
+                return (endDate.after(startDate)
                         || endDate.toString()
-                                .equals(startDate.toString());
+                                .equals(startDate.toString()));
             }
         } else {
             return false;
