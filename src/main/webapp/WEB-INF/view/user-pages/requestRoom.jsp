@@ -14,21 +14,28 @@
 <link rel="stylesheet" href="static/styles/basic-style.css" type="text/css" />
 <link rel="stylesheet" href="static/styles/request-room-style.css" type="text/css" />
 </head>
-<c:choose>
-	<c:when test="${isAdmin}">
-		<jsp:include page="/WEB-INF/view/utility-pages/adminHeader.jsp"></jsp:include>
-	</c:when>
-	<c:otherwise>
-		<jsp:include page="/WEB-INF/view/utility-pages/userHeader.jsp"></jsp:include>
-	</c:otherwise>
-</c:choose>
+<jsp:include page="/WEB-INF/view/utility-pages/userHeader.jsp"></jsp:include>
 <body>
-	<div id="request-room-content">
+	<form method="POST" action="controller?command=requestRoom" id="request-room-content">
 		<h1 id="choose-a-room">
 			<fmt:message key="choose-a-room" />
 		</h1>
-		<form method="POST" action="controller?command=requestRoom">
-			<div id="room-capacity">
+		<div class="input-row">
+			<div id="start-date" class="label-and-input-pair">
+				<label for="start-date">
+					<fmt:message key="start-date" />
+				</label>
+				<input type="date" name="startDate" id="startDate" onchange=updateEndDate() required>
+			</div>
+			<div id="end-date" class="label-and-input-pair">
+				<label for="end-date">
+					<fmt:message key="end-date" />
+				</label>
+				<input type="date" name="endDate" id="endDate">
+			</div>
+		</div>
+		<div class="input-row">
+			<div id="room-capacity" class="label-and-input-pair">
 				<label for="room-capacity">
 					<fmt:message key="room-capacity" />
 				</label>
@@ -39,19 +46,7 @@
 					<option value="4">4</option>
 				</select>
 			</div>
-			<div id="start-date">
-				<label for="start-date">
-					<fmt:message key="start-date" />
-				</label>
-				<input type="date" name="startDate" id="startDate" onchange=updateEndDate() required>
-			</div>
-			<div id="end-date">
-				<label for="end-date">
-					<fmt:message key="end-date" />
-				</label>
-				<input type="date" name="endDate" id="endDate">
-			</div>
-			<div id="room-class">
+			<div id="room-class" class="label-and-input-pair">
 				<label for="room-class">
 					<fmt:message key="room-class" />
 				</label>
@@ -62,9 +57,9 @@
 				</select>
 				<input type="hidden" name="userId" value="${sessionScope.userId}">
 			</div>
-			<input type="submit" id="apply" value="<fmt:message key="apply" />">
-		</form>
-	</div>
+		</div>
+		<input type="submit" id="apply" value="<fmt:message key="apply" />">
+	</form>
 	<script>
 		initialDatesBinding();
 	</script>

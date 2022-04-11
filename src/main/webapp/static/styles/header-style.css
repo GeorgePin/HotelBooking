@@ -1,29 +1,14 @@
 @charset "UTF-8";
 
 header {
-	position: relative;
-	left: 300px;
-	width: 62%;
-	top: 60px;
+	display: flex;
+	flex-direction: row;
+	height: 15%;
+	align-items: center;
+	justify-content: space-evenly;
 }
 
 #hotel-logo {
-	position: absolute;
-	left: 0px;
 	width: 64px;
 	height: 62px;
-}
-
-.navigation-bar {
-	position: absolute;
-	width: 497px;
-	height: 44px;
-	left: 300px;
-	top: 10px;
-}
-
-#language-bar {
-	position: absolute;
-	right: 20px;
-	top: 0px;
 }

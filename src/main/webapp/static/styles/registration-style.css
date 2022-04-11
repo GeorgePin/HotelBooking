@@ -1,41 +1,37 @@
 @charset "UTF-8";
 
-main {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	text-align: center;
-	flex-direction: column;
-	height: 90%;
-	width: 100%
-}
-
 body {
 	margin: 0px;
 	background: linear-gradient(121.99deg, #FED5CD 4.95%, #E0CDFE 70.55%);
 }
 
-#language-bar {
-	position: absolute;
-	top: 30px;
-	right: 70px;
+#registration-forms {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 90%;
+	row-gap: 4%;
 }
 
-#register-btn {
-	margin-top: 8%;
-	width: fit-content;
+.pair-of-fields {
+	display: flex;
+	flex-direction: row;
+	column-gap: 3%;
 }
 
-header {
-	position: absolute;
-	top: 30px;
-	right: 70px;
+div[class="dropdown"] {
+	left: 70%;
+	top: 5%;
 }
 
-#name-input, #login-input {
-	margin-right: 10px;
-}
-
-#lets-be-friends-msg {
-	margin-bottom: 3%;
+@media only screen and (max-width: 970px) {
+	.pair-of-fields {
+		flex-direction: column;
+		row-gap: 10%;
+		height: 20%;
+	}
+	div[class="dropdown"] {
+		left: 47%;
+	}
 }

@@ -12,7 +12,7 @@ import com.epam.hotelbooking.validation.RoomValidator;
 
 public class CreateRoomCommand implements Command {
 
-    private static final String NUMBER_OF_ROOM = "numberOfRoom";
+    private static final String NUMBER_OF_ROOM = "number";
     private final RoomServiceImpl roomService;
     private final RoomValidator roomValidator;
 
@@ -27,9 +27,9 @@ public class CreateRoomCommand implements Command {
             throw new ServiceException("Room number is invalid");
         }
         Integer numberOfRoom = Integer.parseInt(req.getParameter(NUMBER_OF_ROOM));
-        Integer capacity = Integer.parseInt(req.getParameter("roomCapacity"));
+        Integer capacity = Integer.parseInt(req.getParameter("capacity"));
         String roomClass = req.getParameter("roomClass");
-        Long roomPriceId = Long.parseLong(req.getParameter("idOfPrice"));
+        Long roomPriceId = Long.parseLong(req.getParameter("roomPriceId"));
         Room room = new Room.RoomBuilder().withCapacity(capacity)
                 .withNumber(numberOfRoom)
                 .withRoomClass(roomClass)

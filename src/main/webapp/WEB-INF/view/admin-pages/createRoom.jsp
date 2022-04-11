@@ -17,44 +17,52 @@
 <body>
 	<jsp:include page="/WEB-INF/view/utility-pages/adminHeader.jsp"></jsp:include>
 	<main>
-		<form method="POST" action="controller?command=createRoom">
-			<div id="flex-container">
-				<div id="left-column">
-					<label>
+		<form method="POST" action="controller?command=createRoom" id="create-room-content">
+			<div class="input-row">
+				<div id="capacity" class=label-and-input-pair>
+					<label for="capacity">
 						<fmt:message key="room-capacity" />
-						<select name="capacity">
-							<option value="1" selected>1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-							<option value="4">4</option>
-						</select>
 					</label>
-					<label>
-						<fmt:message key="room-number" />
-						<input type="text" id="number-of-room" name="number" maxlength="3" pattern="^(?!0)\d{1,3}">
-					</label>
+					<select name="capacity">
+						<option value="1" selected>1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+					</select>
 				</div>
-				<div id="right-column">
-					<label>
+				<div id="room-number" class=label-and-input-pair>
+					<label for="room-number">
+						<fmt:message key="room-number" />
+					</label>
+					<input type="text" id="number-of-room" name="number" maxlength="3" pattern="^(?!0)\d{1,3}"
+						required>
+				</div>
+			</div>
+			<div class="input-row">
+				<div id="room-class" class=label-and-input-pair>
+					<label for="room-class">
 						<fmt:message key="room-class" />
-						<select name="roomClass">
-							<option value="STANDART" selected>
-								<fmt:message key="standart" />
-							</option>
-							<option value="DELUXE">
-								<fmt:message key="deluxe" /></option>
-							<option value="PREMIUM">
-								<fmt:message key="premium" /></option>
-						</select>
 					</label>
-					<label>
+					<select name="roomClass">
+						<option value="standart" selected>
+							<fmt:message key="standart" />
+						</option>
+						<option value="deluxe">
+							<fmt:message key="deluxe" /></option>
+						<option value="premium">
+							<fmt:message key="premium" /></option>
+					</select>
+				</div>
+				<div id="room-price" class=label-and-input-pair>
+					<label for="room-price">
 						<fmt:message key="room-price" />
-						<select name="roomPriceId" id="price-of-room">
-							<c:forEach var="price" items="${listOfPrices}">
-								<option value="${price.id}">${price.price}</option>
-							</c:forEach>
-						</select>
 					</label>
+					<select name="roomPriceId" id="price-of-room">
+						<c:forEach var="price" items="${listOfPrices}">
+							<option value="${price.id}">${price.price}</option>
+						</c:forEach>
+					</select>
+
 				</div>
 			</div>
 			<input type="submit" id="create-room-btn" value="<fmt:message key="create-room-btn" />">

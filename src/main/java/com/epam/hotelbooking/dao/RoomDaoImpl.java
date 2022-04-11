@@ -24,7 +24,7 @@ public class RoomDaoImpl extends AbstractDao<Room> implements RoomDao {
     private static final String DELETE_ROOM = "update room set is_deleted='1' where id=?";
 
     private static final String CREATE_NEW_ROOM = "insert into room(capacity, type, number,"
-            + " is_blocked, room_price_id) values(?, ?, ?, ?, ?)";
+            + " room_price_id) values(?, ?, ?, ?)";
 
     private static final String GET_ROOMS_WITH_PRICES = "SELECT room.*, room_price.price, room_price.valid_from "
             + "FROM room INNER JOIN room_price ON room_price.id = room.room_price_id WHERE room.is_deleted = '0' LIMIT ?, ?";
@@ -52,9 +52,8 @@ public class RoomDaoImpl extends AbstractDao<Room> implements RoomDao {
         }
         int capacity = item.getCapacity();
         String roomClass = item.getRoomClass();
-        boolean isBlocked = item.getIsBlocked();
         Long roomPriceId = item.getRoomPriceId();
-        executeQueryWithoutReturnValue(CREATE_NEW_ROOM, capacity, roomClass, numberOfRoom, isBlocked, roomPriceId);
+        executeQueryWithoutReturnValue(CREATE_NEW_ROOM, capacity, roomClass, numberOfRoom, roomPriceId);
         return true;
     }
 

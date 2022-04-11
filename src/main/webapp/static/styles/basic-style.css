@@ -1,14 +1,20 @@
 @charset "UTF-8";
 
+body {
+	margin: 0;
+}
+
 input[type="submit"], input[type="button"], button {
 	background: linear-gradient(101deg, rgba(250, 29, 108, 0.1755) -40.7%, rgba(0, 87, 255, 0.3081)
 		139.66%);
 	border-radius: 107px;
-	width: 243px;
 	height: 76px;
 	border: none;
 	font: inherit;
 	cursor: pointer;
+	padding-left: 5%;
+	padding-right: 5%;
+	width: fit-content;
 }
 
 input[value], button {
@@ -16,7 +22,6 @@ input[value], button {
 	font-style: normal;
 	font-size: 36px;
 	font-weight: bold;
-	line-height: 44px;
 	color: #4F3427;
 }
 
@@ -25,6 +30,7 @@ h1 {
 	font-size: 36px;
 	line-height: 44px;
 	color: #4F3427;
+	margin: 0;
 }
 
 ::placeholder {
@@ -53,12 +59,27 @@ a {
 	text-decoration: none;
 }
 
+a[class="in-column-link"] {
+	font-family: Gideon Roman;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	line-height: 29px;
+	color: rgba(115, 92, 81, 1);
+	text-decoration: none;
+}
+
 a:hover {
 	text-decoration: underline;
 }
 
-p:not([class="table-text"], [class="table-heading-text"], [id="error-msg-text"]), label {
+p:not([class="table-text"], [class="table-heading-text"], [id="error-msg-text"]) {
 	width: 400px;
+	font-weight: normal;
+	font-size: 24px;
+}
+
+label {
 	font-weight: normal;
 	font-size: 24px;
 }
@@ -77,12 +98,11 @@ p[id="error-msg-text"] {
 	font-size: 24px;
 }
 
-p {
+p, label {
 	font-family: Gideon Roman;
 	font-style: normal;
 	letter-spacing: 0.06em;
 	color: #735C51;
-	line-height: 30px;
 }
 
 .error-msg {
@@ -110,7 +130,7 @@ table:not(.page-navigation) tr:nth-child(odd) {
 	background-color: #fbd2ed;
 }
 
-table:not(.page-navigation) tr:nth-child(even) {
+table:not(.page-navigation) tr:nth-child(even), th {
 	background-color: #eed8fc;
 }
 

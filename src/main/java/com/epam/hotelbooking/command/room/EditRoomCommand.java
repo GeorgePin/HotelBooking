@@ -22,10 +22,10 @@ public class EditRoomCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest req, HttpServletResponse resp) throws ServiceException {
-        Integer capacity = Integer.parseInt(req.getParameter("roomCapacity"));
+        Integer capacity = Integer.parseInt(req.getParameter("capacity"));
         Integer numberOfRoom = Integer.parseInt(req.getParameter("number"));
         String roomClass = req.getParameter("roomClass");
-        Long roomPriceId = Long.parseLong(req.getParameter("idOfPrice"));
+        Long roomPriceId = Long.parseLong(req.getParameter("roomPriceId"));
         Long roomId = Long.parseLong(req.getParameter("roomId"));
         Room room = new Room.RoomBuilder().withCapacity(capacity)
                 .withNumber(numberOfRoom)

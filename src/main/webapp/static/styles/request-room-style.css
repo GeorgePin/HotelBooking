@@ -2,49 +2,37 @@
 
 body {
 	background: linear-gradient(121.99deg, #FED5CD 4.95%, #E0CDFE 70.55%);
-	margin: 0px;
 }
 
-input, label {
-	display: block;
+.input-row {
+	display: flex;
+	flex-direction: row;
+	column-gap: 3%;
+}
+
+.label-and-input-pair {
+	display: flex;
+	flex-direction: column;
 }
 
 #request-room-content {
-	position: relative;
-	top: 200px;
-	margin-left: 20%;
-}
-
-#choose-a-room {
-	position: absolute;
-	top: 0px;
-	left: 0px;
-}
-
-#room-capacity {
-	position: absolute;
-	top: 250px;
-}
-
-#room-class {
-	position: absolute;
-	top: 250px;
-	left: 350px;
-}
-
-#start-date {
-	position: absolute;
-	top: 100px;
-}
-
-#end-date {
-	position: absolute;
-	top: 100px;
-	left: 350px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 85%;
+	row-gap: 3%;
+	margin: 0;
 }
 
 #apply {
-	position: absolute;
-	top: 380px;
-	left: 0px;
+	margin-top: 2%;
+}
+
+@media only screen and (max-width: 970px) {
+	.input-row {
+		display: flex;
+		flex-direction: column;
+		row-gap: 3%;
+	}
 }

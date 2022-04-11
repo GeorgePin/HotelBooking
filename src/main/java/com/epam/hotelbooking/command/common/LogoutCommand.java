@@ -12,7 +12,6 @@ public class LogoutCommand implements Command {
     public CommandResult execute(HttpServletRequest req, HttpServletResponse resp) {
         req.getSession()
                 .invalidate();
-        return CommandResult.forward("/index.jsp");
+        return CommandResult.redirect(req.getContextPath());
     }
-
 }

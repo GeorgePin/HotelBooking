@@ -17,44 +17,50 @@
 <body>
 	<jsp:include page="/WEB-INF/view/utility-pages/adminHeader.jsp"></jsp:include>
 	<main>
-		<form method="POST" action="controller?command=editRoom&roomId=${roomId}">
-			<div id="flex-container">
-				<div id="left-column">
-					<label>
+		<form method="POST" action="controller?command=editRoom&roomId=${roomId}" id="edit-room-content">
+			<div class="input-row">
+				<div id="capacity" class=label-and-input-pair>
+					<label for="capacity">
 						<fmt:message key="room-capacity" />
-						<select name="capacity">
-							<option value="1" ${room.capacity == '1' ? 'selected' : ''}>1</option>
-							<option value="2" ${room.capacity == '2' ? 'selected' : ''}>2</option>
-							<option value="3" ${room.capacity == '3' ? 'selected' : ''}>3</option>
-							<option value="4" ${room.capacity == '4' ? 'selected' : ''}>4</option>
-						</select>
 					</label>
-					<label>
-						<fmt:message key="room-number" />
-						<input type="text" id="number-of-room" name="number" maxlength="3" pattern="\d{1,3}"
-							placeholder="${room.number}">
-					</label>
+					<select name="capacity">
+						<option value="1" ${room.capacity == '1' ? 'selected' : ''}>1</option>
+						<option value="2" ${room.capacity == '2' ? 'selected' : ''}>2</option>
+						<option value="3" ${room.capacity == '3' ? 'selected' : ''}>3</option>
+						<option value="4" ${room.capacity == '4' ? 'selected' : ''}>4</option>
+					</select>
 				</div>
-				<div id="right-column">
-					<label>
+				<div id="room-number" class=label-and-input-pair>
+					<label for="room-number">
+						<fmt:message key="room-number" />
+					</label>
+					<input type="text" id="number-of-room" name="number" maxlength="3" pattern="\d{1,3}"
+						placeholder="${room.number}">
+				</div>
+			</div>
+			<div class="input-row">
+				<div id="room-class" class=label-and-input-pair>
+					<label for="room-class">
 						<fmt:message key="room-class" />
-						<select name="roomClass">
-							<option value="STANDART" ${room.roomClass == 'standart' ? 'selected' : ''}>
-								<fmt:message key="standart" /></option>
-							<option value="DELUXE" ${room.roomClass == 'deluxe' ? 'selected' : ''}>
-								<fmt:message key="deluxe" /></option>
-							<option value="PREMIUM" ${room.roomClass == 'premium' ? 'selected' : ''}>
-								<fmt:message key="premium" /></option>
-						</select>
 					</label>
-					<label>
+					<select name="roomClass">
+						<option value="standart" ${room.roomClass == 'standart' ? 'selected' : ''}>
+							<fmt:message key="standart" /></option>
+						<option value="deluxe" ${room.roomClass == 'deluxe' ? 'selected' : ''}>
+							<fmt:message key="deluxe" /></option>
+						<option value="premium" ${room.roomClass == 'premium' ? 'selected' : ''}>
+							<fmt:message key="premium" /></option>
+					</select>
+				</div>
+				<div id="room-price" class=label-and-input-pair>
+					<label for="room-price">
 						<fmt:message key="room-price" />
-						<select name="roomPriceId" id="price-of-room">
-							<c:forEach var="price" items="${listOfPrices}">
-								<option value="${price.id}" ${room.roomPriceId == price.id ? 'selected' : ''}>${price.price}</option>
-							</c:forEach>
-						</select>
 					</label>
+					<select name="roomPriceId" id="price-of-room">
+						<c:forEach var="price" items="${listOfPrices}">
+							<option value="${price.id}" ${room.roomPriceId == price.id ? 'selected' : ''}>${price.price}</option>
+						</c:forEach>
+					</select>
 				</div>
 			</div>
 			<input type="submit" id="edit-room-btn" value="<fmt:message key="edit-room-btn" />">

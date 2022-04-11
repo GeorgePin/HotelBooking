@@ -5,7 +5,7 @@ import com.epam.hotelbooking.entity.User;
 public class UserValidator {
 
     private static final String CONTAINS_ANY_WORD_CHARACHTER_PATTERN = "[a-zA-z]{3,20}";
-    private static final String ANY_WORD_OR_DIGIT = "[\\d|\\w]{1,10}";
+    private static final String ANY_WORD_OR_DIGIT = "[\\d|\\w]{3,10}";
 
     public boolean isDataForLoginValid(User user) {
         String login = user.getLogin();

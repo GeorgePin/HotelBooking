@@ -4,39 +4,72 @@ body {
 	background: linear-gradient(110.85deg, rgba(253, 50, 221, 0.16) 20.87%, rgba(20, 0, 255, 0.16)
 		89.79%);
 	mix-blend-mode: normal;
-	margin: 0px;
 }
 
 #page-content {
-	position: relative;
-	width: 60%;
-	margin: 0 auto;
-	top: 250px;
 	display: flex;
 	flex-direction: column;
-	align-items: center;
+	height: 85%;
 	justify-content: center;
+	align-items: center;
+	row-gap: 3%;
 }
 
-.page-navigation {
-	margin-top: 2%;
-	margin-bottom: 2%;
+#rooms-table {
+	width: 80%;
+	table-layout: fixed;
 }
 
-#create-new-room {
-	position: absolute;
-	top: 500px;
-	left: 600px;
+#rooms-table tr {
+	line-height: 40px;
 }
 
-#counter-row {
+.number-column {
 	width: 5%;
 }
 
-#is-blocked-row {
-	width: 1%;
+.room-number-column {
+	width: 7%;
 }
 
-#create-room-btn {
-	width: fit-content;
+.room-capacity-column {
+	width: 10%;
+}
+
+.room-class-column {
+	width: 10%;
+}
+
+.room-price-column {
+	width: 13%;
+}
+
+.room-price-date-column {
+	width: 10%;
+}
+
+.is-blocked-column {
+	width: 12%;
+}
+
+.set-room-state-column {
+	width: 10%;
+}
+
+.edit-room-column {
+	width: 13%;
+}
+
+.delete-room-column {
+	width: 10%;
+}
+
+@media only screen and (max-width: 970px) {
+	#rooms-table {
+		width: 100%;
+	}
+	.number-column, #room-number-data, .room-price-date-column, #price-date-data, .room-capacity-column,
+		#room-capacity-data {
+		display: none;
+	}
 }

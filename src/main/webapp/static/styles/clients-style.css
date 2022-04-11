@@ -6,19 +6,49 @@ body {
 }
 
 #page-content {
-	position: relative;
-	top: 250px;
 	display: flex;
+	flex-direction: column;
+	height: 85%;
 	justify-content: center;
+	align-items: center;
+	row-gap: 3%;
 }
 
-table {
+#clients-table {
 	width: 50%;
+	table-layout: fixed;
 }
 
-.page-navigation {
-	position: absolute;
-	margin-left: 47%;
-	margin-top: 20%;
-	width: 90px;
+#clients-table tr {
+	line-height: 40px;
+}
+
+.number-column {
+	width: 5%;
+}
+
+.name-column {
+	width: 20%;
+}
+
+.surname-column {
+	width: 20%;
+}
+
+.login-column {
+	width: 20%;
+}
+
+.is-blocked-column {
+	width: 20%;
+}
+
+.set-user-state-column {
+	width: 15%;
+}
+
+@media only screen and (max-width: 970px) {
+	#clients-table {
+		width: 100%;
+	}
 }

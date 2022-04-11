@@ -30,44 +30,48 @@
 		<c:when test="${isAdmin}">
 			<div id="page-content">
 				<table id="requests-table">
-					<tr>
-						<th><p class="table-heading-text">#</p></th>
-						<th><p class="table-heading-text">
-								<fmt:message key="start-date" />
-							</p></th>
-						<th><p class="table-heading-text">
-								<fmt:message key="end-date" />
-							</p></th>
-						<th><p class="table-heading-text">
-								<fmt:message key="room-capacity" />
-							</p></th>
-						<th><p class="table-heading-text">
-								<fmt:message key="room-class" />
-							</p></th>
-					</tr>
-					<c:forEach var="request" items="${requestsList}" varStatus="counter">
+					<thead>
 						<tr>
-							<td><a href="controller?command=requestHandlingPage&requestId=${request.id}&page=1"><c:out
-										value="${counter.count}" /></a></td>
-							<td><p class="table-text">
-									<fmt:formatDate pattern="${DatePattern}" value="${request.startDate}" />
-								</p></td>
-							<c:choose>
-								<c:when test="${not empty request.endDate}">
-									<td><p class="table-text">
-											<fmt:formatDate pattern="${DatePattern}" value="${request.endDate}" />
-										</p></td>
-								</c:when>
-								<c:otherwise>
-									<td id="dash"><h1>-</h1></td>
-								</c:otherwise>
-							</c:choose>
-							<td><p class="table-text">${request.roomCapacity}</p></td>
-							<td><p class="table-text">
-									<fmt:message key="${request.roomClass}" />
-								</p></td>
+							<th><p class="table-heading-text">#</p></th>
+							<th><p class="table-heading-text">
+									<fmt:message key="start-date" />
+								</p></th>
+							<th><p class="table-heading-text">
+									<fmt:message key="end-date" />
+								</p></th>
+							<th><p class="table-heading-text">
+									<fmt:message key="room-capacity" />
+								</p></th>
+							<th><p class="table-heading-text">
+									<fmt:message key="room-class" />
+								</p></th>
 						</tr>
-					</c:forEach>
+					</thead>
+					<tbody>
+						<c:forEach var="request" items="${requestsList}" varStatus="counter">
+							<tr>
+								<td><a class="in-column-link" href="controller?command=requestHandlingPage&requestId=${request.id}&page=1"><c:out
+											value="${counter.count}" /></a></td>
+								<td><p class="table-text">
+										<fmt:formatDate pattern="${DatePattern}" value="${request.startDate}" />
+									</p></td>
+								<c:choose>
+									<c:when test="${not empty request.endDate}">
+										<td><p class="table-text">
+												<fmt:formatDate pattern="${DatePattern}" value="${request.endDate}" />
+											</p></td>
+									</c:when>
+									<c:otherwise>
+										<td id="dash"><h1>-</h1></td>
+									</c:otherwise>
+								</c:choose>
+								<td><p class="table-text">${request.roomCapacity}</p></td>
+								<td><p class="table-text">
+										<fmt:message key="${request.roomClass}" />
+									</p></td>
+							</tr>
+						</c:forEach>
+					</tbody>
 				</table>
 				<table class="page-navigation">
 					<tr>
@@ -82,60 +86,67 @@
 		</c:when>
 		<c:otherwise>
 			<div id="page-content">
-				<table id="requets-table">
-					<tr>
-						<th><p class="table-heading-text">#</th>
-						<th><p class="table-heading-text">
-								<fmt:message key="start-date" />
-							</p></th>
-						<th><p class="table-heading-text">
-								<fmt:message key="end-date" />
-							</p></th>
-						<th><p class="table-heading-text">
-								<fmt:message key="room-capacity" />
-							</p></th>
-						<th><p class="table-heading-text">
-								<fmt:message key="room-class" />
-							</p></th>
-						<th><p class="table-heading-text">
-								<fmt:message key="is-approved" />
-							</p></th>
-						<th><p class="table-heading-text">
-								<fmt:message key="room-price" />
-							</p></th>
-					</tr>
-					<c:forEach var="request" items="${requestsList}" varStatus="counter">
+				<table id="requests-table">
+					<thead>
 						<tr>
-							<td><c:out value="${counter.count}" /></td>
-							<td><p class="table-text">
-									<fmt:formatDate pattern="${DatePattern}" value="${request.startDate}" />
-								</p></td>
-							<c:choose>
-								<c:when test="${not empty request.endDate}">
-									<td><p class="table-text">
-											<fmt:formatDate pattern="${DatePattern}" value="${request.endDate}" />
-										</p></td>
-								</c:when>
-								<c:otherwise>
-									<td id="dash"><h1>-</h1></td>
-								</c:otherwise>
-							</c:choose>
-							<td><p class="table-text">${request.roomCapacity}</p></td>
-							<td><p class="table-text">
-									<fmt:message key="${request.roomClass}" />
-								</p></td>
-							<c:choose>
-								<c:when test="${request.isApproved}">
-									<td><img src="static/images/accept.png" alt="accpect image" class="accept-image"></td>
-									<td>${request.price}</td>
-								</c:when>
-								<c:otherwise>
-									<td><img src="static/images/pending.png" alt="pending image" class="pending-image"></td>
-									<td id="dash"><h1>-</h1></td>
-								</c:otherwise>
-							</c:choose>
+							<th class="number-column"><p class="table-heading-text">#</th>
+							<th class="start-date-column"><p class="table-heading-text">
+									<fmt:message key="start-date" />
+								</p></th>
+							<th class="end-date-column"><p class="table-heading-text">
+									<fmt:message key="end-date" />
+								</p></th>
+							<th class="room-capacity-column"><p class="table-heading-text">
+									<fmt:message key="room-capacity" />
+								</p></th>
+							<th class="room-class-column"><p class="table-heading-text">
+									<fmt:message key="room-class" />
+								</p></th>
+							<th class="is-approved-column"><p class="table-heading-text">
+									<fmt:message key="is-approved" />
+								</p></th>
+							<th class="room-price-column"><p class="table-heading-text">
+									<fmt:message key="room-price" />
+								</p></th>
 						</tr>
-					</c:forEach>
+					</thead>
+					<tbody>
+						<c:forEach var="request" items="${requestsList}" varStatus="counter">
+							<tr>
+								<td><p class="table-text">
+										<c:out value="${counter.count}" />
+									</p></td>
+								<td><p class="table-text">
+										<fmt:formatDate pattern="${DatePattern}" value="${request.startDate}" />
+									</p></td>
+								<c:choose>
+									<c:when test="${not empty request.endDate}">
+										<td><p class="table-text">
+												<fmt:formatDate pattern="${DatePattern}" value="${request.endDate}" />
+											</p></td>
+									</c:when>
+									<c:otherwise>
+										<td id="dash"><h1>-</h1></td>
+									</c:otherwise>
+								</c:choose>
+								<td><p class="table-text">${request.roomCapacity}</p></td>
+								<td><p class="table-text">
+										<fmt:message key="${request.roomClass}" />
+									</p></td>
+								<c:choose>
+									<c:when test="${request.isApproved}">
+										<td><img src="static/images/accept.png" alt="accpect image" class="accept-image"></td>
+										<td><p class="table-text">${request.price}
+											<p></td>
+									</c:when>
+									<c:otherwise>
+										<td><img src="static/images/pending.png" alt="pending image" class="pending-image"></td>
+										<td id="dash"><h1>-</h1></td>
+									</c:otherwise>
+								</c:choose>
+							</tr>
+						</c:forEach>
+					</tbody>
 				</table>
 				<table class="page-navigation">
 					<tr>
@@ -146,9 +157,10 @@
 						</c:forEach>
 					</tr>
 				</table>
-				<a href="controller?command=showPage&page=index"> <input type="button" id="main-page-btn"
-						value="<fmt:message
-                            key="main-page-btn"  />"></a>
+				<button id="main-page-btn" onclick="location.href='controller?command=showPage&page=index.jsp'"
+					type="button">
+					<fmt:message key="main-page-btn" />
+				</button>
 			</div>
 		</c:otherwise>
 	</c:choose>
